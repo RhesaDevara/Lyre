@@ -44,19 +44,18 @@
             <div class="text-center mb-4">
                 <h4>Apply and Recruit</h4>
             </div>
-            <form>
+            <form action="login_process.php" method="post" >
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password">
                 </div>
                 <div class="mb-3 text-center">
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
-            </form>
             <div class="mb-3 text-center">
                 <p>Don't have an account? Sign up here.</p>
             </div>
@@ -66,7 +65,7 @@
             </div>
         </div>
     </div>
-
+    </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
