@@ -1,5 +1,6 @@
 <?php
-    include 'koneksi_pdo.php';
+    require 'koneksi_pdo.php';
+    require 'koneksi.php';
 ?>
 <html>
     <head>
@@ -12,6 +13,10 @@
             color: #fff;
             display: flex;
             align-items: center;
+        }
+
+        .navbar-custom .navbar-brand:hover {
+            color: #fff;
         }
 
         .navbar-custom .navbar-brand img {
@@ -78,7 +83,7 @@
                                     <a class='nav-link' href='admin.php'>Admin</a>
                                 </li>
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='#'>Position</a>
+                                    <a class='nav-link' href='posisi.php'>Position</a>
                                 </li>
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Company</a>
@@ -92,7 +97,7 @@
                 <?php
                     if(isset($_SESSION['user']) || isset($_SESSION['company'])  || isset($_SESSION['admin']) ){
                         echo "
-                        <a href='logout.php' class='btn btn-login'>Logout</a>";
+                        <a href='logout.php' onclick='return confirm('Apakah Anda Yakin?');' class='btn btn-login'>Logout</a>";
                     }else{
                         echo "
                         <a href='login.php' class='btn btn-login'>Login</a>";
