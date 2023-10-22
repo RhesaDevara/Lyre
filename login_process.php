@@ -1,45 +1,46 @@
 <?php
-    require 'koneksi_pdo.php';
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+session_start();
 
-    $checkUser = $koneksiPdo ->prepare("select*from pengguna where email ='$email'");
-    $checkUser ->execute();
+require 'koneksi_pdo.php';
+$email = $_POST['email'];
+$password = $_POST['password'];
 
-    
-    $checkCompany = $koneksiPdo ->prepare("select*from perusahaan where email_perusahaan='$email'");
-    $checkCompany ->execute();
-    
-    $checkAdmin = $koneksiPdo ->prepare("select*from admin where email='$email'");
-    $checkAdmin ->execute();
-    
-    $_SESSION['rhesa'] = $checkAdmin ->fetch();
-    
-    
-    $sqlUser = ('select*from pengguna where email = ? and password = ?');
-    $rowUser = $koneksiPdo ->prepare($sqlUser);
-    $rowUser -> execute(array($email,$password));
-    $countUser = $rowUser ->fetchColumn();
-    
-    if($countUser == true){
-        header('location:home.php');
+$checkUser = $koneksiPdo->prepare("SELECT * FROM pengguna WHERE email = ?");
+$checkUser->execute([$email]);
+
+$checkCompany = $koneksiPdo->prepare("SELECT * FROM perusahaan WHERE email_perusahaan = ?");
+$checkCompany->execute([$email]);
+
+$checkAdmin = $koneksiPdo->prepare("SELECT * FROM admin WHERE email = ?");
+$checkAdmin->execute([$email]);
+
+$sqlUser = "SELECT * FROM pengguna WHERE email = ? AND password = ?";
+$rowUser = $koneksiPdo->prepare($sqlUser);
+$rowUser->execute([$email, $password]);
+$countUser = $rowUser->fetchColumn();
+
+if ($countUser == true) {
+    $_SESSION['user'] = $checkUser->fetch();
+    header('location: index.php');
+} else {
+    $sqlCompany = "SELECT * FROM perusahaan WHERE email_perusahaan = ? AND password = ?";
+    $rowCompany = $koneksiPdo->prepare($sqlCompany);
+    $rowCompany->execute([$email, $password]);
+    $countCompany = $rowCompany->fetchColumn();
+    if ($countCompany == true) {
+        $_SESSION['company'] = $checkCompany->fetch();
+        header('location: index.php');
     } else {
-        $sqlCompany = ('select*from perusahaan where email_perusahaan = ? and password = ?');
-        $rowCompany = $koneksiPdo ->prepare($sqlCompany);
-        $rowCompany -> execute(array($email,$password));
-        $countCompany = $rowCompany ->fetchColumn();
-        if($countCompany == true){
-            header('location:home.php');
-        }else{
-            $sqlAdmin = ('select*from admin where email = ? and password = ?');
-            $rowAdmin = $koneksiPdo ->prepare($sqlAdmin);
-            $rowAdmin -> execute(array($email,$password));
-            $countAdmin = $rowAdmin ->fetchColumn();
-            if($countAdmin == true){
-                header('location:home.php');
-            }else{
-                header('location:index.php');
-            }
+        $sqlAdmin = "SELECT * FROM admin WHERE email = ? AND password = ?";
+        $rowAdmin = $koneksiPdo->prepare($sqlAdmin);
+        $rowAdmin->execute([$email, $password]);
+        $countAdmin = $rowAdmin->fetchColumn();
+        if ($countAdmin == true) {
+            $_SESSION['admin'] = $checkAdmin->fetch();
+            header('location: index.php');
+        } else {
+            header('location: home.php');
         }
-    }    
+    }
+}
 ?>
