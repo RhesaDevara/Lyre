@@ -13,7 +13,7 @@
 </head>
 <body>
     <center> <a href="admin_input.php"> <input type="button" class="mt-5 btn btn-primary" value="Add New Admin"> </a> </center>
-    <table align=right class="table table-responsive-md table-hover mt-5"> 
+    <table align=right class="table table-striped table-responsive-md table-hover mt-5" width="75%"> 
 		<thead align="center">
 			<th> ID Admin</th>
 			<th> Nama </th>

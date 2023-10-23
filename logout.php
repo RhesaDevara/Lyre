@@ -4,5 +4,5 @@
     unset($_SESSION["company"]);
     unset($_SESSION["admin"]);
     session_destroy();
-    header("Location:login.php");
+    header("Location:index.php");
 ?>
