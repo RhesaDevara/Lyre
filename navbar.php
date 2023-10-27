@@ -1,93 +1,47 @@
 <?php
-    require 'koneksi_pdo.php';
-    require 'koneksi.php';
+require 'koneksi_pdo.php';
+require 'koneksi.php';
 ?>
 <html>
-    <head>
-        <style>
-        .navbar-custom {
-            background-color: #20444F;
-            height: 75px;
-        }
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css.css">
 
-        .navbar-custom .navbar-brand {
-            color: #fff;
-            display: flex;
-            align-items: center;
-        }
 
-        .navbar-custom .navbar-brand:hover {
-            color: #fff;
-        }
-
-        .navbar-custom .navbar-brand img {
-            margin-right: 10px;
-            height: 30px;
-        }
-
-        .navbar-custom .navbar-nav .nav-link {
-            color: #fff;
-            transition: color 0.3s ease;
-            padding: 1.5rem;
-            margin: 0 1rem;
-            border-radius: 0.25rem;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            width:100%;
-            text-align:center;
-        }
-
-        .navbar-custom .navbar-nav .nav-link:hover {
-            transition: background-color 0.3s ease, color 0.3s ease;
-            background-color: #fff;
-            color: #20444F;
-        }
-
-        .navbar-custom .btn-login {
-            background-color: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .navbar-custom .btn-login:hover {
-            background-color: #fff;
-            color: #20444F;
-        }
-
-        </style>
-    </head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css.css">
-    <nav class="navbar navbar-expand-lg navbar-custom">
-            <div class="container">
-                <a class="navbar-brand" href="index.php">
-                    <img src="assets/img/new_logo.png" alt="Logo" style="width:150px;height:60px">
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php">Home</a>
-                        </li>
-                        <?php 
-                            session_start();
-                            if(isset($_SESSION['user'])){
-                                echo "
+<nav class="navbar navbar-expand-lg navbar-dark bg-custom">
+    <div class="container">
+        <a class="navbar-brand my-1 fs-3" href=" index.php">
+            <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
+            LYRE
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <?php
+                session_start();
+                if (isset($_SESSION['user'])) {
+                    echo "
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Profile</a>
                                 </li>
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Find Job</a>
                                 </li>";
-                            }else if(isset($_SESSION['company'])){
-                                echo "
+                } else if (isset($_SESSION['company'])) {
+                    echo "
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Profile</a>
                                 </li>
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Our Vacancy</a>
                                 </li>";
-                            }else if(isset($_SESSION['admin'])){
-                                echo "
+                } else if (isset($_SESSION['admin'])) {
+                    echo "
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Profile</a>
                                 </li>
@@ -100,25 +54,30 @@
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Company</a>
                                 </li>";
-                            }else{
-                                echo "
+                } else {
+                    echo "
                                 <li class='nav-item'>
                                     <a class='nav-link' href='#'>Find Job</a>
                                 </li>";
-                            }
-                        ?>
-                    </ul>
-                </div>
+                }
+                ?>
+            </ul>
+            <div class="d-flex">
                 <?php
-                    if(isset($_SESSION['user']) || isset($_SESSION['company'])  || isset($_SESSION['admin']) ){
-                        echo "
-                        <a href='logout.php' onclick='return confirm('Apakah Anda Yakin?');' class='btn btn-login'>Logout</a>";
-                    }else{
-                        echo "
-                        <a href='login.php' class='btn btn-login'>Login</a>";
-                    }
+                if (isset($_SESSION['user']) || isset($_SESSION['company']) || isset($_SESSION['admin'])) {
+                    echo "
+                        <a href='logout.php' onclick='return confirm('Apakah Anda Yakin?');' class='btn btn-danger'>Logout</a>";
+                } else {
+                    echo "
+                        <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>
+                        <a href='login.php' class='btn btn-register form-control'>Register</a>
+                        ";
+                }
                 ?>
             </div>
-        </nav>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    </html>
+        </div>
+    </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

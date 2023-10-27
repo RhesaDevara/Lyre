@@ -129,8 +129,8 @@ if (isset($_POST["daftar"])) {
         echo "<script>location='daftar_user.php';</script>";
     } else {
         // Jika email dan NIN belum pernah digunakan, lakukan pendaftaran
-        $insertQuery = "INSERT INTO pengguna (nik, nama, tanggal_lahir, email, password, nomor_telepon, alamat, pendidikan_terakhir) 
-                        VALUES ('$nik', '$nama', '$dob', '$email', '$password', '$phone', '$alamat', '$pendidikan')";
+        $insertQuery = "INSERT INTO pengguna (nik, nama, tanggal_lahir, email, password, nomor_telepon, pendidikan_terakhir, alamat) 
+                        VALUES ('$nik', '$nama', '$dob', '$email', '$password', '$phone', '$pendidikan', '$alamat')";
         if ($koneksi->query($insertQuery) === TRUE) {
             echo "<script>alert('Pendaftaran Berhasil, Silahkan Login');</script>";
             echo "<script>location='login.php';</script>";
