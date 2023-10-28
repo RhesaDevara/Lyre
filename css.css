@@ -97,3 +97,45 @@
     }
 
 }
+.package-container{
+    width:100%;
+    margin: 30px;
+}
+.package{
+    padding-top: 15px;
+    width:90%;
+    height:200px;
+    border: 5px solid #20444F;
+    border-radius: 20px;
+}
+
+.vacancy{
+    width: 50%;
+    height: 150px;
+    border: 3px solid #20444F;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 10px;
+    color: black;
+}
+
+.img-vacancy{
+    margin-top: -4px;
+    margin-left: -2px;
+    width:150px;
+    height:150px;
+    border-radius: 20px;
+}
+
+.posisi{
+    height:20px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.text-posisi{
+}
+
+.table-vacancy{
+    margin-top: -20px;
+}

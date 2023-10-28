@@ -38,10 +38,13 @@ require 'koneksi.php';
                 } else if (isset($_SESSION['company'])) {
                     echo "
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='#'>Profile</a>
+                                    <a class='nav-link' href='company_profile.php'>Profile</a>
                                 </li>
                                 <li class='nav-item'>
-                                    <a class='nav-link' href='#'>Our Vacancy</a>
+                                    <a class='nav-link' href='our_vacancy.php'>Our Vacancy</a>
+                                </li>
+                                <li class='nav-item'>
+                                    <a class='nav-link' href='buy_package.php'>Package</a>
                                 </li>";
                 } else if (isset($_SESSION['admin'])) {
                     echo "
@@ -71,8 +74,12 @@ require 'koneksi.php';
             <div class="d-flex">
                 <?php
                 if (isset($_SESSION['user']) || isset($_SESSION['company']) || isset($_SESSION['admin'])) {
+                    if(isset($_SESSION['company'])){
                     echo "
-                        <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger form-control'>Logout</a>";
+                        <a href='' class='btn'> <font color='white'> <b>". $_SESSION['company']['kuota'] ."</b> kuota tersedia</a>";
+                    }
+                    echo "
+                        <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger'>Logout</a>";
                 } else {
                     echo "
                         <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>
