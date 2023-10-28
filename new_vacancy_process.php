@@ -16,5 +16,14 @@
 
     $sql -> execute();
 
+    $kuotaAwal = $_SESSION['company']['kuota'];
+    $kuotaSekarang = $kuotaAwal - 1;
+    $sql1 = $koneksiPdo ->prepare("UPDATE perusahaan set kuota='$kuotaSekarang' where id_perusahaan = '$id_perusahaan'");
+    $sql1 ->execute();
+
+    $sql2 = $koneksiPdo ->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+    $sql2 ->execute();
+    
+    $_SESSION['company'] = $sql2 -> fetch();
     header('location:our_vacancy.php');
 ?>

@@ -14,7 +14,16 @@
     <title>LYRE - Apply and Recruit</title>
 </head>
 <body>
+    <?php
+    if ($_SESSION['company']['kuota'] == 0){
+        ?>
+        <center> <input type="button" value="Buat Lowongan" class="btn btn-secondary mt-5" disabled> </center>
+        <?php
+    }else{
+        ?>
     <center><a href="new_vacancy.php"><input type="button" value="Buat Lowongan" class="btn btn-primary mt-5"></a> </center>
+        <?php
+    } ?>
     <?php while($data=$sql->fetch()){ ?>
         <div class="vacancy">
             <table>

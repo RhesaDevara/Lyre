@@ -12,6 +12,6 @@
 
         $sql = $koneksiPdo ->prepare("INSERT INTO soal (id_lowongan, pertanyaan, pilihan_a, pilihan_b, pilihan_c, pilihan_d, jawaban) values ('$id_lowongan', '$soal','$pgA', '$pgB', '$pgC', '$pgD', '$jawaban')");
         $sql ->execute();
-
+        header("location:detail_lowongan.php?id_lowongan=$id_lowongan");
     }
 ?>
