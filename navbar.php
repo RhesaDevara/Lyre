@@ -3,13 +3,16 @@ require 'koneksi_pdo.php';
 require 'koneksi.php';
 ?>
 <html>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="css.css">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css.css">
+</head>
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
     <div class="container">
-        <a class="navbar-brand my-1 fs-3" href=" index.php">
+        <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
             LYRE
         </a>
@@ -66,7 +69,7 @@ require 'koneksi.php';
                 <?php
                 if (isset($_SESSION['user']) || isset($_SESSION['company']) || isset($_SESSION['admin'])) {
                     echo "
-                        <a href='logout.php' onclick='return confirm('Apakah Anda Yakin?');' class='btn btn-danger'>Logout</a>";
+                        <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger form-control'>Logout</a>";
                 } else {
                     echo "
                         <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>

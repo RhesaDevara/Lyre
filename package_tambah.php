@@ -42,7 +42,7 @@ if (isset($_POST["tambah"])) {
     $nama = $_POST["name"];
     $kuota = $_POST["kuota"];
     $harga = $_POST["harga"];
-    $koneksi->query("INSERT INTO package (nama_paket, kuota ,harga) VALUES ('$nama', '$kuota', '$harga')");
+    $koneksi->query("INSERT INTO paket (nama_paket, kuota ,harga) VALUES ('$nama', '$kuota', '$harga')");
 
     echo "<div class='alert-info alert-info'>Data Tersimpan</div>";
     echo "<script>location='package.php';</script>";

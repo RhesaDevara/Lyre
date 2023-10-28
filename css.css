@@ -33,6 +33,7 @@
     text-align: center;
 }
 
+.navbar-nav .nav-link:active,
 .navbar-nav .nav-link:hover {
     transition: all 0.3s ease;
     background-color: #fff;
@@ -85,4 +86,14 @@
     height: 50.5px;
     border-radius: 0px 10px 10px 0px;
     border: none;
+}
+
+
+@media (max-width: 768px) {
+
+    .navbar-nav .nav-link {
+        margin: 0 1px;
+        color: #fff;
+    }
+
 }
