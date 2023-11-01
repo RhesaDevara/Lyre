@@ -74,12 +74,12 @@ require 'koneksi.php';
             <div class="d-flex">
                 <?php
                 if (isset($_SESSION['user']) || isset($_SESSION['company']) || isset($_SESSION['admin'])) {
-                    if(isset($_SESSION['company'])){
-                    echo "
-                        <a href='' class='btn'> <font color='white'> <b>". $_SESSION['company']['kuota'] ."</b> kuota tersedia</a>";
+                    if (isset($_SESSION['company'])) {
+                        echo "
+                        <a href='' class='btn'> <font color='white'> <b>" . $_SESSION['company']['kuota'] . "</b> kuota tersedia</a>";
                     }
                     echo "
-                        <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger'>Logout</a>";
+                        <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger form-control'>Logout</a>";
                 } else {
                     echo "
                         <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>

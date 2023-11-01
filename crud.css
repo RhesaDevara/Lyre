@@ -67,10 +67,6 @@ table.table td a {
     box-shadow: none;
 }
 
-.search-box-crud input:focus {
-    border-color: #3FBAE4;
-}
-
 .search-box-crud i {
     color: #a0a5b1;
     position: absolute;

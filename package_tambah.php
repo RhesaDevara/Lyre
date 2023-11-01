@@ -9,29 +9,56 @@ include 'navbar.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Package</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="crud.css">
 </head>
 
 <body>
-    <form method="post">
-        <center>
-            <h2 style="margin-top:50px;"> Add New Package </h2>
-            <div class="mt-5 px-5" style="width:75%;">
-                <div class="mb-3" style="text-align:left;">
-                    <label for="name" class="form-label">Package Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Enter package name" required>
-
-                    <label for="name" class="form-label mt-2">Kuota</label>
-                    <input type="number" class="form-control" name="kuota" placeholder="Enter jumlah kuota" required>
-
-                    <label for="name" class="form-label mt-2">Harga</label>
-                    <input type="number" class="form-control" name="harga" placeholder="Enter harga paket" required>
-
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="text-left mb-3 mt-3">
+                    <a href="package.php" title="Back To Package List" data-toggle="tooltip"><i
+                            class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
                 </div>
-                <div class="mb-3 text-center">
-                    <button name="tambah" type="submit" class="form-control btn btn-primary">Add Package</button>
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2>Add <b>Package</b></h2>
+                        </div>
+                    </div>
                 </div>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="packageName" class="form-label">Package Name</label>
+                        <input type="text" class="form-control" id="packageName" name="packageName"
+                            placeholder="Enter package name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="kuota" class="form-label">Kuota</label>
+                        <input type="number" class="form-control" id="kuota" name="kuota" min="1"
+                            placeholder="Enter kuota" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="harga" class="form-label">Harga</label>
+                        <input type="text" class="form-control" id="harga" name="harga" min="1"
+                            placeholder="Enter Harga" required>
+                    </div>
+                    <div class="text-left">
+                        <button type="submit" name="tambah" class="btn btn-success form-control">Add Package</button>
+                    </div>
+                </form>
             </div>
-    </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </body>
 
 </html>
@@ -39,10 +66,10 @@ include 'navbar.php';
 
 <?php
 if (isset($_POST["tambah"])) {
-    $nama = $_POST["name"];
+    $namaPaket = $_POST["packageName"];
     $kuota = $_POST["kuota"];
     $harga = $_POST["harga"];
-    $koneksi->query("INSERT INTO paket (nama_paket, kuota ,harga) VALUES ('$nama', '$kuota', '$harga')");
+    $koneksi->query("INSERT INTO paket (nama_paket, kuota ,harga) VALUES ('$namaPaket', '$kuota', '$harga')");
 
     echo "<div class='alert-info alert-info'>Data Tersimpan</div>";
     echo "<script>location='package.php';</script>";
