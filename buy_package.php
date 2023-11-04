@@ -1,53 +1,56 @@
 <?php
-    include 'navbar.php';
-    $sql = $koneksiPdo -> prepare('SELECT * FROM paket');
-    $sql -> execute();
-    $count = 0
+include 'navbar.php';
 ?>
 <!DOCTYPE html>
-<?php
-?>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Apply and Recruit</title>
 </head>
+
 <body>
-    <table width=100%>
-    <div class="package-container">
-        <?php while ($data=$sql->fetch()){ 
-            $id_paket = $data['id_paket'];
-            if($count == 0){
-                ?> <tr> <?php
-            }
-            
-            $count++ 
-        ?>
-        <td style="padding:10px;"> <center>
-            <div class="package">
-                <center> <h4> <?php echo $data['nama_paket']; ?> </h4> <center>
-                
-                Dapatkan <b><?php echo $data['kuota']; ?></b> kuota dengan paket ini.
-                <br>
-                <div class="mt-4">
-                    <font size=6"><b> <?php $harga = $data['harga'];  
-                        $harga_format = number_format($harga, 0, ",", ".");
-                        echo "Rp. " . $harga_format . ",-"; ?>
-                    </font>
-                    <br>
-                    <?php echo "<a href='kode_virtual.php?id_paket=$id_paket'>";?> <input type="button" value="Beli Paket" class="btn btn-success"></a>
-                </div>
+    <div class="container py-3">
+        <header>
+            <div class="packages-header p-3 pb-md-4 mx-auto text-center">
+                <h1 class="display-4 fw-normal text-body-emphasis">Packages</h1>
+                <p class="fs-5 text-body-secondary">Belilah paket dibawah agar anda dapat tetap dapat mengunggah
+                    lowongan terbaru anda. Dijamin Harga Termurah Seindonesia!!</p>
             </div>
-        </td>
-        <?php
-            if($count == 4){
-                ?> </tr> <?php
-                $count = 0;
-            }
-        } 
-        ?>
-        
+        </header>
+
+        <main>
+            <div class="row row-cols-1 row-cols-md-4 mb-3 text-center">
+                <?php $ambil = $koneksi->query("SELECT * FROM paket "); ?>
+                <?php while ($perpaket = $ambil->fetch_assoc()) { ?>
+                    <div class="col">
+                        <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                            <div class="card-header py-3 text-bg-primary border-primary">
+                                <h4 class="my-0 fw-normal">
+                                    <?php echo $perpaket['nama_paket']; ?>
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title"><small>
+                                        <?php echo $perpaket['kuota']; ?> Kuota
+                                    </small>
+                                </h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>Bagus untuk perusahaan yang baru memulai untuk membuat lowongan. Paket ini memiliki
+                                        harga yang sangat terjangkau yang akan memberikan 2 kuota lowongan untuk di unggah
+                                    </li>
+                                    <li class="fs-3">
+                                        <?php echo 'Rp. ' . number_format($perpaket['harga'], 0, ',', '.'); ?>,-
+                                    </li>
+                                </ul>
+                                <button type="button" class="w-100 btn btn-lg btn-primary">Beli Paket</button>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </main>
     </div>
 </body>
 

@@ -6,9 +6,9 @@ require 'koneksi.php';
 
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/css.css">
 </head>
-
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
     <div class="container">
@@ -82,8 +82,16 @@ require 'koneksi.php';
                         <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger form-control'>Logout</a>";
                 } else {
                     echo "
-                        <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>
-                        <a href='login.php' class='btn btn-register form-control'>Register</a>
+                    <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>
+                    <div class='dropdown'>
+                            <button class='btn btn-register form-control dropdown-toggle' type='button' id='registerDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
+                                Register
+                            </button>
+                            <ul class='dropdown-menu' aria-labelledby='registerDropdown'>
+                                <li><a class='dropdown-item' href='daftar_user.php'>Register as Applicant</a></li>
+                                <li><a class='dropdown-item' href='daftar_company.php'>Register as Company</a></li>
+                            </ul>
+                        </div>
                         ";
                 }
                 ?>

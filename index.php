@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<?php
-?>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,18 +8,35 @@
 </head>
 
 <body>
+
     <?php
-        include 'navbar.php';
+    include 'navbar.php';
     ?>
-    <center>
-    <table class="mt-5" border=0>
-        <tr>
-            <td width=30%> <center> <font color="#20444F" size="10"><b> Your Dream  </b><br> Job is waiting.</font> <br> 
-                <input type="text" class="input-search" placeholder="Cari..."><button class="btn-search"><img src="assets/img/search.svg"></button>
-            </td>
-            <td> <img src="assets/img/home_wallpaper.jpg"> </td>
-        </tr>
-</table>
+
+    <div class="container">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 class="display-4"><b>Your Dream</b> <br>Job is Waiting</h1>
+                        <p class="lead">Find the perfect job that suits your skills and passion.</p>
+                        <div class="search-input input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="assets/img/interview.png" class="hero-img" alt="Hero Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
