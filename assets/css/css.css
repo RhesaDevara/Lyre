@@ -1,0 +1,142 @@
+.navbar-brand {
+    margin-right: auto;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.navbar-nav {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-nav .nav-link {
+    margin: 0 10px;
+    color: #fff;
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    border-radius: 0.25rem;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-nav .nav-link:active,
+.navbar-nav .nav-link:hover {
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: #20444F;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.bg-custom {
+    background-color: #20444F;
+}
+
+.btn-login {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.btn-login:hover {
+    background-color: #fff;
+    color: #20444F;
+}
+
+.btn-register {
+    background-color: #fff;
+    color: #20444F;
+}
+
+.btn-register:hover {
+    background-color: #fff;
+    color: #20444F;
+}
+
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.hero-content {
+    color: #20444F;
+    text-align: center;
+}
+
+.search-input {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.hero-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.packages-header {
+    max-width: 700px;
+}
+
+@media (max-width: 768px) {
+
+    .navbar-nav .nav-link {
+        margin: 0 1px;
+        color: #fff;
+    }
+
+}
+.package-container{
+    width:100%;
+    margin: 30px;
+}
+.package{
+    padding-top: 15px;
+    width:90%;
+    height:200px;
+    border: 5px solid #20444F;
+    border-radius: 20px;
+}
+
+.vacancy{
+    width: 50%;
+    height: 150px;
+    border: 3px solid #20444F;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 10px;
+    color: black;
+}
+
+.img-vacancy{
+    margin-top: -4px;
+    margin-left: -2px;
+    width:150px;
+    height:150px;
+    border-radius: 20px;
+}
+
+.posisi{
+    height:20px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.table-vacancy{
+    margin-top: -20px;
+}
