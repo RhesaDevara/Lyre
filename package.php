@@ -111,7 +111,7 @@ $result = $koneksi->query($ambil);
 									<?php echo $data['kuota']; ?>
 								</td>
 								<td>
-									<?php echo $data['harga']; ?>
+									<?php $harga_format = number_format($data['harga'], 0, ',', '.'); echo "Rp. " . $harga_format ?>
 								</td>
 								<td>
 									<a href="package_ubah.php?id=<?php echo $data['id_paket']; ?>" class="edit" title="Edit"

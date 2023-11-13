@@ -35,6 +35,9 @@ require 'koneksi.php';
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='find_job.php'>Find Job</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class='nav-link' href='logout.php'>Logout</a>
                         </li>";
                 } else if (isset($_SESSION['company'])) {
                     echo "
