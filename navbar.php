@@ -31,10 +31,10 @@ require 'koneksi.php';
                 if (isset($_SESSION['user'])) {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='#'>Profile</a>
+                            <a class='nav-link' href='user_profile.php'>Profile</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='#'>Find Job</a>
+                            <a class='nav-link' href='find_job.php'>Find Job</a>
                         </li>";
                 } else if (isset($_SESSION['company'])) {
                     echo "
@@ -84,8 +84,8 @@ require 'koneksi.php';
                                 " . $_SESSION['company']['nama_perusahaan'] . "
                             </a>
                             <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
-                                <li><a class='dropdown-item' href='#'>Profile</a></li>
-                                <li><a class='dropdown-item' href='#'>Kuota (" . $_SESSION['company']['kuota'] . ")</a></li>
+                                <li><a class='dropdown-item' href='company_profile.php'>Profile</a></li>
+                                <li><a class='dropdown-item' href=''>Kuota (" . $_SESSION['company']['kuota'] . ")</a></li>
                                 <li><hr class='dropdown-divider'></li>
                                 <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
                             </ul>
