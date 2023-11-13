@@ -31,13 +31,10 @@ require 'koneksi.php';
                 if (isset($_SESSION['user'])) {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='user_profile.php'>Profile</a>
+                            <a class='nav-link' href='#'>Profile</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='find_job.php'>Find Job</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='logout.php'>Logout</a>
+                            <a class='nav-link' href='#'>Find Job</a>
                         </li>";
                 } else if (isset($_SESSION['company'])) {
                     echo "
@@ -87,8 +84,38 @@ require 'koneksi.php';
                                 " . $_SESSION['company']['nama_perusahaan'] . "
                             </a>
                             <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
-                                <li><a class='dropdown-item' href='company_profile.php'>Profile</a></li>
-                                <li><a class='dropdown-item' href=''>Kuota (" . $_SESSION['company']['kuota'] . ")</a></li>
+                                <li><a class='dropdown-item' href='#'>Profile</a></li>
+                                <li><a class='dropdown-item' href='#'>Kuota (" . $_SESSION['company']['kuota'] . ")</a></li>
+                                <li><hr class='dropdown-divider'></li>
+                                <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
+                            </ul>
+                        </div>";
+                } elseif (isset($_SESSION['user'])) {
+                    $profilePicture = isset($_SESSION['user']['foto_user']) ? 'assets/img/' . $_SESSION['user']['foto_user'] : 'assets/img/profile.png';
+                    echo "
+                        <div class='d-grid gap-2 d-md-flex justify-content-center'>
+                        <div class='dropdown text-light'>
+                            <a class='btn btn-custom dropdown-toggle text-light' href='#' role='button' id='profileDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
+                                <img src='" . $profilePicture . "' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
+                                " . $_SESSION['user']['nama'] . "
+                            </a>
+                            <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
+                                <li><a class='dropdown-item' href='#'>Profile</a></li>
+                                <li><hr class='dropdown-divider'></li>
+                                <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
+                            </ul>
+                        </div>";
+                } elseif (isset($_SESSION['admin'])) {
+                    $profilePicture = isset($_SESSION['admin']['foto_admin']) ? 'assets/img/' . $_SESSION['admin']['foto_admin'] : 'assets/img/profile.png';
+                    echo "
+                        <div class='d-grid gap-2 d-md-flex justify-content-center'>
+                        <div class='dropdown text-light'>
+                            <a class='btn btn-custom dropdown-toggle text-light' href='#' role='button' id='profileDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
+                                <img src='" . $profilePicture . "' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
+                                " . $_SESSION['admin']['nama'] . "
+                            </a>
+                            <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
+                                <li><a class='dropdown-item' href='#'>Profile</a></li>
                                 <li><hr class='dropdown-divider'></li>
                                 <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
                             </ul>
