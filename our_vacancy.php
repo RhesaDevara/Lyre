@@ -26,7 +26,7 @@ $sql->execute();
         <div class="row mt-5">
             <div class="col-lg-8 mx-auto">
                 <div class="mb-5">
-                    <a href="new_vacancy.php" class="btn btn-primary mb-3">Buat Lowongan</a>
+                    <center> <a href="new_vacancy.php" class="btn btn-primary mb-3">Buat Lowongan</a> </center>
                     <?php while ($data = $sql->fetch()) {
                         $id_lowongan = $data['id_lowongan'];
                         $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
@@ -69,7 +69,7 @@ $sql->execute();
                                         </div>
                                         <div class="my-auto mt-md-0 mt-md-3 text-md-end text-center">
                                             <?php echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?> <button
-                                                class="btn btn-info form-control">See Detail</button></a>
+                                                class="btn btn-secondary form-control">See Detail</button></a>
                                         </div>
                                     </div>
                                 </div>
