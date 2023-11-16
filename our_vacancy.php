@@ -5,8 +5,6 @@ $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_perusahaa
 $sql->execute();
 ?>
 <!DOCTYPE html>
-<?php
-?>
 <html lang="en">
 
 <head>
@@ -57,7 +55,7 @@ $sql->execute();
                                                     <?php echo $data['lokasi_pekerjaan']; ?>
                                                 </li>
                                                 <li class="list-inline-item me-3">
-                                                    <i class="fa-solid fa-money-bill"></i>
+                                                    <i class="far fa-money-bill-alt"></i>
                                                     <?php
                                                     $harga = $data['gaji'];
                                                     $harga_format = number_format($harga, 0, ",", ".");
