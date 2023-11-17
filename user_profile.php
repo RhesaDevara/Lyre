@@ -1,6 +1,10 @@
 <?php
     include 'navbar.php';
-    $id_pengguna = $_SESSION['user']['id_pengguna'];
+    if(isset($_SESSION['user'])){
+      $id_pengguna = $_SESSION['user']['id_pengguna'];
+    }else{
+      $id_pengguna = $_GET['id_pengguna'];
+    }
     $sql = $koneksiPdo -> prepare("SELECT * FROM pengguna where id_pengguna = '$id_pengguna'");
     $sql -> execute();
     $data = $sql -> fetch();
@@ -21,9 +25,14 @@
     $sqlKeahlian = $koneksiPdo ->prepare("SELECT * FROM keahlian where id_pengguna = '$id_pengguna'");
     $sqlKeahlian -> execute();
 
+    $sqlKeahlian1 = $koneksiPdo ->prepare("SELECT * FROM keahlian where id_pengguna = '$id_pengguna'");
+    $sqlKeahlian1 -> execute();
+
     $sqlPengalaman = $koneksiPdo ->prepare("SELECT * FROM pengalaman where id_pengguna = '$id_pengguna'");
     $sqlPengalaman -> execute();
 
+    $sqlSertifikat = $koneksiPdo ->prepare("SELECT * FROM sertifikat where id_pengguna = '$id_pengguna'");
+    $sqlSertifikat -> execute();
 
 ?>
 <!DOCTYPE html>
@@ -37,6 +46,9 @@
     <style>
         .profile-container{
             width: 50%;
+        }
+        .profile-container-20{
+            width: 20%;
         }
         .profile-container-30{
             width: 30%;
@@ -68,6 +80,7 @@
         }
         </style>
 </head>
+
 <body>
     <div class="top-profile pt-5 px-5">
     <div class="d-flex flex-row profile-container-100">
@@ -81,78 +94,12 @@
                     <br><button class="btn btn-warning mt-2" data-toggle='modal' data-target='#editProfile' >Edit Profile</button>
                 <?php } ?></div>
             </div>
-            <div class="mx-5 px-5" style="text-align: justify;">
-            
-            <h4 class="pt-5"> Tentang Saya </h4> <hr>
+            <div class="px-5" style="text-align: justify;">
                 <font size="3"> 
-                  <p><?php echo $data['about']; ?> </p>
+                  <p class="px-5 pt-5"><?php echo $data['about']; ?> </p>
                   </font> 
             </div>
-
-            <div class="mx-5 px-5">
-              <table>
-                <tr>
-                  <td class="pt-1 pe-2"> <h4> Keahlian </h4> </td>
-                  <td>  <?php 
-                    if($countKeahlian < 20){
-                      ?><button class="btn btn-secondary btn-sm" data-toggle='modal' data-target='#tambahKeahlianModal'> + </button> <?php
-                    }?> </td>
-                    </tr>
-                  </table>
-                
-                     <hr>
-            <div class="d-flex flex-row me-5">
-              <table width="100%" border=0>
-              <?php 
-                    $j = 1;
-                    $hitung = 5;
-                    while($dataKeahlian = $sqlKeahlian -> fetch()){
-                      ?>
-                          <?php if($hitung == 5){ ?> 
-                            <tr> 
-                          <?php $hitung = 0; } ?>
-                            <td width="20%">
-                              <div class="background-text mb-1 px-3 py-2"> <center><?php echo $dataKeahlian['nama_keahlian']; ?>
-                                <i class="fa-solid fa-pencil ms-2" style="color: #ffffff;" data-toggle='modal' data-target='#editKeahlianModal<?php echo $j; ?>'></i> 
-                              </div> 
-                            </td>  
-
-                        <!-- Modal ubah keahlian -->
-                        <div class="modal fade" id="editKeahlianModal<?php echo $j; ?>" tabindex="-1" role="dialog" aria-labelledby="editKeahlianModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Ubah Keahlian</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                                </button>
-                              </div>
-
-                              <div class="modal-body">
-                                <form method="post">
-                                  <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Keahlian:</label> <input type="text" hidden name="id_keahlian" value="<?php echo $dataKeahlian['id_keahlian']; ?>">
-                                    <input type="text" class="form-control" id="keahlian" name="keahlian" placeholder="Kotlin / Java / PHP / Javascript" value="<?php echo $dataKeahlian['nama_keahlian'];?>">
-                                  </div>
-                              </div>
-                              <div class="modal-footer">
-                                <a href="<?php echo "delete_keahlian.php?id_keahlian=$dataKeahlian[id_keahlian]"?>"><input type="button" name="hapus" class="btn btn-danger" value="Hapus" onclick='return confirm("Apakah Anda Yakin?")'></a>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <input type="submit" name="editKeahlian" class="btn btn-warning" value="Ubah">
-                              </div>
-                            </form>
-                            </div>
-                          </div>
-                        </div>
-
-                      <?php $j++;
-                      $hitung++;
-                    }
-                  ?>
-                  </table>
-                </div>
-            </div>
-            </div>
+        </div>
 
             <div class="">
                 <div class="px-2"> 
@@ -165,7 +112,13 @@
                         <form method="post">
                         <div class="d-flex flex-row"> 
                             <div> <h5 class="background-text px-2 py-1"> <?php echo $dataPendidikan['nama_tempat']; ?> </h5></div>
-                            <div class="pt-1"><i class="fa-solid fa-pencil ms-3 mt-1" style="color: #20444F;" data-toggle='modal' data-target='#editModal<?php echo $i ?>'></i> 
+                            <div class="pt-1">
+                    <?php
+                      if(isset($_SESSION['user'])){  ?>  
+                        <i class="fa-solid fa-pencil ms-3 mt-1" style="color: #20444F;" data-toggle='modal' data-target='#editModal<?php echo $i ?>'></i> 
+                        <?php }
+                    ?> 
+                            
                             </div>
                     </div>
                         <i><?php echo $dataPendidikan['jurusan']; ?></i> <br>
@@ -230,12 +183,14 @@
                         <?php
                         $i++;
                     } 
-                    ?> <hr>  <?php
-
-                    if($countPendidikan < 3){
-                        echo "
-                        <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#exampleModal' data-whatever='@getbootstrap'> + Tambahkan Pendidikan</button> </center>"; 
-                    }
+                    ?> <hr>  
+                    <?php
+                      if(isset($_SESSION['user'])){    
+                        if($countPendidikan < 3){
+                            echo "
+                            <button type='button' class='btn btn-secondary' data-toggle='modal' data-target='#exampleModal' data-whatever='@getbootstrap'> + Tambahkan Pendidikan</button> </center>"; 
+                        }
+                      }
                 ?>
             </div>
             <div class="px-2"> 
@@ -259,7 +214,13 @@
                                 <div class="d-flex flex-row">
                                   <div><h5 class="mb-1"><?php echo $dataPengalaman['posisi']; ?> </h5> </div> 
                                   <div class="pt-1 ms-2"><small> <?php echo " (" . $dataPengalaman['durasi'] . " Bulan)"; ?></small> </div> 
-                                  <div class="pt-1"> <i class="fa-solid fa-pencil ms-3 mt-1" style="color: #20444F;" data-toggle='modal' data-target='#editPengalaman<?php echo $k; ?>'></i> </div>
+                                  
+                    <?php
+                      if(isset($_SESSION['user'])){   ?> 
+                        <div class="pt-1"> <i class="fa-solid fa-pencil ms-3 mt-1" style="color: #20444F;" data-toggle='modal' data-target='#editPengalaman<?php echo $k; ?>'></i> </div>
+                        <?php }
+                    ?>  
+                                  
                                 </div>
                                 <small> <?php echo $dataPengalaman['lokasi_pekerjaan']; ?> </small>
                               </div>
@@ -319,19 +280,114 @@
                         $k++;
                       }
                     ?>
-                    <button class="btn btn-secondary mt-5" data-toggle="modal" data-target="#tambahPengalaman">+ Tambahkan Pengalaman Kerja</button>
+                    <?php
+                      if(isset($_SESSION['user'])){    ?>
+                          <button class="btn btn-secondary mt-2" data-toggle="modal" data-target="#tambahPengalaman">+ Tambahkan Pengalaman Kerja</button>
+                       <?php }
+                    ?>  
                 </div>
             </div>
-            <div class="p-3">
-                <div> 
-                  <!-- <h3> Bahasa </h3> <hr> -->
+            <div class="p-3 mt-5 profile-container-20">
+                <div class="d-flex flex-row"> 
+                  <div> <h3> Keahlian </h3></div>
+                  
+                    <?php
+                      if(isset($_SESSION['user'])){ ?>
+                        
+                  <div class="pt-2"> <i class="fa-solid fa-pencil ms-3 mt-1" style="color: #20444F;" data-toggle='modal' data-target='#editKeahlianModal'></i> </h3> </div> 
+                        <?php }
+                    ?>  
+                    </div>
+                    <hr>
+                  <?php 
+                    while($dataKeahlian = $sqlKeahlian -> fetch()){
+                      ?>
+                        <div class="d-flex flex-row px-4">
+                          <div class="background-text mb-2 pt-1" style="width:100%; height: 35px;"> <center><?php echo $dataKeahlian['nama_keahlian']; ?>  </div>
+                          <div> </div> </div>       
+                      <?php
+                    }
+
+                  
+                    if(isset($_SESSION['user'])){
+                    if($countKeahlian < 10){
+                      ?> <center><button class="btn btn-secondary mt-2" data-toggle='modal' data-target='#tambahKeahlianModal'> + Tambahkan Keahlian </button></center> <?php
+                      }
+                    }
+                  ?>
                 </div>
             </div>
         </div>
 
         <div class="d-flex flex-row"> 
-            <div class="p-5 profile-container-80" style="text-align: justify">
+            <div class="px-5 pb-5 profile-container-80" style="text-align: justify">
              <h3> Sertifikat </h3> <hr>
+             <?php
+             $m = 1;
+              while($dataSertifikat = $sqlSertifikat -> fetch()){
+              ?>
+                <div class="list-group">
+                            <a class="list-group-item list-group-item-action flex-column align-items-start p-3">
+                              <div class="d-flex w-100 justify-content-between">
+                                <div class="d-flex flex-row">
+                                  <div><h5 class="mb-1"><?php echo $dataSertifikat['nama_sertifikat']; ?> </h5> </div> 
+                                  <?php
+                                  if(isset($_SESSION['user'])){ ?>
+                                    <div class="pt-1"> <i class="fa-solid fa-pencil ms-3 mt-1" style="color: #20444F;" data-toggle='modal' data-target='#editSertifikat<?php echo $m; ?>'></i> </div>
+                                    <?php }
+                                  ?>      
+                                </div>
+                              </div>
+                              <small><b><?php echo $dataSertifikat['nama_penerbit']; ?></b></small> <br>
+                              <small class="mb-1" style="text-align: justify";><?php echo $dataSertifikat['tanggal_terbit']. " - " . $dataSertifikat['tanggal_kadaluarsa']; ?></small>
+                            </a>
+                      </div>
+
+                                  
+            <!-- Modal ubah sertifikat -->
+                <div class="modal fade" id="editSertifikat<?php echo $m; ?>" tabindex="-1" role="dialog" aria-labelledby="editSertifikatLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Ubah Sertifikat</h5> 
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <form method="post">
+                                <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label">Nama Sertifikat:</label>
+                                  <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat" placeholder="Pengenalan UI/UX" value="<?php echo $dataSertifikat['nama_sertifikat'];?>">
+                                </div>
+                                <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label">Nama Penerbit:</label>
+                                  <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit" placeholder="Dicoding Indonesia" value="<?php echo $dataSertifikat['nama_penerbit'];?>">
+                                </div>
+                                <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
+                                  <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" value="<?php echo $dataSertifikat['tanggal_terbit'];?>">
+                                </div>
+                                <div class="form-group">
+                                  <label for="recipient-name" class="col-form-label">Tanggal Kadaluarsa:</label>
+                                  <input type="date" class="form-control" id="tanggal_kadaluarsa" name="tanggal_kadaluarsa" value="<?php echo $dataSertifikat['tanggal_kadaluarsa'];?>">
+                                </div>
+                            </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <input type="submit" name="editKeahlian" class="btn btn-warning" value="Ubah">
+                              </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+
+             <?php $m++;} ?>
+             
+             <?php
+              if(isset($_SESSION['user'])){ ?> 
+                <button class="btn btn-secondary mt-2" data-toggle='modal' data-target='#tambahSertifikat'> + Tambahkan Sertifikat </button> 
+              <?php } ?>  
             </div>
             <div class="p-2"> 
                 <!-- a -->
@@ -393,6 +449,38 @@
     </div>
   </div>
 </div>
+
+<!-- Modal ubah keahlian -->
+    <div class="modal fade" id="editKeahlianModal" tabindex="-1" role="dialog" aria-labelledby="editKeahlianModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ubah Keahlian</h5> 
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <font color='grey'> Kosongkan kolom pengisian untuk menghapus keahlian </font>
+                  <form method="post">
+                    <?php
+                    $l = 1; 
+                    while($dataEditKeahlian = $sqlKeahlian1 -> fetch()){ ?>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Keahlian <?php echo $l; ?>:</label> <input type="text" hidden name="id_keahlian<?php echo $l; ?>" value="<?php echo $dataEditKeahlian['id_keahlian']; ?>">
+                        <input type="text" class="form-control" id="keahlian" name="keahlian<?php echo $l; ?>" placeholder="Kotlin / Java / PHP / Javascript" value="<?php echo $dataEditKeahlian['nama_keahlian'];?>">
+                      </div>
+                    <?php $l++; } ?>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <input type="submit" name="editKeahlian" class="btn btn-warning" value="Ubah">
+                  </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
 
 <!-- Modal edit profile -->
 <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
@@ -456,6 +544,46 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
         <input type="submit" name="tambahKeahlian" class="btn btn-primary" value="Konfirmasi">
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal tambah sertifikat -->
+<div class="modal fade" id="tambahSertifikat" tabindex="-1" role="dialog" aria-labelledby="tambahKeahlianModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Keahlian</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <form method="post">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nama Sertifikat:</label>
+            <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat" placeholder="Pengenalan UI/UX"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nama Penerbit:</label>
+            <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit" placeholder="Dicoding Indonesia"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
+            <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Tanggal Kadaluarsa:</label>
+            <input type="date" class="form-control" id="tanggal_kadaluarsa" name="tanggal_kadaluarsa"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <input type="submit" name="tambahSertifikat" class="btn btn-primary" value="Konfirmasi">
       </div>
     </form>
     </div>
@@ -569,12 +697,18 @@
     }
 
     if(isset($_POST['editKeahlian'])){
-      $keahlian = $_POST['keahlian'];
-      $id_keahlian = $_POST['id_keahlian'];
-      $sqlEditKeahlian = $koneksiPdo -> prepare("UPDATE keahlian SET nama_keahlian = '$keahlian' where id_keahlian = '$id_keahlian'");
-      $sqlEditKeahlian -> execute();
-
-      echo "<script>alert('Keahlian berhasil diubah menjadi" . $keahlian . "');</script>";
+      for($o = 1;$o <= $countKeahlian; $o++){
+        $keahlian = $_POST['keahlian' . $o];
+        $id_keahlian = $_POST['id_keahlian' . $o];
+        if(empty($keahlian) || !isset($keahlian)){
+          $sqlDeleteKeahlian = $koneksiPdo -> prepare("DELETE FROM keahlian where id_keahlian = '$id_keahlian'");
+          $sqlDeletekeahlian -> execute();
+        }else{
+          $sqlEditKeahlian = $koneksiPdo -> prepare("UPDATE keahlian SET nama_keahlian = '$keahlian' where id_keahlian = '$id_keahlian'");
+          $sqlEditKeahlian -> execute();
+        }
+      }
+      echo "<script>alert('Keahlian berhasil diubah');</script>";
       echo "<script>location='user_profile.php';</script>";
     }
 
@@ -592,6 +726,21 @@
 
       echo "<script>alert('Keahlian berhasil ditambahkan');</script>";
       echo "<script>location='user_profile.php';</script>";
+    }
+
+    if(isset($_POST['tambahSertifikat'])){
+      $nama_sertifikat = $_POST['nama_sertifikat'];
+      $nama_penerbit = $_POST['nama_penerbit'];
+      $tanggal_terbit = $_POST['tanggal_terbit'];
+      $tanggal_kadaluarsa = $_POST['tanggal_kadaluarsa'];
+
+      $sqlTambahSertifikat = $koneksiPdo -> prepare("INSERT INTO sertifikat (id_pengguna, nama_sertifikat, nama_penerbit, tanggal_terbit, tanggal_kadaluarsa) 
+      values ('$id_pengguna', '$nama_sertifikat', '$nama_penerbit', '$tanggal_terbit', '$tanggal_kadaluarsa')");
+      $sqlTambahSertifikat -> execute();
+
+      echo "<script>alert('Sertifikat berhasil ditambahkan');</script>";
+      echo "<script>location='user_profile.php';</script>";
+
     }
   ?>
 
