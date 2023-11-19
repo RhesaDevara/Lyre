@@ -13,6 +13,10 @@ $data = $sql->fetch();
 $sql1 = $koneksiPdo->prepare("SELECT * FROM soal where id_lowongan = '$id_lowongan'");
 $sql1->execute();
 
+
+    $cekSoal = $koneksiPdo->prepare("SELECT count(*) from soal where id_lowongan = '$id_lowongan'");
+    $cekSoal->execute();
+    $count = $cekSoal->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,37 +74,7 @@ $sql1->execute();
                         </p>
                     </div>
 
-                    <div class="mb-5">
-                        <h4 class="mb-3">Responsibilities</h4>
-                        <p>Magna et elitr diam sed lorem. Diam diam stet erat no est est. Accusam sed lorem stet
-                            voluptua sit sit at stet consetetur, takimata at diam kasd gubergren elitr dolor</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Dolor justo tempor duo ipsum accusam
-                            </li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Elitr stet dolor vero clita labore
-                                gubergren</li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Rebum vero dolores dolores elitr</li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Est voluptua et sanctus at sanctus
-                                erat</li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Diam diam stet erat no est est</li>
-                        </ul>
-                    </div>
-
-                    <div class="mb-5">
-                        <h4 class="mb-3">Qualifications</h4>
-                        <p>Magna et elitr diam sed lorem. Diam diam stet erat no est est. Accusam sed lorem stet
-                            voluptua sit sit at stet consetetur, takimata at diam kasd gubergren elitr dolor</p>
-                        <ul class="list-unstyled">
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Dolor justo tempor duo ipsum accusam
-                            </li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Elitr stet dolor vero clita labore
-                                gubergren</li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Rebum vero dolores dolores elitr</li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Est voluptua et sanctus at sanctus
-                                erat</li>
-                            <li><i class="fa fa-angle-right text-primary me-2"></i>Diam diam stet erat no est est</li>
-                        </ul>
-                    </div>
+                    <?php if(isset($_SESSION['user'])){ ?>
 
                     <div>
                         <h4 class="mb-4">Apply For The Job</h4>
@@ -128,7 +102,32 @@ $sql1->execute();
                         </form>
                     </div>
                 </div>
+                    <?php }else if(isset($_SESSION['company'])){ ?>
 
+                        <div>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="px-2"><input type="button" class="btn btn-warning" value="Ubah Lowongan" style="width: 100%;"></div>
+                                    <?php 
+                                    if($count == 0){
+                                        ?><input type="button" value="Buat tes" data-toggle="modal" data-target="#jumlahSoal" class="btn btn-success" style="width: 100%;">
+                                    <?php } ?>
+                                        
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <?php }else{ ?>
+                    <div>
+                        <form>
+                            <div class="row g-3">
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                    <?php } ?>
+                
                 <div class="col-lg-4">
                     <div class="bg-light rounded p-4 mb-4">
                         <h4 class="mb-3">Job Summary</h4>
@@ -156,11 +155,7 @@ $sql1->execute();
             </div>
         </div>
     </div>
-
     <?php
-    $cekSoal = $koneksiPdo->prepare("SELECT count(*) from soal where id_lowongan = '$id_lowongan'");
-    $cekSoal->execute();
-    $count = $cekSoal->fetchColumn();
     if ($count > 0) {
         ?>
         <table class="table table-bordered">
@@ -209,7 +204,39 @@ $sql1->execute();
                     </td>
                 </tr>
             <?php }
-    } ?>
+    }else{ ?>
+        
+    <?php } ?>
+
+    
+<!-- Modal tambah keahlian -->
+<div class="modal fade" id="jumlahSoal" tabindex="-1" role="dialog" aria-labelledby="jumlahSoalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Soal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <form method="post" action="soal_tambah.php">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Jumlah Soal:</label> <input type="text" name="id_lowongan" value="<?php echo $id_lowongan; ?>" hidden>
+            <input type="text" class="form-control" id="jumlah_soal" name="jumlah_soal" placeholder="Tuliskan jumlah soal"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <input type="submit" name="tambahKeahlian" class="btn btn-primary" value="Konfirmasi">
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
 </body>
 
 </html>

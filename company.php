@@ -31,11 +31,11 @@ $result = $koneksi->query($ambil);
 	<title>LYRE - Admin</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-	<link rel="stylesheet" href="crud.css">   
+	<link rel="stylesheet" href="assets/css/crud.css">
 </head>
 <body>
 	<div style="width:95%; margin:auto;">
-		<div class="table-responsive">
+		<div  class="table-responsive">
 			<div class="table-wrapper">
 				<div class="table-title">
 					<div class="row">
@@ -58,7 +58,6 @@ $result = $koneksi->query($ambil);
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				<table class="table table-striped table-hover table-bordered text-center">
@@ -131,7 +130,7 @@ $result = $koneksi->query($ambil);
                                         </form>
                                             <?php
                                         }else if($data['status_akun'] == 'Aktif'){ ?>
-                                            <input type="submit" class="btn btn-success" value="Lihat Profile">
+                                            <button type="submit" class="btn btn-success">Lihat Profile</button>
                                         <?php }
                                     ?>
 								</td>

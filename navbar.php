@@ -18,7 +18,6 @@ require 'koneksi.php';
     <div class="container">
         <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
-            LYRE
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +36,7 @@ require 'koneksi.php';
                             <a class='nav-link' href='user_profile.php'>Profile</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='#'>Find Job</a>
+                            <a class='nav-link' href='find_job.php'>Find Job</a>
                         </li>";
                 } else if (isset($_SESSION['company'])) {
                     echo "
@@ -51,26 +50,34 @@ require 'koneksi.php';
                             <a class='nav-link' href='buy_package.php'>Package</a>
                         </li>";
                 } else if (isset($_SESSION['admin'])) {
-                    echo "
-                        <li class='nav-item'>
-                            <a class='nav-link' href='#'>Profile</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='admin.php'>Admin</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='package.php'>Package</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='company.php'>Company</a>
-                        </li>
-                        <li class='nav-item'>
-                            <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
-                        </li>";
+                    
+                    if($_SESSION['admin']['email'] == "admin@gmail.com"){
+                        echo "
+                            <li class='nav-item'>
+                                <a class='nav-link' href='admin.php'>Admin</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='package.php'>Package</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='company.php'>Company</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
+                            </li>";
+                    }else{
+                        echo "
+                            <li class='nav-item'>
+                                <a class='nav-link' href='company.php'>Company</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
+                            </li>";
+                    }
                 } else {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='#'>Find Job</a>
+                            <a class='nav-link' href='find_job.php'>Find Job</a>
                         </li>";
                 }
                 ?>
@@ -118,7 +125,6 @@ require 'koneksi.php';
                                 " . $_SESSION['admin']['nama'] . "
                             </a>
                             <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
-                                <li><a class='dropdown-item' href='#'>Profile</a></li>
                                 <li><hr class='dropdown-divider'></li>
                                 <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
                             </ul>
@@ -127,16 +133,7 @@ require 'koneksi.php';
             } else {
                 echo "
                     <div class='d-grid gap-2 d-md-flex justify-content-md-end'>
-                        <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>
-                        <div class='dropdown text-light'>
-                            <button class='btn btn-register form-control dropdown-toggle' type='button' id='registerDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
-                                Register
-                            </button>
-                            <ul class='dropdown-menu' aria-labelledby='registerDropdown'>
-                                <li><a class='dropdown-item' href='daftar_user.php'>Register as Applicant</a></li>
-                                <li><a class='dropdown-item' href='daftar_company.php'>Register as Company</a></li>
-                            </ul>
-                        </div>";
+                        <a href='login.php' class='btn btn-login me-2 form-control'>Login</a>";
             }
             ?>
         </div>

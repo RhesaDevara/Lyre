@@ -1,3 +1,6 @@
+<?php 
+    include 'navbar.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,14 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Login</title>
     <link href="https://unpkg.com/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/css.css" rel="stylesheet">
 </head>
 
 <body>
     <section class="p-3 p-md-4 p-xl-5">
         <div class="container">
-            <div class="card border border-light shadow-sm">
+            <div class="card border border-light shadow-sm mt-5">
                 <div class="row g-0">
-                    <div class="col-12 col-md-6 bg-primary text-white">
+                    <div class="col-12 col-md-6 text-white bg-our-color">
                         <div class="d-flex align-items-center justify-content-center h-100">
                             <div class="col-10 col-xl-8 py-3 text-center">
                                 <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy"
@@ -40,7 +44,7 @@
                                         <label for="password" class="form-label">Password <span
                                                 class="text-danger">*</span></label>
                                         <input type="password" class="form-control" name="password" id="password"
-                                            value="" required>
+                                            value="" required placeholder="********">
                                     </div>
                                     <div class="mb-3 form-check">
                                         <input class="form-check-input" type="checkbox" value="" name="remember_me"
@@ -49,7 +53,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
-                                            <button class="btn btn-primary" type="submit">Login</button>
+                                            <button class="btn btn-our-color" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </form>

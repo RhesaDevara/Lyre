@@ -180,3 +180,18 @@
 .profile-width{
     width: 50%;
 }
+
+.bg-our-color{
+    background: #20444F;
+}
+
+.btn-our-color{
+    background: #20444F;
+    color: white;
+}
+
+.btn-our-color:hover{
+    background: white;
+    color: #20444F;
+    border: 1px solid #20444F;
+}

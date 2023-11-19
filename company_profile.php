@@ -1,6 +1,11 @@
 <?php
     include 'navbar.php';
     $id_perusahaan = $_SESSION['company']['id_perusahaan'];
+    
+    $sqlSession = $koneksiPdo -> prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+    $sqlSession -> execute();
+    $_SESSION['company'] = $sqlSession -> fetch();
+
     $sql = $koneksiPdo -> prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
     $sql -> execute();
     $data = $sql -> fetch();

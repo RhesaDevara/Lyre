@@ -33,7 +33,7 @@ if (isset($_POST["daftar"])) {
     } else {
         // Jika email_perusahaan dan nama_perusahaan belum pernah digunakan, lakukan pendaftaran
         $insertQuery = "INSERT INTO perusahaan (nama_perusahaan, email_perusahaan, password, nomor_telepon, alamat_perusahaan, deskripsi_perusahaan, kuota, status_akun) 
-                        VALUES ('$nama_perusahaan', '$email_perusahaan', '$password', '$no_telp', '$alamat_perusahaan', '$deskripsi_perusahaan', 1, 'Belum Review')";
+                        VALUES ('$nama_perusahaan', '$email_perusahaan', '$password', '$no_telp', '$alamat_perusahaan', '$deskripsi_perusahaan', 1 , 'Belum Review')";
         if ($koneksi->query($insertQuery) === TRUE) {
             echo "<script>alert('Pendaftaran Berhasil, Silahkan Login');</script>";
             echo "<script>location='login.php';</script>";

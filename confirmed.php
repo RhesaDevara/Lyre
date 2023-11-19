@@ -15,12 +15,12 @@ $data = $sql -> fetch();
 	<title>LYRE - Admin</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-	<link rel="stylesheet" href="crud.css">
+	<link rel="stylesheet" href="assets/css/crud.css">
 </head>
 
 <body>
-	<div style="width:95%; margin:auto;">
-		<div class="table-responsive">
+	<div class="p-5" style="width:100%;">
+		<div>
 			<div class="table-wrapper">
 				<div class="table-title">
 					<div class="row">
@@ -36,10 +36,10 @@ $data = $sql -> fetch();
 					</div>
 				</div>
                 <?php echo "<form method='post' action='proses_perusahaan.php?id_perusahaan=$id_perusahaan&action=confirm'>"; ?>
-                <table>
+                <table class="table table-responsive">
                     <tr> 
-                        <td> ID Perusahaan </td>
-                        <td> : </td>
+                        <td width=30%> ID Perusahaan </td>
+                        <td width=10%> : </td>
                         <td> <?php echo $data['id_perusahaan']; ?> </td>
                     </tr>
                     <tr> 
@@ -67,8 +67,11 @@ $data = $sql -> fetch();
                         <td> : </td>
                         <td> <?php echo $data['deskripsi_perusahaan']; ?> </td>
                     </tr>
+                    <tr>
+                        <td colspan=3> <input type="submit" value="Konfirmasi" class="btn form-control btn-our-color"> 
+                    </td> 
+                    </tr>
                 </table>
-                <input type="submit" value="Konfirmasi" class="btn btn-success">
                 </form>
 
 			</div>

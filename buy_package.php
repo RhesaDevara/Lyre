@@ -1,5 +1,10 @@
 <?php
 include 'navbar.php';
+    
+    $id_perusahaan = $_SESSION['company']['id_perusahaan'];
+    $sqlSession = $koneksiPdo -> prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+    $sqlSession -> execute();
+    $_SESSION['company'] = $sqlSession -> fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +30,8 @@ include 'navbar.php';
                 <?php $ambil = $koneksi->query("SELECT * FROM paket "); ?>
                 <?php while ($perpaket = $ambil->fetch_assoc()) { ?>
                     <div class="col">
-                        <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                            <div class="card-header py-3 text-bg-primary border-primary">
+                        <div class="card mb-4 rounded-3 shadow-sm" style="border: 1px solid #377487;">
+                            <div class="card-header py-3 text-white" style="background: #377487; border: 1px solid #377487;">
                                 <h4 class="my-0 fw-normal">
                                     <?php echo $perpaket['nama_paket']; ?>
                                 </h4>
@@ -44,7 +49,7 @@ include 'navbar.php';
                                         <?php echo 'Rp. ' . number_format($perpaket['harga'], 0, ',', '.'); ?>,-
                                     </li>
                                 </ul>
-                                <?php echo "<a href='checkout.php?id_paket=$perpaket[id_paket]'>"; ?><button type="button" class="w-100 btn btn-lg btn-primary">Beli Paket</button></a>
+                                <?php echo "<a href='checkout.php?id_paket=$perpaket[id_paket]'>"; ?><button type="button" class="w-100 btn btn-lg btn-our-color" style="background: #377487;">Beli Paket</button></a>
                             </div>
                         </div>
                     </div>
