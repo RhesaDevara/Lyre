@@ -14,7 +14,7 @@
         <div class="container">
             <div class="card border border-light shadow-sm">
                 <div class="row g-0">
-                    <div class="col-12 col-md-6 bg-our-color text-white">
+                    <div class="col-12 col-md-6 bg-login-register text-white">
                         <div class="d-flex align-items-center justify-content-center h-100">
                             <div class="col-10 col-xl-8 py-3 text-center">
                                 <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy"
@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
-                                            <button name="daftar" class="btn btn-our-color"
+                                            <button name="daftar" class="btn btn-login-register"
                                                 type="submit">Register</button>
                                         </div>
                                     </div>

@@ -37,7 +37,7 @@ $sql1->execute();
                 <div class="col-lg-8">
                     <div class="d-flex align-items-top mb-5">
                         <?php
-                        $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
+                        $profilePicture = isset($data['foto_perusahaan']) ? 'assets/img/' . $data['foto_perusahaan'] : 'assets/img/profile.png';
                         ?>
                         <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php echo $profilePicture ?>"
                             alt="Company Logo" style="width: 70px; height: 70px;">

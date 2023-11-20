@@ -1,6 +1,3 @@
-<?php 
-    include 'navbar.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +14,7 @@
         <div class="container">
             <div class="card border border-light shadow-sm mt-5">
                 <div class="row g-0">
-                    <div class="col-12 col-md-6 text-white bg-our-color">
+                    <div class="col-12 col-md-6 text-white bg-login-register">
                         <div class="d-flex align-items-center justify-content-center h-100">
                             <div class="col-10 col-xl-8 py-3 text-center">
                                 <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy"
@@ -53,7 +50,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
-                                            <button class="btn btn-our-color" type="submit">Login</button>
+                                            <button class="btn btn-login-register" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </form>
@@ -63,8 +60,8 @@
                                 </div>
                                 <p class="mt-5 mb-3">Don't have an account? Sign up here.</p>
                                 <div class="d-flex gap-3 mb-1 flex-column flex-xl-row">
-                                    <a href="daftar_user.php" class="btn btn-outline-primary">Applicant</a>
-                                    <a href="daftar_company.php" class="btn btn-outline-primary">Company</a>
+                                    <a href="daftar_user.php" class="btn btn-select-register">Applicant</a>
+                                    <a href="daftar_company.php" class="btn btn-select-register">Company</a>
                                 </div>
                             </div>
                         </div>

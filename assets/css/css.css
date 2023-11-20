@@ -47,22 +47,22 @@
     background-color: #20444F;
 }
 
-.btn-login {
+.btn-nav-login {
     border: 1px solid #fff;
     color: #fff;
 }
 
-.btn-login:hover {
+.btn-nav-login:hover {
     background-color: #fff;
     color: #20444F;
 }
 
-.btn-register {
+.btn-nav-register {
     background-color: #fff;
     color: #20444F;
 }
 
-.btn-register:hover {
+.btn-nav-register:hover {
     background-color: #fff;
     color: #20444F;
 }
@@ -92,6 +92,34 @@
 .packages-header {
     max-width: 700px;
 }
+
+.bg-login-register{
+    background: #20444F;
+}
+
+.btn-login-register{
+    background: #20444F;
+    color: white;
+}
+
+.btn-login-register:hover{
+    background: white;
+    color: #20444F;
+    border: 1px solid #20444F;
+}
+
+.btn-select-register{
+    background: white;
+    color: #20444F;
+    border: 1px solid #20444F;
+}
+
+.btn-select-register:hover{
+    background: #20444F;
+    color: white;
+}
+
+
 
 @media (max-width: 768px) {
 
@@ -179,19 +207,4 @@
 
 .profile-width{
     width: 50%;
-}
-
-.bg-our-color{
-    background: #20444F;
-}
-
-.btn-our-color{
-    background: #20444F;
-    color: white;
-}
-
-.btn-our-color:hover{
-    background: white;
-    color: #20444F;
-    border: 1px solid #20444F;
 }

@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <img src="assets/img/interview.png" class="hero-img" alt="Hero Image">
+                        <img src="assets/img/interview.png" class="hero-img" loading="lazy" alt="Hero Image">
                     </div>
                 </div>
             </div>
