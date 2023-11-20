@@ -69,7 +69,7 @@ $sql1->execute();
 
                     <div class="mb-5">
                         <h4 class="mb-3">Job Description</h4>
-                        <p>
+                        <p style="text-align: justify;">
                             <?php echo $data['deskripsi_pekerjaan']; ?>
                         </p>
                     </div>

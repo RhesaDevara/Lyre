@@ -49,7 +49,7 @@ include 'navbar.php';
                                         <?php echo 'Rp. ' . number_format($perpaket['harga'], 0, ',', '.'); ?>,-
                                     </li>
                                 </ul>
-                                <?php echo "<a href='checkout.php?id_paket=$perpaket[id_paket]'>"; ?><button type="button" class="w-100 btn btn-lg btn-our-color" style="background: #377487;">Beli Paket</button></a>
+                                <?php echo "<a href='checkout.php?id_paket=$perpaket[id_paket]'>"; ?><button type="button" class="w-100 btn btn-lg btn-our-color text-white" style="background: #377487;">Beli Paket</button></a>
                             </div>
                         </div>
                     </div>
