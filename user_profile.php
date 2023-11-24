@@ -3,7 +3,7 @@ include 'navbar.php';
 if (isset($_SESSION['user'])) {
   $id_pengguna = $_SESSION['user']['id_pengguna'];
 } else {
-  header("Location:index.php");
+  $id_pengguna = $_GET['id_pengguna'];
 }
 $sql = $koneksiPdo->prepare("SELECT * FROM pengguna where id_pengguna = '$id_pengguna'");
 $sql->execute();

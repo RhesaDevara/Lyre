@@ -26,14 +26,21 @@
         }
     </style>
     <div class="container mt-5">
-        <div class="row mt-5">
-            <div class="col-lg-8 mx-auto">
-                <div class="mb-5">
-                    <?php while ($data = $sql->fetch()) {
+        <div class="row">
+            <div>
+                <div>
+                    <?php
+                    $i = 1;
+                    while ($data = $sql->fetch()) {
                         $id_lowongan = $data['id_lowongan'];
                         $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
                         ?>
-                        <div class="card mb-3">
+                        <?php
+                            if($i == 1){?>
+                                <div class="d-flex flex-row">
+                            <?php }
+                        ?>
+                        <div class="card mb-3 mx-2">
                             <div class="row g-0 align-items-center">
                                 <div class="col-md-2 text-center p-lg-4 p-2 mt-4 mt-lg-0">
                                     <?php
@@ -77,7 +84,11 @@
                                 </div>
                             </div>
                         </div>
-                    <?php } ?>
+                        <?php if($i == 2){
+                            ?> </div> <?php
+                        $i = 1;
+                    } $i++;
+                        } ?>
                 </div>
             </div>
         </div>

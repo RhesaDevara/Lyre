@@ -180,9 +180,9 @@
 
     .img-vacancy {
         width: 100px;
-        height: auto;
+        height: 100px;
         margin-right: 10px;
-        border-radius: 0px;
+        border-radius: 100px;
     }
 
     .vacancy-details {
@@ -207,4 +207,38 @@
 
 .profile-width{
     width: 50%;
+}
+
+.menu-detail{
+    width: 33.33%;
+    text-align: center;
+    height: 50px;
+    padding-top: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.menu-detail :hover{
+    background: black;
+    color:white;
+}
+
+.menu-detail-aktif{
+    width: 33.33%;
+    text-align: center;
+    height: 50px;
+    padding-top: 10px;
+    border-bottom: 2px solid black;
+    color: black;
+    text-decoration: none;
+}
+
+.btn-pelamar{
+    height: 100%; width: 100%;
+    border: none;
+}
+
+.btn-pelamar:hover{
+    background: #20444F;
+    color: white;
 }
