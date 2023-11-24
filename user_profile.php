@@ -140,8 +140,8 @@ $sqlSertifikat->execute();
                       <div class="modal-body">
                         <form method="post">
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Posisi:</label> <input type="text" hidden
-                              value="<?php echo $id_pengalaman; ?>">
+                            <label for="recipient-name" class="col-form-label">Posisi:</label> 
+                            <input type="text" name="id_pengalaman" hidden value="<?php echo $id_pengalaman; ?>">
                             <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Web Developer"
                               value="<?php echo $dataPengalaman['posisi']; ?>">
                           </div>
@@ -168,12 +168,13 @@ $sqlSertifikat->execute();
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Deskripsi:</label>
                             <textarea class="form-control" id="deskripsi" name="deskripsi"
-                              placeholder="Saya berganggung jawab dalam pengembangan web...."><?php echo $dataPengalaman['posisi']; ?></textarea>
+                              placeholder="Saya berganggung jawab dalam pengembangan web...."><?php echo $dataPengalaman['deskripsi']; ?></textarea>
                           </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="submit" name="ubahPengalaman" class="btn btn-primary">Save changes</button>
                       </div>
+                        </form>
                     </div>
                   </div>
                 </div>
@@ -239,6 +240,7 @@ $sqlSertifikat->execute();
                         <form method="post">
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama Sertifikat:</label>
+                            <input type="text" hidden name="id_sertifikat" value="<?php echo $id_sertifikat; ?>">
                             <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat"
                               placeholder="Pengenalan UI/UX" value="<?php echo $dataSertifikat['nama_sertifikat']; ?>">
                           </div>
@@ -259,7 +261,7 @@ $sqlSertifikat->execute();
                           </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="submit" name="ubahSertifikat" class="btn btn-primary">Save changes</button>
                       </div>
                     </div>
                   </div>
@@ -388,7 +390,6 @@ $sqlSertifikat->execute();
                           <input type="number" class="form-control" id="tahun_lulus" name="edt_tahun_lulus"
                             value="<?php echo $dataPendidikan['tahun_lulus']; ?>">
                         </div>
-                      </form>
                     </div>
                     <div class="modal-footer">
                       <a href="<?php echo "delete_pendidikan.php?id_pendidikan=$dataPendidikan[id_pendidikan]" ?>"><input
@@ -396,6 +397,7 @@ $sqlSertifikat->execute();
                           onclick='return confirm("Apakah Anda Yakin?")'></a>
                       <button type="submit" name="ubahPendidikan" class="btn btn-primary">Save changes</button>
                     </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -475,7 +477,7 @@ $sqlSertifikat->execute();
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Tentang Anda:</label>
               <textarea class="form-control" id="tentang_anda" name="tentang_anda" placeholder="Tuliskan tentang diri
-                anda"><?php echo $data['about']; ?></textarea>
+                anda" style="text-align: justify;"><?php echo $data['about']; ?></textarea>
             </div>
         </div>
         <div class="modal-footer">
@@ -583,6 +585,7 @@ $sqlSertifikat->execute();
                   <?php echo $upk; ?>:
                 </label> <input type="text" hidden name="id_keahlian<?php echo $upk; ?>"
                   value="<?php echo $dataEditKeahlian['id_keahlian']; ?>">
+                  
                 <input type="text" class="form-control" id="keahlian" name="keahlian<?php echo $upk; ?>"
                   placeholder="Cohtoh: Kotlin" value="<?php echo $dataEditKeahlian['nama_keahlian']; ?>">
               </div>
@@ -592,6 +595,7 @@ $sqlSertifikat->execute();
         <div class="modal-footer">
           <button type="submit" name="editKeahlian" class="btn btn-primary">Save changes</button>
         </div>
+          </form>
       </div>
     </div>
   </div>
@@ -747,9 +751,9 @@ $sqlSertifikat->execute();
     for ($o = 1; $o <= $countKeahlian; $o++) {
       $keahlian = $_POST['keahlian' . $o];
       $id_keahlian = $_POST['id_keahlian' . $o];
-      if (empty($keahlian) || !isset($keahlian)) {
+      if(empty($keahlian) || !isset($keahlian) || $keahlian == "") {
         $sqlDeleteKeahlian = $koneksiPdo->prepare("DELETE FROM keahlian where id_keahlian = '$id_keahlian'");
-        $sqlDeletekeahlian->execute();
+        $sqlDeleteKeahlian -> execute();
       } else {
         $sqlEditKeahlian = $koneksiPdo->prepare("UPDATE keahlian SET nama_keahlian = '$keahlian' where id_keahlian = '$id_keahlian'");
         $sqlEditKeahlian->execute();
@@ -771,7 +775,24 @@ $sqlSertifikat->execute();
       values ('$id_pengguna', '$posisi', '$nama_perusahaan', '$tanggal_masuk', '$durasi', '$lokasi_pekerjaan', '$deskripsi')");
     $sqlTambahPengalaman->execute();
 
-    echo "<script>alert('Keahlian berhasil ditambahkan');</script>";
+    echo "<script>alert('Pengalaman berhasil ditambahkan');</script>";
+    echo "<script>location='user_profile.php';</script>";
+  }
+  
+  if(isset($_POST['ubahPengalaman'])){
+    $id_pengalaman = $_POST['id_pengalaman'];
+    $posisi = $_POST['posisi'];
+    $nama_perusahaan = $_POST['nama_perusahaan'];
+    $tanggal_masuk = $_POST['tanggal_masuk'];
+    $durasi = $_POST['durasi'];
+    $lokasi_pekerjaan = $_POST['lokasi_pekerjaan'];
+    $deskripsi = $_POST['deskripsi'];
+
+    $sqlUbahPengalaman = $koneksiPdo ->prepare("UPDATE pengalaman set posisi = '$posisi', nama_perusahaan = '$nama_perusahaan', tanggal_masuk = '$tanggal_masuk', durasi = '$durasi',
+    lokasi_pekerjaan = '$lokasi_pekerjaan', deskripsi = '$deskripsi' where id_pengalaman = '$id_pengalaman'");
+    $sqlUbahPengalaman -> execute();
+
+    echo "<script>alert('Pengalaman berhasil diubah');</script>";
     echo "<script>location='user_profile.php';</script>";
   }
 
@@ -789,8 +810,24 @@ $sqlSertifikat->execute();
     echo "<script>location='user_profile.php';</script>";
 
   }
-  ?>
 
+  
+  if(isset($_POST['ubahSertifikat'])){
+    $id_sertifikat = $_POST['id_sertifikat'];
+    $nama_sertifikat = $_POST['nama_sertifikat'];
+    $nama_penerbit = $_POST['nama_penerbit'];
+    $tanggal_terbit = $_POST['tanggal_terbit'];
+    $tanggal_kadaluarsa = $_POST['tanggal_kadaluarsa'];
+
+    $sqlUbahSertifikat = $koneksiPdo ->prepare("UPDATE sertifikat set nama_sertifikat = '$nama_sertifikat', nama_penerbit = '$nama_penerbit', 
+    tanggal_terbit = '$tanggal_terbit', tanggal_kadaluarsa = '$tanggal_kadaluarsa' where id_sertifikat = '$id_sertifikat'");
+    $sqlUbahSertifikat -> execute();
+
+    echo "<script>alert('Sertifikat berhasil diubah');</script>";
+    echo "<script>location='user_profile.php';</script>";
+  }
+
+  ?>
 </body>
 
 </html>
