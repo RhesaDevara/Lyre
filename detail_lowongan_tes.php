@@ -44,15 +44,13 @@ $count = $cekSoal->fetchColumn();
                         <?php
                         $profilePicture = isset($data['foto_perusahaan']) ? 'assets/img/' . $data['foto_perusahaan'] : 'assets/img/profile.png';
                         ?>
-                        <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php echo $profilePicture ?>"
-                            alt="Company Logo" style="width: 70px; height: 70px;">
+                        <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php echo $profilePicture ?>" alt="Company Logo" style="width: 70px; height: 70px;">
                         <div>
                             <h3 class="mb-1">
                                 <?php echo $data['posisi']; ?>
                             </h3>
                             <h5 class="text-muted mb-3">
-                                <a href="<?php echo "company_profile.php?id_perusahaan=$data[id_perusahaan]"; ?>"
-                                    style="text-decoration: none">
+                                <a href="<?php echo "company_profile.php?id_perusahaan=$data[id_perusahaan]"; ?>" style="text-decoration: none">
                                     <?php echo $data['nama_perusahaan']; ?>
                                 </a>
                             </h5>
@@ -72,31 +70,27 @@ $count = $cekSoal->fetchColumn();
                                     echo $tanggal_posting ?>
                                 </p>
                             </div>
-                            <input type="button" class="btn btn-warning" value="Ubah Lowongan" data-toggle="modal"
-                                data-target="#ubahLowongan">
+                            <input type="button" class="btn btn-warning" value="Ubah Lowongan" data-bs-toggle="modal" data-bs-target="#ubahLowongan">
                         </div>
                     </div>
                     <div style="width:100%; border: 0px solid black;" class="d-flex flex-row mb-5">
                         <a href=<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?> class="menu-detail">
                             <div>Deskripsi</div>
                         </a>
-                        <a href=<?php echo "detail_lowongan_tes.php?id_lowongan=$id_lowongan"; ?>
-                            class="menu-detail-aktif">
+                        <a href=<?php echo "detail_lowongan_tes.php?id_lowongan=$id_lowongan"; ?> class="menu-detail-aktif">
                             <div>Tes</div>
                         </a>
-                        <a href=<?php echo "detail_lowongan_pelamar.php?id_lowongan=$id_lowongan"; ?>
-                            class="menu-detail">
+                        <a href=<?php echo "detail_lowongan_pelamar.php?id_lowongan=$id_lowongan"; ?> class="menu-detail">
                             <div>Pelamar</div>
                         </a>
                     </div>
                     <div class="mb-5">
-                        <h4 class="mb-3">Soal Tes</h4> <input type="button" value="Tambah Soal" class="btn btn-primary"
-                            data-bs-toggle="modal" data-bs-target="#jumlahSoal">
+                        <h4 class="mb-3">Soal Tes</h4> <input type="button" value="Tambah Soal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jumlahSoal">
                         <?php
                         $ups = 1;
                         while ($data1 = $sql1->fetch()) {
                             $id_soal = $data1['id_soal'];
-                            ?>
+                        ?>
                             <div class="list-group mt-3 mb-4 shadow rounded">
                                 <div class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex justify-content-between">
@@ -110,8 +104,7 @@ $count = $cekSoal->fetchColumn();
                                         <?php
                                         if (isset($_SESSION['company'])) { ?>
                                             <div class="ms-auto">
-                                                <i class="fa-solid fa-pencil mt-1" role="button" data-bs-toggle="modal"
-                                                    data-bs-target='#editSoal<?php echo $ups; ?>'></i>
+                                                <i class="fa-solid fa-pencil mt-1" role="button" data-bs-toggle="modal" data-bs-target='#editSoal<?php echo $ups; ?>'></i>
                                             </div>
                                         <?php } ?>
                                     </div>
@@ -136,59 +129,46 @@ $count = $cekSoal->fetchColumn();
                             </div>
 
                             <!-- Modal Ubah Soal-->
-                            <div class="modal fade" id="editSoal<?php echo $ups; ?>" tabindex="-1"
-                                aria-labelledby="editSoalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editSoal<?php echo $ups; ?>" tabindex="-1" aria-labelledby="editSoalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="editSoalLabel">Ubah Soal</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <form method="post">
                                                 <div class="form-group mb-3">
                                                     <label for="recipient-name" class="col-form-label">Pertanyaan:</label>
-                                                    <input type="text" name="id_soal" value="<?php echo $id_soal; ?>"
-                                                        hidden>
-                                                    <input type="text" class="form-control" id="pertanyaan"
-                                                        name="pertanyaan" placeholder="Tuliskan Pertanyaan"
-                                                        value="<?php echo $data1['pertanyaan']; ?>">
+                                                    <input type="text" name="id_soal" value="<?php echo $id_soal; ?>" hidden>
+                                                    <input type="text" class="form-control" id="pertanyaan" name="pertanyaan" placeholder="Tuliskan Pertanyaan" value="<?php echo $data1['pertanyaan']; ?>">
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="pilihan_a" class="form-label">Pilihan A</label>
-                                                    <input type="text" class="form-control" name="pilihan_a"
-                                                        value="<?php echo $data1['pilihan_a']; ?>" placeholder="Pilihan A"
-                                                        required>
+                                                    <input type="text" class="form-control" name="pilihan_a" value="<?php echo $data1['pilihan_a']; ?>" placeholder="Pilihan A" required>
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="pilihan_b" class="form-label">Pilihan B</label>
-                                                    <input type="text" class="form-control" name="pilihan_b"
-                                                        value="<?php echo $data1['pilihan_b']; ?>" placeholder="Pilihan B"
-                                                        required>
+                                                    <input type="text" class="form-control" name="pilihan_b" value="<?php echo $data1['pilihan_b']; ?>" placeholder="Pilihan B" required>
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="pilihan_c" class="form-label">Pilihan C</label>
-                                                    <input type="text" class="form-control" name="pilihan_c"
-                                                        value="<?php echo $data1['pilihan_c']; ?>" placeholder="Pilihan C"
-                                                        required>
+                                                    <input type="text" class="form-control" name="pilihan_c" value="<?php echo $data1['pilihan_c']; ?>" placeholder="Pilihan C" required>
                                                 </div>
                                                 <div class="form-group mb-3">
                                                     <label for="pilihan_d" class="form-label">Pilihan D</label>
-                                                    <input type="text" class="form-control" name="pilihan_d"
-                                                        value="<?php echo $data1['pilihan_d']; ?>" placeholder="Pilihan D"
-                                                        required>
+                                                    <input type="text" class="form-control" name="pilihan_d" value="<?php echo $data1['pilihan_d']; ?>" placeholder="Pilihan D" required>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="jawaban" class="form-label">Jawaban</label> <br>
                                                     <input type="radio" name="jawaban" value="A" <?php if ($data1['jawaban'] === 'A')
-                                                        echo 'checked'; ?>> A <br>
+                                                                                                        echo 'checked'; ?>> A <br>
                                                     <input type="radio" name="jawaban" value="B" <?php if ($data1['jawaban'] === 'B')
-                                                        echo 'checked'; ?>> B <br>
+                                                                                                        echo 'checked'; ?>> B <br>
                                                     <input type="radio" name="jawaban" value="C" <?php if ($data1['jawaban'] === 'C')
-                                                        echo 'checked'; ?>> C <br>
+                                                                                                        echo 'checked'; ?>> C <br>
                                                     <input type="radio" name="jawaban" value="D" <?php if ($data1['jawaban'] === 'D')
-                                                        echo 'checked'; ?>> D
+                                                                                                        echo 'checked'; ?>> D
                                                 </div>
                                         </div>
                                         <div class="modal-footer">
@@ -219,152 +199,140 @@ $count = $cekSoal->fetchColumn();
                                             <input type="file" name="cv" class="form-control bg-white" required>
                                         </div>
                                         <div class="col-12">
-                                            <button name="apply" class="btn btn-primary w-100"
-                                                onclick='return confirm("Apakah Anda Yakin?")' type="submit">Apply Now</button>
+                                            <button name="apply" class="btn btn-primary w-100" onclick='return confirm("Apakah Anda Yakin?")' type="submit">Apply Now</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                        </div>
-                        <?php
+                </div>
+            <?php
                         } else { ?>
-                        <div>
-                            <h4 class="mb-4">Lamaran Diterima</h4>
-                            <div class="row g-3">
-                                <div class="col-12">
-                                </div>
-                                <div class="col-12">
-                                    <a href="my_application.php"><button name="apply" class="btn btn-primary w-100"
-                                            type="button">Lihat Status</button></a>
-                                </div>
-                            </div>
+                <div>
+                    <h4 class="mb-4">Lamaran Diterima</h4>
+                    <div class="row g-3">
+                        <div class="col-12">
+                        </div>
+                        <div class="col-12">
+                            <a href="my_application.php"><button name="apply" class="btn btn-primary w-100" type="button">Lihat Status</button></a>
                         </div>
                     </div>
-                <?php }
+                </div>
+            </div>
+        <?php }
                     } else if (isset($_SESSION['company'])) { ?>
 
-                    <div>
-                        <form action="soal_tambah.php" method="post">
-                            <div class="row g-3">
+        <div>
+            <form action="soal_tambah.php" method="post">
+                <div class="row g-3">
 
-                                <!-- Modal Tambah Soal-->
-                                <div class="modal fade" id="jumlahSoal" tabindex="-1" aria-labelledby="jumlahSoalLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="jumlahSoalLabel">Tambah Soal</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post" action="soal_tambah.php">
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">Jumlah Soal:</label>
-                                                        <input type="text" name="id_lowongan"
-                                                            value="<?php echo $id_lowongan; ?>" hidden>
-                                                        <input type="text" class="form-control" id="jumlah_soal"
-                                                            name="jumlah_soal" placeholder="Tuliskan jumlah soal"></textarea>
-                                                    </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Save
-                                                    changes</button>
-                                            </div>
-                        </form>
-                    </div>
-                </div>
+                    <!-- Modal Tambah Soal-->
+                    <div class="modal fade" id="jumlahSoal" tabindex="-1" aria-labelledby="jumlahSoalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="jumlahSoalLabel">Tambah Soal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="soal_tambah.php">
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Jumlah Soal:</label>
+                                            <input type="text" name="id_lowongan" value="<?php echo $id_lowongan; ?>" hidden>
+                                            <input type="number" class="form-control" id="jumlah_soal" name="jumlah_soal" placeholder="Tuliskan jumlah soal"></textarea>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Save
+                                        changes</button>
+                                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- End Modal Tambah Soal-->
+    </div>
+    </form>
+    </div>
+    </div>
+<?php } else { ?>
+    <div>
+        <form>
+            <div class="row g-3">
+
             </div>
-            <!-- End Modal Tambah Soal-->
+        </form>
+    </div>
+    </div>
+<?php } ?>
+
+<div class="col-lg-4">
+    <div class="bg-light rounded p-4 mb-4">
+        <h4 class="mb-3">Job Summary</h4>
+        <p><i class="fa fa-angle-right text-primary me-2"></i>Vacancy:
+            <?php echo $data['posisi']; ?>
+        </p>
+        <p><i class="fa fa-angle-right text-primary me-2"></i>Salary:
+            <?php
+            echo "Rp. " . $harga_format . ",-"; ?>
+        </p>
+        <p><i class="fa fa-angle-right text-primary me-2"></i>Location:
+            <?php echo $data['lokasi_pekerjaan']; ?>
+        </p>
+        <p><i class="fa fa-angle-right text-primary me-2"></i>Published On:
+            <?php echo $tanggal_posting ?>
+        </p>
+    </div>
+    <div class="bg-light rounded p-4">
+        <h4 class="mb-3">Company Detail</h4>
+        <p class="m-0">
+            <?php echo $data['deskripsi_perusahaan']; ?>
+        </p>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal ubah lowongan -->
+<div class="modal fade" id="ubahLowongan" tabindex="-1" role="dialog" aria-labelledby="ubahLowonganLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Lowongan</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span> </button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Posisi:</label>
+                        <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Masukkan Posisi" value="<?php echo $data['posisi']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Departemen:</label>
+                        <input type="text" class="form-control" id="departemen" name="departemen" placeholder="Masukkan Departemen" value="<?php echo $data['departemen']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Gaji:</label>
+                        <input type="text" class="form-control" id="gaji" name="gaji" placeholder="Masukkan Departemen" value="<?php echo $data['gaji']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Lokasi Pekerjaan:</label>
+                        <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan" placeholder="Masukkan Departemen" value="<?php echo $data['lokasi_pekerjaan']; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Deskripsi Pekerjaan:</label>
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan Departemen"><?php echo $data['deskripsi_pekerjaan']; ?>
+                         </textarea>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <input type="submit" name="ubahLowongan" class="btn btn-primary" value="Konfirmasi">
             </div>
             </form>
-            </div>
-            </div>
-    <?php } else { ?>
-            <div>
-                <form>
-                    <div class="row g-3">
-
-                    </div>
-                </form>
-            </div>
-            </div>
-    <?php } ?>
-
-    <div class="col-lg-4">
-        <div class="bg-light rounded p-4 mb-4">
-            <h4 class="mb-3">Job Summary</h4>
-            <p><i class="fa fa-angle-right text-primary me-2"></i>Vacancy:
-                <?php echo $data['posisi']; ?>
-            </p>
-            <p><i class="fa fa-angle-right text-primary me-2"></i>Salary:
-                <?php
-                echo "Rp. " . $harga_format . ",-"; ?>
-            </p>
-            <p><i class="fa fa-angle-right text-primary me-2"></i>Location:
-                <?php echo $data['lokasi_pekerjaan']; ?>
-            </p>
-            <p><i class="fa fa-angle-right text-primary me-2"></i>Published On:
-                <?php echo $tanggal_posting ?>
-            </p>
-        </div>
-        <div class="bg-light rounded p-4">
-            <h4 class="mb-3">Company Detail</h4>
-            <p class="m-0">
-                <?php echo $data['deskripsi_perusahaan']; ?>
-            </p>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    <!-- Modal tambah soal -->
-    <div class="modal fade" id="ubahLowongan" tabindex="-1" role="dialog" aria-labelledby="ubahLowonganLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Lowongan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span> </button>
-                </div>
-
-                <div class="modal-body">
-                    <form method="post">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Posisi:</label>
-                            <input type="text" class="form-control" id="posisi" name="posisi"
-                                placeholder="Masukkan Posisi" value="<?php echo $data['posisi']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Departemen:</label>
-                            <input type="text" class="form-control" id="departemen" name="departemen"
-                                placeholder="Masukkan Departemen" value="<?php echo $data['departemen']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Gaji:</label>
-                            <input type="text" class="form-control" id="gaji" name="gaji"
-                                placeholder="Masukkan Departemen" value="<?php echo $data['gaji']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Lokasi Pekerjaan:</label>
-                            <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan"
-                                placeholder="Masukkan Departemen" value="<?php echo $data['lokasi_pekerjaan']; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Deskripsi Pekerjaan:</label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi"
-                                placeholder="Masukkan Departemen"><?php echo $data['deskripsi_pekerjaan']; ?>
-                         </textarea>
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <input type="submit" name="ubahLowongan" class="btn btn-primary" value="Konfirmasi">
-                </div>
-                </form>
-            </div>
-        </div>
 </body>
 
 <?php

@@ -22,6 +22,7 @@ $sqlLamaran->execute();
         <?php
         while ($dataLamaran = $sqlLamaran->fetch()) {
             $id_lowongan = $dataLamaran['id_lowongan'];
+            $id_lamaran = $dataLamaran['id_lamaran'];
             $status_lamaran = $dataLamaran['status_lamaran'];
 
             $sqlLowongan = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_lowongan = '$id_lowongan'");
@@ -83,8 +84,10 @@ $sqlLamaran->execute();
                                         <button class="btn btn-warning form-control" disabled>Kerjakan Tes</button>
                                     <?php } else if ($status_lamaran == "Ditolak") { ?>
                                         <button class="btn btn-danger form-control" disabled>Telah Ditolak</button>
+                                    <?php } else if ($status_lamaran == "Tahap Tes") { ?>
+                                        <a href=<?php echo "tes.php?id_lamaran=$id_lamaran&id_lowongan=$id_lowongan"; ?>><button class="btn btn-primary form-control">Kerjakan Tes</button></a>
                                     <?php } else { ?>
-                                        <button class="btn btn-primary form-control">Kerjakan Tes</button>
+                                        <button class="btn btn-info form-control" disabled>Sedang Diproses</button>
                                     <?php } ?>
                                     <?php echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?>
                                     <button class="btn btn-secondary form-control mt-2">Lihat Detail</button></a>
