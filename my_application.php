@@ -27,6 +27,11 @@ $sqlLamaran->execute();
 
             $sqlLowongan = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_lowongan = '$id_lowongan'");
             $sqlLowongan->execute();
+
+            $sqlCountHasilTes = $koneksiPdo->prepare("SELECT * FROM hasil_tes where id_lamaran = '$id_lamaran'");
+            $sqlCountHasilTes->execute();
+
+            $countHasilTes = $sqlCountHasilTes->rowCount();
             while ($dataLowongan = $sqlLowongan->fetch()) {
                 $tanggal_posting = date("j F Y", strtotime($dataLowongan['tanggal_posting']));
         ?>
@@ -84,8 +89,18 @@ $sqlLamaran->execute();
                                         <button class="btn btn-warning form-control" disabled>Kerjakan Tes</button>
                                     <?php } else if ($status_lamaran == "Ditolak") { ?>
                                         <button class="btn btn-danger form-control" disabled>Telah Ditolak</button>
-                                    <?php } else if ($status_lamaran == "Tahap Tes") { ?>
-                                        <a href=<?php echo "tes.php?id_lamaran=$id_lamaran&id_lowongan=$id_lowongan"; ?>><button class="btn btn-primary form-control">Kerjakan Tes</button></a>
+                                        <?php } else if ($status_lamaran == "Tahap Tes") {
+                                        if ($countHasilTes == 0) {
+                                        ?>
+                                            <a href=<?php echo "tes.php?id_lamaran=$id_lamaran&id_lowongan=$id_lowongan"; ?>><button class="btn btn-primary form-control">Kerjakan Tes</button></a>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <a href=#><button class="btn btn-info form-control" disabled>Sedang Diproses</button></a>
+                                        <?php
+                                        }
+                                    } else if ($status_lamaran == "Lolos") { ?>
+                                        <a href="<?php echo "keterangan_hasil.php?id_lamaran=$id_lamaran"; ?>"><button class="btn btn-success form-control">Lolos</button></a>
                                     <?php } else { ?>
                                         <button class="btn btn-info form-control" disabled>Sedang Diproses</button>
                                     <?php } ?>

@@ -39,7 +39,7 @@ $sqlSoal->execute();
                                         <h5 class="mb-1">
                                             <?php echo $i . ". " . $dataSoal['pertanyaan']; ?>
                                             <input type="text" name="id_soal" value="<?php echo $dataSoal['id_soal']; ?>" hidden>
-                                            <input type="text" name="jawaban<?php echo $i; ?>" value="<?php echo $dataSoal['jawaban']; ?>" hidden>
+                                            <input type="text" name="kunciJawaban<?php echo $i; ?>" value="<?php echo $dataSoal['jawaban']; ?>" hidden>
                                         </h5>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@ $benar = 0;
 if (isset($_POST['submit'])) {
     for ($j = 1; $j <= $countSoal; $j++) {
         $id_soal = $_POST['id_soal'];
-        $kunciJawaban = $_POST['jawaban' . $j];
+        $kunciJawaban = $_POST['kunciJawaban' . $j];
         $jawaban = $_POST['jawaban' . $j];
         if ($jawaban == $kunciJawaban) {
             $benar++;
@@ -86,14 +86,6 @@ if (isset($_POST['submit'])) {
 
     $sqlHasil = $koneksiPdo->prepare("INSERT INTO hasil_tes(id_lamaran, id_lowongan, nilai) values ('$id_lamaran','$id_lowongan', '$nilai')");
     $sqlHasil->execute();
-
-    if ($nilai > 80) {
-        $sqlUpdate = $koneksiPdo->prepare("UPDATE lamaran set status_lamaran = 'Diterima' where id_lamaran = '$id_lamaran'");
-        $sqlUpdate->execute();
-    } else {
-        $sqlUpdate = $koneksiPdo->prepare("UPDATE lamaran set status_lamaran = 'Nilai Kurang' where id_lamaran = '$id_lamaran'");
-        $sqlUpdate->execute();
-    }
 
     echo "<script>alert('Tes Selesai');</script>";
     echo "<script>location='my_application.php';</script>";

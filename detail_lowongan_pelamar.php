@@ -25,6 +25,12 @@ $cekSoal = $koneksiPdo->prepare("SELECT count(*) from soal where id_lowongan = '
 $cekSoal->execute();
 $count = $cekSoal->fetchColumn();
 
+if (isset($_GET['status_lamaran'])) {
+    $status_lamaran = $_GET['status_lamaran'];
+} else {
+    $status_lamaran = "";
+}
+
 // $sqlAmbilDiperiksa = $koneksiPdo->prepare("SELECT * from lamaran where id_lowongan = '$id_lowongan' and status_lamaran = 'Diperiksa'");
 // $sqlAmbilDiperiksa->execute();
 
@@ -38,6 +44,11 @@ $count = $cekSoal->fetchColumn();
 // $sqlAmbilDiterima->execute();
 
 ?>
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -127,11 +138,10 @@ $count = $cekSoal->fetchColumn();
                                 } else if (isset($_POST['tahap_tes'])) {
                                     $status_lamaran = "Tahap Tes";
                                 } else if (isset($_POST['diterima'])) {
-                                    $status_lamaran = "Diterima";
+                                    $status_lamaran = "Lolos";
                                 } else if (isset($_POST['ditolak'])) {
                                     $status_lamaran = "Ditolak";
                                 } else {
-                                    $status_lamaran = "Diperiksa";
                                 }
 
                                 $sqlSearch = $koneksiPdo->prepare("SELECT * FROM lamaran where status_lamaran = '$status_lamaran' and id_lowongan ='$id_lowongan'");
@@ -145,10 +155,15 @@ $count = $cekSoal->fetchColumn();
 
                                     while ($dataPelamar = $sqlDataPelamar->fetch()) {
 
-                                        $sqlHasilTes = $koneksiPdo->prepare("SELECT count(*) FROM hasil_tes where id_lamaran = '$id_lamaran'");
+                                        $sqlCountHasilTes = $koneksiPdo->prepare("SELECT count(*) FROM hasil_tes where id_lamaran = '$id_lamaran'");
+                                        $sqlCountHasilTes->execute();
+
+                                        $countHasilTes = $sqlCountHasilTes->fetchColumn();
+
+                                        $sqlHasilTes = $koneksiPdo->prepare("SELECT * FROM hasil_tes where id_lamaran = '$id_lamaran'");
                                         $sqlHasilTes->execute();
 
-                                        $countHasilTes = $sqlHasilTes->fetchColumn();
+                                        $dataHasilTes = $sqlHasilTes->fetch();
                                 ?>
                                         <div class="vacancy-container mt-4" style="text-decoration: none; color:black;">
                                             <a href=<?php echo "user_profile.php?id_pengguna=$id_pelamar"; ?>><img src="assets\img\new_logo.png" class="img-vacancy"></a>
@@ -172,11 +187,24 @@ $count = $cekSoal->fetchColumn();
                                                             <?php } else if ($status_lamaran == "Diterima") { ?>
 
                                                                 <!-- <input type="button" class="btn btn-success" value="Telah Diterima"> -->
-                                                                <font color="green"> <b> Telah Diterima </b></font>
+
                                                                 <?php } else {
                                                                 if ($countHasilTes == 0) { ?>
-
                                                                     <font color="orange"> <b> Belum Mengerjakan </b></font>
+                                                                    <?php } else {
+                                                                    if ($dataHasilTes['nilai'] < 80) { ?>
+                                                                        <font color="red"> Nilai: <b> <?php echo $dataHasilTes['nilai']; ?> (Gagal) </b></font>
+                                                                    <?php
+                                                                    } else { ?>
+                                                                        <font color="green"> Nilai: <b> <?php echo $dataHasilTes['nilai']; ?> (Berhasil) </b></font>
+                                                                <?php }
+                                                                } ?>
+                                                                <br>
+                                                                <?php
+                                                                if ($status_lamaran == "Lolos") {
+                                                                } else { ?>
+                                                                    <input type="submit" name="reject" class="btn btn-danger me-2" value="Tolak">
+                                                                    <input type="button" name="lolos" class="btn btn-success" value="Terima" data-toggle="modal" data-target="#keteranganLanjut">
                                                             <?php }
                                                             } ?>
                                                         </form>
@@ -184,46 +212,73 @@ $count = $cekSoal->fetchColumn();
                                                 </div>
                                             </div>
                                         </div>
-                                <?php }
-                                }
-                                ?>
-                            </div>
-                    </div> <?php
-                            if (isset($_SESSION['user'])) {
-                                if ($countLamaran == 0) { ?>
 
-                            <div>
-                                <h4 class="mb-4">Quick Apply</h4>
-                                <form method="post">
-                                    <div class="row g-3">
-                                        <div class="col-12">
-                                            <p>
-                                                <font color="grey"> Unggah CV Anda </font>
-                                            </p>
-                                            <input type="file" name="cv" class="form-control bg-white" required>
-                                        </div>
-                                        <div class="col-12">
-                                            <button name="apply" class="btn btn-primary w-100" onclick='return confirm("Apakah Anda Yakin?")' type="submit">Apply Now</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                </div>
-            <?php
-                                } else { ?>
-                <div>
-                    <h4 class="mb-4">Lamaran Diterima</h4>
-                    <div class="row g-3">
-                        <div class="col-12">
-                        </div>
-                        <div class="col-12">
-                            <a href="my_application.php"><button name="apply" class="btn btn-primary w-100" type="button">Lihat Status</button></a>
-                        </div>
+                                        <!-- Modal keterangan lanjut -->
+                                        <div class="modal fade" id="keteranganLanjut" tabindex="-1" role="dialog" aria-labelledby="keteranganLanjutLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Undangan Lanjut</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span> </button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <form method="post">
+                                                            <div class="form-group">
+                                                                <label for="recipient-name" class="col-form-label">Keterangan:</label>
+                                                                <input type="text" name="id_lamaran" value="<?php echo $id_lamaran; ?>" hidden>
+                                                                <input type="text" class="form-control" id="keterangan" name="keterangan" placeholder="Masukkan keterangan">
+                                                            </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                        <input type="submit" name="keteranganLanjut" class="btn btn-primary" value="Konfirmasi">
+                                                    </div>
+                        </form>
                     </div>
                 </div>
             </div>
+    <?php }
+                                }
+    ?>
+        </div>
+    </div> <?php
+            if (isset($_SESSION['user'])) {
+                if ($countLamaran == 0) { ?>
+
+            <div>
+                <h4 class="mb-4">Quick Apply</h4>
+                <form method="post">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <p>
+                                <font color="grey"> Unggah CV Anda </font>
+                            </p>
+                            <input type="file" name="cv" class="form-control bg-white" required>
+                        </div>
+                        <div class="col-12">
+                            <button name="apply" class="btn btn-primary w-100" onclick='return confirm("Apakah Anda Yakin?")' type="submit">Apply Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        <?php
+                } else { ?>
+            <div>
+                <h4 class="mb-4">Lamaran Diterima</h4>
+                <div class="row g-3">
+                    <div class="col-12">
+                    </div>
+                    <div class="col-12">
+                        <a href="my_application.php"><button name="apply" class="btn btn-primary w-100" type="button">Lihat Status</button></a>
+                    </div>
+                </div>
+            </div>
+            </div>
         <?php }
-                            } else if (isset($_SESSION['company'])) { ?>
+            } else if (isset($_SESSION['company'])) { ?>
 
         <div>
             <form action="soal_tambah.php" method="post">
@@ -252,93 +307,93 @@ $count = $cekSoal->fetchColumn();
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                     <input type="submit" name="tambahKeahlian" class="btn btn-primary" value="Konfirmasi">
                                 </div>
-
             </form>
         </div>
         </div>
-    </div>
-    </div>
-    </form>
-    </div>
-    </div>
-<?php } else { ?>
-    <div>
-        <form>
-            <div class="row g-3">
-
-            </div>
+        </div>
+        </div>
         </form>
-    </div>
-    </div>
-<?php } ?>
+        </div>
+        </div>
+    <?php } else { ?>
+        <div>
+            <form>
+                <div class="row g-3">
 
-<div class="col-lg-4">
-    <div class="bg-light rounded p-4 mb-4">
-        <h4 class="mb-3">Job Summary</h4>
-        <p><i class="fa fa-angle-right text-primary me-2"></i>Vacancy:
-            <?php echo $data['posisi']; ?>
-        </p>
-        <p><i class="fa fa-angle-right text-primary me-2"></i>Salary:
-            <?php
-            echo "Rp. " . $harga_format . ",-"; ?>
-        </p>
-        <p><i class="fa fa-angle-right text-primary me-2"></i>Location:
-            <?php echo $data['lokasi_pekerjaan']; ?>
-        </p>
-        <p><i class="fa fa-angle-right text-primary me-2"></i>Published On:
-            <?php echo $tanggal_posting ?>
-        </p>
-    </div>
-    <div class="bg-light rounded p-4">
-        <h4 class="mb-3">Company Detail</h4>
-        <p class="m-0">
-            <?php echo $data['deskripsi_perusahaan']; ?>
-        </p>
-    </div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Modal tambah soal -->
-<div class="modal fade" id="ubahLowongan" tabindex="-1" role="dialog" aria-labelledby="ubahLowonganLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Lowongan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span> </button>
-            </div>
-
-            <div class="modal-body">
-                <form method="post">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Posisi:</label>
-                        <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Masukkan Posisi" value="<?php echo $data['posisi']; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Departemen:</label>
-                        <input type="text" class="form-control" id="departemen" name="departemen" placeholder="Masukkan Departemen" value="<?php echo $data['departemen']; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Gaji:</label>
-                        <input type="text" class="form-control" id="gaji" name="gaji" placeholder="Masukkan Departemen" value="<?php echo $data['gaji']; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Lokasi Pekerjaan:</label>
-                        <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan" placeholder="Masukkan Departemen" value="<?php echo $data['lokasi_pekerjaan']; ?>">
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Deskripsi Pekerjaan:</label>
-                        <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan Departemen"><?php echo $data['deskripsi_pekerjaan']; ?>
-                         </textarea>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <input type="submit" name="ubahLowongan" class="btn btn-primary" value="Konfirmasi">
-            </div>
+                </div>
             </form>
+        </div>
+        </div>
+    <?php } ?>
+
+    <div class="col-lg-4">
+        <div class="bg-light rounded p-4 mb-4">
+            <h4 class="mb-3">Job Summary</h4>
+            <p><i class="fa fa-angle-right text-primary me-2"></i>Vacancy:
+                <?php echo $data['posisi']; ?>
+            </p>
+            <p><i class="fa fa-angle-right text-primary me-2"></i>Salary:
+                <?php
+                echo "Rp. " . $harga_format . ",-"; ?>
+            </p>
+            <p><i class="fa fa-angle-right text-primary me-2"></i>Location:
+                <?php echo $data['lokasi_pekerjaan']; ?>
+            </p>
+            <p><i class="fa fa-angle-right text-primary me-2"></i>Published On:
+                <?php echo $tanggal_posting ?>
+            </p>
+        </div>
+        <div class="bg-light rounded p-4">
+            <h4 class="mb-3">Company Detail</h4>
+            <p class="m-0">
+                <?php echo $data['deskripsi_perusahaan']; ?>
+            </p>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Modal tambah soal -->
+    <div class="modal fade" id="ubahLowongan" tabindex="-1" role="dialog" aria-labelledby="ubahLowonganLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lowongan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span> </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Posisi:</label>
+                            <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Masukkan Posisi" value="<?php echo $data['posisi']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Departemen:</label>
+                            <input type="text" class="form-control" id="departemen" name="departemen" placeholder="Masukkan Departemen" value="<?php echo $data['departemen']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Gaji:</label>
+                            <input type="text" class="form-control" id="gaji" name="gaji" placeholder="Masukkan Departemen" value="<?php echo $data['gaji']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Lokasi Pekerjaan:</label>
+                            <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan" placeholder="Masukkan Departemen" value="<?php echo $data['lokasi_pekerjaan']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Deskripsi Pekerjaan:</label>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan Departemen"><?php echo $data['deskripsi_pekerjaan']; ?>
+                         </textarea>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <input type="submit" name="ubahLowongan" class="btn btn-primary" value="Konfirmasi">
+                </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>
@@ -375,7 +430,7 @@ if (isset($_POST['reject'])) {
     $sqlReject->execute();
 
     echo "<script>alert('Telah ditolak');</script>";
-    echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan';</script>";
+    echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan&status_lamaran=Ditolak';</script>";
 }
 
 if (isset($_POST['accept'])) {
@@ -384,9 +439,27 @@ if (isset($_POST['accept'])) {
     $sqlReject->execute();
 
     echo "<script>alert('Telah diterima');</script>";
-    echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan';</script>";
+    echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan&status_lamaran=TahapTes';</script>";
 }
 
+if (isset($_POST['keteranganLanjut'])) {
+    $id_lamaran = $_POST['id_lamaran'];
+    $informasi_hasil = $_POST['keterangan'];
+    $sqlKeterangan = $koneksiPdo->prepare("UPDATE lamaran set status_lamaran = 'Lolos', informasi_hasil = '$informasi_hasil' where id_lamaran = '$id_lamaran'");
+    $sqlKeterangan->execute();
+
+    echo "<script>alert('Telah diterima');</script>";
+    echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan&status_lamaran=Diterima';</script>";
+}
+
+if (isset($_POST['lolos'])) {
+    $id_lamaran = $_POST['id_lamaran'];
+    $sqlReject = $koneksiPdo->prepare("UPDATE lamaran set status_lamaran = 'Lolos' where id_lamaran = '$id_lamaran'");
+    $sqlReject->execute();
+
+    echo "<script>alert('Telah diterima');</script>";
+    echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan&status_lamaran=Lolos';</script>";
+}
 ?>
 
 </html>
