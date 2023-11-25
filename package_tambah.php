@@ -45,19 +45,12 @@ include 'navbar.php';
                             placeholder="Enter Harga" required>
                     </div>
                     <div class="text-left">
-                        <button type="submit" name="tambah" class="btn btn-success form-control">Add Package</button>
+                        <button type="submit" name="tambah" class="btn btn-success w-100">Add Package</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
 </body>
 
 </html>

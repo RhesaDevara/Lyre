@@ -68,7 +68,7 @@ $sqlSertifikat->execute();
                 </p>
               </div>
               <?php
-              if (isset($data['id_pengguna'])) { ?><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+              if (isset($_SESSION['user'])) { ?><button type="button" class="btn btn-primary" data-bs-toggle="modal"
                   data-bs-target="#editProfile">Edit
                   Profile</button>
               <?php } ?>
@@ -86,9 +86,12 @@ $sqlSertifikat->execute();
             <div class="d-flex flex-column">
               <div class="text-center d-flex align-items-center justify-content-between">
                 <h4>Pengalaman</h4>
-                <span role="button" data-bs-toggle="modal" data-bs-target="#tambahPengalaman">
-                  <i class="fa-solid fa-plus fs-5"></i>
-                </span>
+                <?php
+                if (isset($_SESSION['user'])) { ?>
+                  <span role="button" data-bs-toggle="modal" data-bs-target="#tambahPengalaman">
+                    <i class="fa-solid fa-plus fs-5"></i>
+                  </span>
+                <?php } ?>
               </div>
               <hr>
               <?php
@@ -114,7 +117,7 @@ $sqlSertifikat->execute();
                           <?php echo $dataPengalaman['lokasi_pekerjaan']; ?>
                         </small>
                         <?php
-                        if (isset($id_pengalaman)) { ?>
+                        if (isset($_SESSION['user'])) { ?>
                           <i class="fa-solid fa-pencil me-2 mt-1" role="button" data-bs-toggle="modal"
                             data-bs-target='#editPengalaman<?php echo $pl; ?>'></i>
                         <?php } ?>
@@ -140,7 +143,7 @@ $sqlSertifikat->execute();
                       <div class="modal-body">
                         <form method="post">
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Posisi:</label> 
+                            <label for="recipient-name" class="col-form-label">Posisi:</label>
                             <input type="text" name="id_pengalaman" hidden value="<?php echo $id_pengalaman; ?>">
                             <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Web Developer"
                               value="<?php echo $dataPengalaman['posisi']; ?>">
@@ -174,7 +177,7 @@ $sqlSertifikat->execute();
                       <div class="modal-footer">
                         <button type="submit" name="ubahPengalaman" class="btn btn-primary">Save changes</button>
                       </div>
-                        </form>
+                      </form>
                     </div>
                   </div>
                 </div>
@@ -190,9 +193,12 @@ $sqlSertifikat->execute();
             <div class="d-flex flex-column">
               <div class="text-center d-flex align-items-center justify-content-between">
                 <h4>Sertifikat</h4>
-                <span role="button" data-bs-toggle="modal" data-bs-target="#tambahSertifikat">
-                  <i class="fa-solid fa-plus fs-5"></i>
-                </span>
+                <?php
+                if (isset($_SESSION['user'])) { ?>
+                  <span role="button" data-bs-toggle="modal" data-bs-target="#tambahSertifikat">
+                    <i class="fa-solid fa-plus fs-5"></i>
+                  </span>
+                <?php } ?>
               </div>
               <hr>
               <?php
@@ -211,7 +217,7 @@ $sqlSertifikat->execute();
                         </div>
                       </div>
                       <?php
-                      if (isset($id_sertifikat)) { ?>
+                      if (isset($_SESSION['user'])) { ?>
                         <div class="ms-auto">
                           <i class="fa-solid fa-pencil mt-1" role="button" data-bs-toggle="modal"
                             data-bs-target='#editSertifikat<?php echo $st; ?>'></i>
@@ -273,41 +279,18 @@ $sqlSertifikat->execute();
               ?>
             </div>
           </div>
-
-          <div>
-            <h4 class="mb-4">Apply For The Job</h4>
-            <form>
-              <div class="row g-3">
-                <div class="col-12 col-sm-6">
-                  <input type="text" class="form-control" placeholder="Your Name">
-                </div>
-                <div class="col-12 col-sm-6">
-                  <input type="email" class="form-control" placeholder="Your Email">
-                </div>
-                <div class="col-12 col-sm-6">
-                  <input type="text" class="form-control" placeholder="Portfolio Website">
-                </div>
-                <div class="col-12 col-sm-6">
-                  <input type="file" class="form-control bg-white">
-                </div>
-                <div class="col-12">
-                  <textarea class="form-control" rows="5" placeholder="Coverletter"></textarea>
-                </div>
-                <div class="col-12">
-                  <button class="btn btn-primary w-100" type="submit">Apply Now</button>
-                </div>
-              </div>
-            </form>
-          </div>
         </div>
 
         <div class="col-lg-4">
           <div class="bg-light rounded p-4 mb-4 position-relative">
             <div class="text-center d-flex align-items-center justify-content-between">
               <h4>Pendidikan</h4>
-              <span role="button" data-bs-toggle="modal" data-bs-target="#tambahPendidikan">
-                <i class="fa-solid fa-plus fs-5"></i>
-              </span>
+              <?php
+              if (isset($_SESSION['user'])) { ?>
+                <span role="button" data-bs-toggle="modal" data-bs-target="#tambahPendidikan">
+                  <i class="fa-solid fa-plus fs-5"></i>
+                </span>
+              <?php } ?>
             </div>
             <hr class="mb-4">
             <?php
@@ -324,7 +307,7 @@ $sqlSertifikat->execute();
                   </div>
                   <div class="pt-1">
                     <?php
-                    if (isset($dataPendidikan['id_pendidikan'])) { ?><span role="button">
+                    if (isset($_SESSION['user'])) { ?><span role="button">
                         <i class="fa-solid fa-pencil" data-bs-toggle="modal"
                           data-bs-target="#editPendidikan<?php echo $pk; ?>"></i>
                       </span>
@@ -419,13 +402,13 @@ $sqlSertifikat->execute();
                     <span role="button" data-bs-toggle="modal" data-bs-target="#tambahKeahlian" class="me-2">
                       <i class="fa-solid fa-plus fs-5 me-3"></i>
                     </span>
+                    <span role="button" data-bs-toggle="modal" data-bs-target="#editKeahlian">
+                      <i class="fa-solid fa-pencil fs-5"></i>
+                    </span>
                     <?php
                   }
                 }
                 ?>
-                <span role="button" data-bs-toggle="modal" data-bs-target="#editKeahlian">
-                  <i class="fa-solid fa-pencil fs-5"></i>
-                </span>
               </div>
             </div>
             <hr class="mb-4">
@@ -585,7 +568,7 @@ $sqlSertifikat->execute();
                   <?php echo $upk; ?>:
                 </label> <input type="text" hidden name="id_keahlian<?php echo $upk; ?>"
                   value="<?php echo $dataEditKeahlian['id_keahlian']; ?>">
-                  
+
                 <input type="text" class="form-control" id="keahlian" name="keahlian<?php echo $upk; ?>"
                   placeholder="Cohtoh: Kotlin" value="<?php echo $dataEditKeahlian['nama_keahlian']; ?>">
               </div>
@@ -595,7 +578,7 @@ $sqlSertifikat->execute();
         <div class="modal-footer">
           <button type="submit" name="editKeahlian" class="btn btn-primary">Save changes</button>
         </div>
-          </form>
+        </form>
       </div>
     </div>
   </div>
@@ -751,9 +734,9 @@ $sqlSertifikat->execute();
     for ($o = 1; $o <= $countKeahlian; $o++) {
       $keahlian = $_POST['keahlian' . $o];
       $id_keahlian = $_POST['id_keahlian' . $o];
-      if(empty($keahlian) || !isset($keahlian) || $keahlian == "") {
+      if (empty($keahlian) || !isset($keahlian) || $keahlian == "") {
         $sqlDeleteKeahlian = $koneksiPdo->prepare("DELETE FROM keahlian where id_keahlian = '$id_keahlian'");
-        $sqlDeleteKeahlian -> execute();
+        $sqlDeleteKeahlian->execute();
       } else {
         $sqlEditKeahlian = $koneksiPdo->prepare("UPDATE keahlian SET nama_keahlian = '$keahlian' where id_keahlian = '$id_keahlian'");
         $sqlEditKeahlian->execute();
@@ -778,8 +761,8 @@ $sqlSertifikat->execute();
     echo "<script>alert('Pengalaman berhasil ditambahkan');</script>";
     echo "<script>location='user_profile.php';</script>";
   }
-  
-  if(isset($_POST['ubahPengalaman'])){
+
+  if (isset($_POST['ubahPengalaman'])) {
     $id_pengalaman = $_POST['id_pengalaman'];
     $posisi = $_POST['posisi'];
     $nama_perusahaan = $_POST['nama_perusahaan'];
@@ -788,9 +771,9 @@ $sqlSertifikat->execute();
     $lokasi_pekerjaan = $_POST['lokasi_pekerjaan'];
     $deskripsi = $_POST['deskripsi'];
 
-    $sqlUbahPengalaman = $koneksiPdo ->prepare("UPDATE pengalaman set posisi = '$posisi', nama_perusahaan = '$nama_perusahaan', tanggal_masuk = '$tanggal_masuk', durasi = '$durasi',
+    $sqlUbahPengalaman = $koneksiPdo->prepare("UPDATE pengalaman set posisi = '$posisi', nama_perusahaan = '$nama_perusahaan', tanggal_masuk = '$tanggal_masuk', durasi = '$durasi',
     lokasi_pekerjaan = '$lokasi_pekerjaan', deskripsi = '$deskripsi' where id_pengalaman = '$id_pengalaman'");
-    $sqlUbahPengalaman -> execute();
+    $sqlUbahPengalaman->execute();
 
     echo "<script>alert('Pengalaman berhasil diubah');</script>";
     echo "<script>location='user_profile.php';</script>";
@@ -811,17 +794,17 @@ $sqlSertifikat->execute();
 
   }
 
-  
-  if(isset($_POST['ubahSertifikat'])){
+
+  if (isset($_POST['ubahSertifikat'])) {
     $id_sertifikat = $_POST['id_sertifikat'];
     $nama_sertifikat = $_POST['nama_sertifikat'];
     $nama_penerbit = $_POST['nama_penerbit'];
     $tanggal_terbit = $_POST['tanggal_terbit'];
     $tanggal_kadaluarsa = $_POST['tanggal_kadaluarsa'];
 
-    $sqlUbahSertifikat = $koneksiPdo ->prepare("UPDATE sertifikat set nama_sertifikat = '$nama_sertifikat', nama_penerbit = '$nama_penerbit', 
+    $sqlUbahSertifikat = $koneksiPdo->prepare("UPDATE sertifikat set nama_sertifikat = '$nama_sertifikat', nama_penerbit = '$nama_penerbit', 
     tanggal_terbit = '$tanggal_terbit', tanggal_kadaluarsa = '$tanggal_kadaluarsa' where id_sertifikat = '$id_sertifikat'");
-    $sqlUbahSertifikat -> execute();
+    $sqlUbahSertifikat->execute();
 
     echo "<script>alert('Sertifikat berhasil diubah');</script>";
     echo "<script>location='user_profile.php';</script>";

@@ -1,13 +1,13 @@
 <?php
 include 'navbar.php';
 
-    $id_perusahaan = $_SESSION['company']['id_perusahaan'];
-    $sqlSession = $koneksiPdo -> prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
-    $sqlSession -> execute();
-    $_SESSION['company'] = $sqlSession -> fetch();
+$id_perusahaan = $_SESSION['company']['id_perusahaan'];
+$sqlSession = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+$sqlSession->execute();
+$_SESSION['company'] = $sqlSession->fetch();
 
-    $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_perusahaan = '$id_perusahaan'");
-    $sql->execute();
+$sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_perusahaan = '$id_perusahaan'");
+$sql->execute();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,12 +31,14 @@ include 'navbar.php';
         <div class="row mt-5">
             <div class="col-lg-8 mx-auto">
                 <div class="mb-5">
-                    <?php 
-                        if($_SESSION['company']['status_akun'] == "Aktif"){?>
-                            <center> <a href="new_vacancy.php" class="btn btn-primary mb-3">Buat Lowongan</a> </center>
-                        <?php } else{ ?>
-                            <div class="alert alert-warning"> <center> Akun anda sedang dalam proses verifikasi, anda belum dapat membuat lowongan </center> </div>
-                        <?php }
+                    <?php
+                    if ($_SESSION['company']['status_akun'] == "Aktif") { ?>
+                        <center> <a href="new_vacancy.php" class="btn btn-primary mb-3">Buat Lowongan</a> </center>
+                    <?php } else { ?>
+                        <div class="alert alert-warning">
+                            <center> Akun anda sedang dalam proses verifikasi, anda belum dapat membuat lowongan </center>
+                        </div>
+                    <?php }
                     ?>
                     <?php while ($data = $sql->fetch()) {
                         $id_lowongan = $data['id_lowongan'];
