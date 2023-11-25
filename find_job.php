@@ -1,10 +1,10 @@
 <?php
-    include 'navbar.php';
-    $sql = $koneksiPdo -> prepare("SELECT * FROM lowongan_pekerjaan");
-    $sql -> execute();
+include 'navbar.php';
+$sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan");
+$sql->execute();
 
-    $sqlCount = $koneksiPdo -> prepare("SELECT COUNT(*) FROM lowongan_pekerjaan");
-    $sqlCount -> execute();
+$sqlCount = $koneksiPdo->prepare("SELECT COUNT(*) FROM lowongan_pekerjaan");
+$sqlCount->execute();
 ?>
 
 <!DOCTYPE html>
@@ -26,74 +26,71 @@
         }
     </style>
     <div class="container mt-5">
-        <div class="row">
-            <div>
-                <div>
-                    <?php
-                    $i = 1;
-                    while ($data = $sql->fetch()) {
-                        $id_lowongan = $data['id_lowongan'];
-                        $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
-                        ?>
-                        <?php
-                            if($i == 1){?>
-                                <div class="d-flex flex-row">
-                            <?php }
-                        ?>
-                        <div class="card mb-3 mx-2">
-                            <div class="row g-0 align-items-center">
-                                <div class="col-md-2 text-center p-lg-4 p-2 mt-4 mt-lg-0">
-                                    <?php
-                                    $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
-                                    ?>
-                                    <div class="d-flex align-items-center justify-content-center text-center mx-auto">
-                                        <img src="<?php echo $profilePicture ?>" alt="FD Image"
-                                            style="width: 70px; height: 70px;">
-                                    </div>
-                                </div>
-                                <div class="col-md-10">
-                                    <div
-                                        class="card-body d-md-flex flex-md-row flex-column align-items-start justify-content-between text-center text-md-start">
-                                        <div>
-                                            <h5 class="card-title">
-                                                <?php echo $data['posisi']; ?>
-                                            </h5>
-                                            <ul class="list-inline text-secondary">
-                                                <li class="list-inline-item me-3">
-                                                    <i class="fa-solid fa-location-dot"></i>
-                                                    <?php echo $data['lokasi_pekerjaan']; ?>
-                                                </li>
-                                                <li class="list-inline-item me-3">
-                                                    <i class="far fa-money-bill-alt"></i>
-                                                    <?php
-                                                    $harga = $data['gaji'];
-                                                    $harga_format = number_format($harga, 0, ",", ".");
-                                                    echo "Rp. " . $harga_format . ",-"; ?>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <i class="fa-solid fa-calendar-days"></i>
-                                                    <?php echo $tanggal_posting ?>
-                                                </li>
-                                            </ul>
+        <div class="row mt-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="mb-5">
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <?php while ($data = $sql->fetch()) {
+                            $id_lowongan = $data['id_lowongan'];
+                            $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
+                            ?>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="row g-0 align-items-center">
+                                        <div class="col-md-4">
+                                            <?php
+                                            $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
+                                            ?>
+                                            <div
+                                                class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
+                                                <img src="<?php echo $profilePicture ?>" alt="FD Image"
+                                                    style="width: 70px; height: 70px;">
+                                            </div>
                                         </div>
-                                        <div class="my-auto mt-md-0 mt-md-3 text-md-end text-center">
-                                            <?php echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?> <button
-                                                class="btn btn-secondary form-control">See Detail</button></a>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <?php echo $data['posisi']; ?>
+                                                </h5>
+                                                <ul class="list-unstyled text-secondary d-flex flex-column">
+                                                    <li class="mb-1 me-3">
+                                                        <i class="fa-solid fa-building"></i>
+                                                        <?php echo $data['departemen']; ?>
+                                                    </li>
+                                                    <li class="mb-1 me-3">
+                                                        <i class="fa-solid fa-location-dot"></i>
+                                                        <?php echo $data['lokasi_pekerjaan']; ?>
+                                                    </li>
+                                                    <li class="mb-1">
+                                                        <i class="far fa-money-bill-alt"></i>
+                                                        <?php
+                                                        $harga = $data['gaji'];
+                                                        $harga_format = number_format($harga, 0, ",", ".");
+                                                        echo "Rp. " . $harga_format . ",-"; ?>
+                                                    </li>
+                                                </ul>
+                                                <div class="text-end">
+                                                    <?php echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?>
+                                                    <button class="btn btn-secondary">See Detail</button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer d-md-flex justify-content-between text-secondary">
+                                            <small class="text-center">
+                                                <i class="fa-solid fa-calendar-days"></i> Posted
+                                                <?php echo $tanggal_posting ?>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php if($i == 2){
-                            ?> </div> <?php
-                        $i = 1;
-                    } $i++;
-                        } ?>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

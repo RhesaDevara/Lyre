@@ -77,38 +77,36 @@ $sql1->execute();
                                 <h4>Our Vacancy</h4>
                             </div>
                             <hr>
-                            <div class="col-lg-8 mx-auto">
+                            <div class="row row-cols-2 row-cols-md-3 g-4">
                                 <?php while ($data1 = $sql1->fetch()): ?>
-                                    <div class="card mb-3">
-                                        <div class="row g-0 align-items-center">
-                                            <div class="col-md-2 text-center p-lg-4 p-2 mt-4 mt-lg-0">
-                                                <?php
-                                                $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
-                                                ?>
-                                                <div
-                                                    class="d-flex align-items-center justify-content-center text-center mx-auto">
-                                                    <img src="<?php echo $profilePicture ?>" alt="FD Image"
-                                                        style="width: 70px; height: 70px;">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-md-4">
+                                                    <?php
+                                                    $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
+                                                    ?>
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
+                                                        <img src="<?php echo $profilePicture ?>" alt="FD Image"
+                                                            style="width: 70px; height: 70px;">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <div
-                                                    class="card-body d-md-flex flex-md-row flex-column align-items-start justify-content-between text-center text-md-start">
-                                                    <div class="flex-grow-1">
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
                                                         <h5 class="card-title">
                                                             <?php echo $data1['posisi']; ?>
                                                         </h5>
-                                                        <ul
-                                                            class="list-unstyled text-secondary d-flex flex-column flex-md-row">
-                                                            <li class="list-inline-item mb-1">
+                                                        <ul class="list-unstyled text-secondary d-flex flex-column">
+                                                            <li class="mb-1 me-3">
                                                                 <i class="fa-solid fa-building"></i>
                                                                 <?php echo $data1['departemen']; ?>
                                                             </li>
-                                                            <li class="list-inline-item mb-1">
+                                                            <li class="mb-1 me-3">
                                                                 <i class="fa-solid fa-location-dot"></i>
                                                                 <?php echo $data1['lokasi_pekerjaan']; ?>
                                                             </li>
-                                                            <li class="list-inline-item">
+                                                            <li class="mb-1">
                                                                 <i class="far fa-money-bill-alt"></i>
                                                                 <?php
                                                                 $harga = $data1['gaji'];
@@ -116,17 +114,23 @@ $sql1->execute();
                                                                 echo "Rp. " . $harga_format . ",-"; ?>
                                                             </li>
                                                         </ul>
-                                                    </div>
-                                                    <div class="my-auto mt-md-0 mt-md-3 text-md-end text-center">
-                                                        <?php
-                                                        $id_lowongan = $data1['id_lowongan'];
-                                                        echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>";
-                                                        ?>
-                                                        <button class="btn btn-secondary">See Detail</button></a>
+                                                        <div class="text-end">
+                                                            <?php $id_lowongan = $data1['id_lowongan'];
+                                                            echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?>
+                                                            <button class="btn btn-secondary">See Detail</button>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="card-footer d-md-flex justify-content-between text-secondary">
+                                                    <small class="text-center">
+                                                        <i class="fa-solid fa-calendar-days"></i> Posted
+                                                        <?php
+                                                        $tanggal_posting = date("j F Y", strtotime($data1['tanggal_posting']));
+                                                        echo $tanggal_posting ?>
+                                                    </small>
+                                                </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 <?php endwhile; ?>
