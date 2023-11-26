@@ -16,9 +16,7 @@ $sql->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Apply and Recruit</title>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -39,29 +37,37 @@ $sql->execute();
                             <center> Akun anda sedang dalam proses verifikasi, anda belum dapat membuat lowongan </center>
                         </div>
                     <?php } ?>
-                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <div class="row row-cols-1 row-cols-md-2 g-1">
                         <?php while ($data = $sql->fetch()) {
                             $id_lowongan = $data['id_lowongan'];
                             $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
-                            ?>
+                        ?>
                             <div class="col">
-                                <div class="card">
+                                <div class="card" style="width: 100%">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-md-4">
-                                            <?php
-                                            $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
-                                            ?>
-                                            <div
-                                                class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
-                                                <img src="<?php echo $profilePicture ?>" alt="FD Image"
-                                                    style="width: 70px; height: 70px;">
+                                            <div class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
+                                                <img src="<?php echo $_SESSION['company']['logo'] ?>" alt="FD Image" style="width: 100px; height: 100px;">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <h5 class="card-title">
-                                                    <?php echo $data['posisi']; ?>
-                                                </h5>
+                                                <div class="d-flex flex-column">
+                                                    <div>
+                                                        <h5 class="card-title">
+                                                            <?php echo $data['posisi']; ?>
+                                                        </h5>
+                                                    </div>
+                                                    <div>
+                                                        <b>
+                                                            <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
+                                                                <font color="red">(<?php echo $data['status_lowongan']; ?>)</font>
+                                                            <?php } else { ?>
+                                                                <font color="green">(<?php echo $data['status_lowongan']; ?>)</font>
+                                                            <?php } ?>
+                                                        </b>
+                                                    </div>
+                                                </div>
                                                 <ul class="list-unstyled text-secondary d-flex flex-column">
                                                     <li class="mb-1 me-3">
                                                         <i class="fa-solid fa-building"></i>

@@ -77,17 +77,29 @@ if (isset($_GET['status_lamaran'])) {
             <div class="row gy-5 gx-md-5">
                 <div class="col-lg-8">
                     <div class="d-flex align-items-top mb-5">
-                        <?php
-                        $profilePicture = isset($data['foto_perusahaan']) ? 'assets/img/' . $data['foto_perusahaan'] : 'assets/img/profile.png';
-                        ?>
-                        <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php echo $profilePicture ?>" alt="Company Logo" style="width: 70px; height: 70px;">
+
+                        <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php echo $data['logo'] ?>" alt="Company Logo" style="width: 100px; height: 100px;">
                         <div>
-                            <h3 class="mb-1">
-                                <?php echo $data['posisi']; ?>
-                            </h3>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <h3 class="mb-1">
+                                        <?php echo $data['posisi']; ?>
+                                    </h3>
+                                </div>
+                                <div class="mt-2 ms-2"><b>
+                                        <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
+                                            <font color="red">(<?php echo $data['status_lowongan']; ?>)</font>
+                                        <?php } else { ?>
+                                            <font color="green">(<?php echo $data['status_lowongan']; ?>)</font>
+                                        <?php } ?>
+                                    </b>
+                                </div>
+                            </div>
+
                             <h5 class="text-muted mb-3">
                                 <a href="<?php echo "company_profile.php?id_perusahaan=$data[id_perusahaan]"; ?>" style="text-decoration: none"><?php echo $data['nama_perusahaan']; ?></a>
                             </h5>
+
                             <div class="text-muted d-md-flex">
                                 <p class="me-4"><i class="fa fa-map-marker-alt text-primary me-1"></i>
                                     <?php echo $data['lokasi_pekerjaan']; ?>
@@ -104,7 +116,17 @@ if (isset($_GET['status_lamaran'])) {
                                     echo $tanggal_posting ?>
                                 </p>
                             </div>
-                            <input type="button" class="btn btn-warning" value="Ubah Lowongan" data-toggle="modal" data-target="#ubahLowongan">
+                            <form method="post">
+                                <?php if (isset($_SESSION['company'])) {
+                                    if ($data['status_lowongan'] == "Non Aktif") { ?>
+                                        <input type="submit" name="aktif" onclick='return confirm("Apakah anda yakin ingin mengaktifkan lowongan?")' class="btn btn-success" value="Aktifkan">
+                                    <?php } else { ?>
+                                        <input type="submit" name="nonaktif" onclick='return confirm("Apakah anda yakin ingin menonaktifkan lowongan?")' class="btn btn-danger" value="Non Aktifkan">
+                                    <?php }
+                                    ?>
+                                    <input type="button" class="btn btn-warning" value="Ubah Lowongan" data-toggle="modal" data-target="#ubahLowongan">
+                                <?php } ?>
+                            </form>
                         </div>
                     </div>
                     <div style="width:100%; border: 0px solid black;" class="d-flex flex-row mb-5">
@@ -166,12 +188,14 @@ if (isset($_GET['status_lamaran'])) {
                                         $dataHasilTes = $sqlHasilTes->fetch();
                                 ?>
                                         <div class="vacancy-container mt-4" style="text-decoration: none; color:black;">
-                                            <a href=<?php echo "user_profile.php?id_pengguna=$id_pelamar"; ?>><img src="assets\img\new_logo.png" class="img-vacancy"></a>
+                                            <a href=<?php echo "user_profile.php?id_pengguna=$id_pelamar"; ?>><img src="<?php echo $dataPelamar['foto']; ?>" class="img-vacancy"></a>
                                             <div class="vacancy-details">
                                                 <div class="vacancy-item-container">
                                                     <div class="d-flex flex-column">
                                                         <div class="posisi"><?php echo $dataPelamar['nama']; ?></div>
-                                                        <div><a href="#"><?php echo $dataLamaran['cv']; ?></a></div>
+                                                        <div>
+                                                            <a href="<?php echo $dataLamaran['cv']; ?>" target='_blank'>Buka CV</a>
+                                                        </div>
                                                     </div>
                                                     <div><?php echo $dataLamaran['tanggal_kirim']; ?></div>
                                                     <div>
@@ -459,6 +483,22 @@ if (isset($_POST['lolos'])) {
 
     echo "<script>alert('Telah diterima');</script>";
     echo "<script>location='detail_lowongan_pelamar.php?id_lowongan=$id_lowongan&status_lamaran=Lolos';</script>";
+}
+
+if (isset($_POST['aktif'])) {
+    $sqlAktif = $koneksiPdo->prepare("UPDATE lowongan_pekerjaan set status_lowongan = 'Aktif' where id_lowongan = '$id_lowongan'");
+    $sqlAktif->execute();
+
+    echo "<script>alert('Berhasil mengubah lowongan');</script>";
+    echo "<script>location='detail_lowongan.php?id_lowongan=$id_lowongan';</script>";
+}
+
+if (isset($_POST['nonaktif'])) {
+    $sqlAktif = $koneksiPdo->prepare("UPDATE lowongan_pekerjaan set status_lowongan = 'Non Aktif' where id_lowongan = '$id_lowongan'");
+    $sqlAktif->execute();
+
+    echo "<script>alert('Berhasil mengubah lowongan');</script>";
+    echo "<script>location='detail_lowongan.php?id_lowongan=$id_lowongan';</script>";
 }
 ?>
 

@@ -16,8 +16,7 @@ require 'koneksi.php';
         <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
@@ -64,6 +63,9 @@ require 'koneksi.php';
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
+                            </li>
+                            <li class='nav-item'>
+                                <a class='nav-link' href='pembelian.php'>Pembelian</a>
                             </li>";
                     } else {
                         echo "
@@ -85,28 +87,26 @@ require 'koneksi.php';
             <?php
             if (isset($_SESSION['user']) || isset($_SESSION['company']) || isset($_SESSION['admin'])) {
                 if (isset($_SESSION['company'])) {
-                    $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
                     echo "
                         <div class='d-grid gap-2 d-md-flex justify-content-center'>
                         <div class='dropdown text-light'>
                             <a class='btn btn-custom dropdown-toggle text-light' href='#' role='button' id='profileDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
-                                <img src='" . $profilePicture . "' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
+                                <img src='" . $_SESSION['company']['logo'] . "' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
                                 " . $_SESSION['company']['nama_perusahaan'] . "
                             </a>
                             <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
-                                <li><a class='dropdown-item' href='#'>Profile</a></li>
+                                <li><a class='dropdown-item' href='company_profile.php'>Profile</a></li>
                                 <li><a class='dropdown-item' href='#'>Kuota (" . $_SESSION['company']['kuota'] . ")</a></li>
                                 <li><hr class='dropdown-divider'></li>
                                 <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
                             </ul>
                         </div>";
                 } elseif (isset($_SESSION['user'])) {
-                    $profilePicture = isset($_SESSION['user']['foto_user']) ? 'assets/img/' . $_SESSION['user']['foto_user'] : 'assets/img/profile.png';
                     echo "
                         <div class='d-grid gap-2 d-md-flex justify-content-center'>
                         <div class='dropdown text-light'>
                             <a class='btn btn-custom dropdown-toggle text-light' href='#' role='button' id='profileDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
-                                <img src='" . $profilePicture . "' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
+                                <img src='" . $_SESSION['user']['foto'] . "' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
                                 " . $_SESSION['user']['nama'] . "
                             </a>
                             <ul class='dropdown-menu' aria-labelledby='profileDropdown'>

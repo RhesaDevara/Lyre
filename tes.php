@@ -8,7 +8,6 @@ $id_lowongan = $_GET['id_lowongan'];
 $sqlCountSoal = $koneksiPdo->prepare("SELECT * FROM soal where id_lowongan = '$id_lowongan'");
 $sqlCountSoal->execute();
 $countSoal = $sqlCountSoal->rowCount();
-echo $countSoal;
 
 $sqlSoal = $koneksiPdo->prepare("SELECT * FROM soal where id_lowongan = '$id_lowongan'");
 $sqlSoal->execute();

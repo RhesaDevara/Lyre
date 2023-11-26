@@ -1,6 +1,6 @@
 <?php
 include 'navbar.php';
-$sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan");
+$sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif'");
 $sql->execute();
 
 $sqlCount = $koneksiPdo->prepare("SELECT COUNT(*) FROM lowongan_pekerjaan");
@@ -14,9 +14,7 @@ $sqlCount->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Apply and Recruit</title>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"
-        integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -33,18 +31,19 @@ $sqlCount->execute();
                         <?php while ($data = $sql->fetch()) {
                             $id_lowongan = $data['id_lowongan'];
                             $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
-                            ?>
+                            $id_perusahaan = $data['id_perusahaan'];
+
+                            $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+                            $sqlPerusahaan->execute();
+
+                            $dataPerusahaan = $sqlPerusahaan->fetch();
+                        ?>
                             <div class="col">
                                 <div class="card">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-md-4">
-                                            <?php
-                                            $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
-                                            ?>
-                                            <div
-                                                class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
-                                                <img src="<?php echo $profilePicture ?>" alt="FD Image"
-                                                    style="width: 70px; height: 70px;">
+                                            <div class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
+                                                <img src="<?php echo $dataPerusahaan['logo']; ?>" alt="FD Image" style="width: 100px; height: 100px;">
                                             </div>
                                         </div>
                                         <div class="col-md-8">

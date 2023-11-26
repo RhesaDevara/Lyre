@@ -34,13 +34,10 @@ $sql1->execute();
             <div class="row gy-5 gx-md-5">
                 <div class="col-lg-12">
                     <div class="d-flex flex-shrink-0 mb-3">
-                        <?php
-                        $profilePicture = isset($data['foto_perusahaan']) ? 'assets/img/' . $data['foto_perusahaan'] : 'assets/img/profile.png';
-                        ?>
-                        <img class="img-fluid rounded me-4" src="<?php echo $profilePicture; ?>" loading="lazy"
-                            alt="User Logo" style="width: 100px; height: 100px;">
+                        <img class="img-fluid rounded-circle me-5" src="<?php echo $data['logo']; ?>" loading="lazy" alt="User Logo" style="width: 200px; height: 200px; object-fit: cover;border-radius: 100px;" data-bs-toggle="modal" data-bs-target="#ubahFoto">
+
                         <div>
-                            <h3 class="mb-1">
+                            <h3 class="mb-1 mt-3">
                                 <?php echo $data['nama_perusahaan']; ?>
                             </h3>
                             <div class="text-muted d-md-flex">
@@ -57,8 +54,7 @@ $sql1->execute();
                                 </p>
                             </div>
                             <?php
-                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#editProfile">Edit
+                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfile">Edit
                                     Profile</button>
                             <?php } ?>
                         </div>
@@ -78,18 +74,13 @@ $sql1->execute();
                             </div>
                             <hr>
                             <div class="row row-cols-2 row-cols-md-3 g-4">
-                                <?php while ($data1 = $sql1->fetch()): ?>
+                                <?php while ($data1 = $sql1->fetch()) : ?>
                                     <div class="col">
                                         <div class="card">
                                             <div class="row g-0 align-items-center">
                                                 <div class="col-md-4">
-                                                    <?php
-                                                    $profilePicture = isset($_SESSION['company']['foto_perusahaan']) ? 'assets/img/' . $_SESSION['company']['foto_perusahaan'] : 'assets/img/profile.png';
-                                                    ?>
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
-                                                        <img src="<?php echo $profilePicture ?>" alt="FD Image"
-                                                            style="width: 70px; height: 70px;">
+                                                    <div class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
+                                                        <img src="<?php echo $_SESSION['company']['logo'] ?>" alt="FD Image" style="width: 100px; height: 100px;">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8">
@@ -140,39 +131,36 @@ $sql1->execute();
                 </div>
 
                 <!-- Modal Ubah Profile-->
-                <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="editProfileLabel">Ubah Profile</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form method="post">
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Foto:</label>
+                                        <center> <img src="<?php echo $data['logo']; ?>" style="width: 200px; height: 200px;" class="form-control mb-3"> </center>
+                                        <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
+                                        <input type="text" value="<?php echo $data['logo']; ?>" name="gambarLama" hidden>
+                                    </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nama Perusahaan:</label>
-                                        <input type="text" class="form-control" id="nama_perusahaan"
-                                            name="nama_perusahaan" placeholder="Masukkan nama perusahaan anda"
-                                            value="<?php echo $data['nama_perusahaan']; ?> ">
+                                        <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" placeholder="Masukkan nama perusahaan anda" value="<?php echo $data['nama_perusahaan']; ?> ">
                                     </div>
                                     <div class=" form-group">
                                         <label for="recipient-name" class="col-form-label">Email Perusahaan:</label>
-                                        <input type="email" class="form-control" id="email_perusahaan"
-                                            name="email_perusahaan" placeholder="Masukkan email perusahaan anda"
-                                            value="<?php echo $data['email_perusahaan']; ?> ">
+                                        <input type="email" class="form-control" id="email_perusahaan" name="email_perusahaan" placeholder="Masukkan email perusahaan anda" value="<?php echo $data['email_perusahaan']; ?> ">
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nomor telepon:</label>
-                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon"
-                                            placeholder="08**********" value="<?php echo $data['nomor_telepon']; ?> ">
+                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="08**********" value="<?php echo $data['nomor_telepon']; ?> ">
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Deskripsi Perusahaan:</label>
-                                        <textarea class="form-control" id="deskripsi_perusahaan"
-                                            name="deskripsi_perusahaan"
-                                            placeholder="Tuliskan tentang perusahaan anda"><?php echo $data['deskripsi_perusahaan']; ?></textarea>
+                                        <textarea class="form-control" id="deskripsi_perusahaan" name="deskripsi_perusahaan" placeholder="Tuliskan tentang perusahaan anda"><?php echo $data['deskripsi_perusahaan']; ?></textarea>
                                     </div>
                             </div>
                             <div class="modal-footer">
@@ -185,11 +173,31 @@ $sql1->execute();
                 <!-- End Modal Ubah Profile-->
                 <?php
                 if (isset($_POST['ubahProfile'])) {
+                    $gambar_name = $_FILES['logo']['name'];
+                    $gambar_tmp = $_FILES['logo']['tmp_name'];
+                    $gambar_size = $_FILES['logo']['size'];
+                    $gambar_type = $_FILES['logo']['type'];
+
+                    if (empty($gambar_name) || !isset($gambar_name)) {
+                        $tujuan = $_POST['gambarLama'];
+                    } else {
+                        $tujuan = "logo/" . $gambar_name;
+                    }
+
+                    $allowed_types = array("image/jpeg", "image/png", "image/gif");
+                    if (in_array($gambar_type, $allowed_types)) {
+                        // Pindahkan gambar ke lokasi tujuan
+                        move_uploaded_file($gambar_tmp, $tujuan);
+                        echo "Gambar berhasil diunggah.";
+                    } else {
+                        echo "Jenis file tidak didukung.";
+                    }
+
                     $deskripsi = $_POST['deskripsi_perusahaan'];
                     $nama = $_POST['nama_perusahaan'];
                     $email = $_POST['email_perusahaan'];
                     $nomor_telepon = $_POST['nomor_telepon'];
-                    $sqlEditTentang = $koneksiPdo->prepare("UPDATE perusahaan SET nama_perusahaan = '$nama', email_perusahaan = '$email', nomor_telepon = '$nomor_telepon', deskripsi_perusahaan = '$deskripsi' where id_perusahaan = '$id_perusahaan'");
+                    $sqlEditTentang = $koneksiPdo->prepare("UPDATE perusahaan SET logo = '$tujuan', nama_perusahaan = '$nama', email_perusahaan = '$email', nomor_telepon = '$nomor_telepon', deskripsi_perusahaan = '$deskripsi' where id_perusahaan = '$id_perusahaan'");
                     $sqlEditTentang->execute();
 
                     $sqlSelectProfile = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");

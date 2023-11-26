@@ -20,10 +20,12 @@ $dataLamaran = $sqlLamaran->fetch();
 
 <body>
     <div class="container pt-5">
-        <?php
-        echo $dataLamaran['informasi_hasil'];
-        ?>
-    </div>
+
+        <h3> Selamat Anda Lolos! </h3>
+        <div class="alert alert-success">
+            <?php echo $dataLamaran['informasi_hasil'];
+            ?>
+        </div>
 </body>
 
 </html>
