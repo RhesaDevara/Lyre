@@ -124,11 +124,13 @@ $result = $koneksi->query($ambil);
                                     <?php echo $data['kuota']; ?>
                                 </td>
                                 <td>
-                                    <?php $harga_format = number_format($data['harga'], 0, ',', '.'); echo "Rp. " . $harga_format ?>
+                                    <?php $harga_format = number_format($data['harga'], 0, ',', '.');
+                                    echo "Rp. " . $harga_format ?>
                                 </td>
                                 <td>
-                                    <a href="package_ubah.php?id=<?php echo $data['id_paket']; ?>" class="edit" title="Edit"
-                                        data-toggle="tooltip"><i class="fas fa-edit text-warning fs-5"></i></a>
+
+                                    <a href="package_ubah.php?id=<?php echo $data['id_paket']; ?>" data-toggle="tooltip"
+                                        title="Edit" data-toggle="tooltip"><i class="fas fa-edit text-warning fs-5"></i></a>
                                     <a href="package_hapus.php?id=<?php echo $data['id_paket']; ?>" class="delete"
                                         title="Delete" data-toggle="tooltip"><i
                                             class="fas fa-trash-alt text-danger fs-5"></i></a>
@@ -142,8 +144,7 @@ $result = $koneksi->query($ambil);
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
+    <script src="script.js"></script>
+</body>
+
+</html>

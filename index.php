@@ -21,7 +21,7 @@
                         <h1 class="display-4"><b>Your Dream</b> <br>Job is Waiting</h1>
                         <p class="lead">Find the perfect job that suits your skills and passion.</p>
                         <div class="search-input input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input class="form-control" type="search" id="search-input" placeholder="Search...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="button">
                                     <i class="fa-solid fa-magnifying-glass"></i>

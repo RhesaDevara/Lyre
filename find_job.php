@@ -14,7 +14,6 @@ $sqlCount->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Apply and Recruit</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -30,20 +29,38 @@ $sqlCount->execute();
                     <div class="row row-cols-1 row-cols-md-2 g-4">
                         <?php while ($data = $sql->fetch()) {
                             $id_lowongan = $data['id_lowongan'];
-                            $tanggal_posting = date("j F Y", strtotime($data['tanggal_posting']));
                             $id_perusahaan = $data['id_perusahaan'];
+                            $tanggal_posting_unix = strtotime($data['tanggal_posting']);
+                            $selisih_detik = time() - $tanggal_posting_unix;
+
+
+                            if ($selisih_detik < 60) {
+                                $selisih = $selisih_detik . " Seconds Ago";
+                            } elseif ($selisih_detik < 3600) {
+                                $selisih = floor($selisih_detik / 60) . " Minutes Ago";
+                            } elseif ($selisih_detik < 86400) {
+                                $selisih = floor($selisih_detik / 3600) . " Hours Ago";
+                            } elseif ($selisih_detik < 2592000) {
+                                $selisih = floor($selisih_detik / 86400) . " Days Ago";
+                            } elseif ($selisih_detik < 31536000) {
+                                $selisih = floor($selisih_detik / 2592000) . " Months Ago";
+                            } else {
+                                $selisih = floor($selisih_detik / 31536000) . " Years Ago";
+                            }
 
                             $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
                             $sqlPerusahaan->execute();
 
                             $dataPerusahaan = $sqlPerusahaan->fetch();
-                        ?>
+                            ?>
                             <div class="col">
                                 <div class="card">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-md-4">
-                                            <div class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
-                                                <img src="<?php echo $dataPerusahaan['logo']; ?>" alt="FD Image" style="width: 100px; height: 100px;">
+                                            <div
+                                                class="d-flex align-items-center justify-content-center text-center pt-3 pt-md-0  pb-md-5">
+                                                <img src="<?php echo $dataPerusahaan['logo']; ?>" class="rounded"
+                                                    alt="Company Logo" style="width: 100px; height: 100px;">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
@@ -70,7 +87,7 @@ $sqlCount->execute();
                                                 </ul>
                                                 <div class="text-end">
                                                     <?php echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?>
-                                                    <button class="btn btn-secondary">See Detail</button>
+                                                    <button class="btn btn-secondary w-100">See Detail</button>
                                                     </a>
                                                 </div>
                                             </div>
@@ -78,7 +95,9 @@ $sqlCount->execute();
                                         <div class="card-footer d-md-flex justify-content-between text-secondary">
                                             <small class="text-center">
                                                 <i class="fa-solid fa-calendar-days"></i> Posted
-                                                <?php echo $tanggal_posting ?>
+                                                <span class="fs-7 fw-bold">
+                                                    <?php echo $selisih ?>
+                                                </span>
                                             </small>
                                         </div>
                                     </div>

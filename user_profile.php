@@ -50,7 +50,9 @@ $sqlSertifikat->execute();
       <div class="row gy-5 gx-md-5">
         <div class="col-lg-8">
           <div class="d-flex flex-shrink-0 mb-5">
-            <img class="img-fluid rounded-circle me-5" src="<?php echo $data['foto']; ?>" loading="lazy" alt="User Logo" style="width: 200px; height: 200px; object-fit: cover;border-radius: 100px;" data-bs-toggle="modal" data-bs-target="#ubahFoto">
+            <img class="img-fluid rounded-circle me-5" src="<?php echo $data['foto']; ?>" loading="lazy" alt="User Logo"
+              style="width: 200px; height: 200px; object-fit: cover;border-radius: 100px;" data-bs-toggle="modal"
+              data-bs-target="#ubahFoto">
             <div>
               <h3 class="mb-1 mt-4">
                 <?php echo $data['nama']; ?>
@@ -64,7 +66,8 @@ $sqlSertifikat->execute();
                 </p>
               </div>
               <?php
-              if (isset($_SESSION['user'])) { ?><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfile">Edit
+              if (isset($_SESSION['user'])) { ?><button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                  data-bs-target="#editProfile">Edit
                   Profile</button>
               <?php } ?>
             </div>
@@ -93,7 +96,7 @@ $sqlSertifikat->execute();
               $pl = 1;
               while ($dataPengalaman = $sqlPengalaman->fetch()) {
                 $id_pengalaman = $dataPengalaman['id_pengalaman'];
-              ?>
+                ?>
                 <div class="list-group mb-4 shadow rounded">
                   <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
@@ -113,7 +116,8 @@ $sqlSertifikat->execute();
                         </small>
                         <?php
                         if (isset($_SESSION['user'])) { ?>
-                          <i class="fa-solid fa-pencil me-2 mt-1" role="button" data-bs-toggle="modal" data-bs-target='#editPengalaman<?php echo $pl; ?>'></i>
+                          <i class="fa-solid fa-pencil me-2 mt-1" role="button" data-bs-toggle="modal"
+                            data-bs-target='#editPengalaman<?php echo $pl; ?>'></i>
                         <?php } ?>
                       </div>
                     </div>
@@ -126,7 +130,8 @@ $sqlSertifikat->execute();
                   </a>
                 </div>
                 <!-- Modal Ubah Pengalaman-->
-                <div class="modal fade" id="editPengalaman<?php echo $pl; ?>" tabindex="-1" aria-labelledby="editPengalamanLabel" aria-hidden="true">
+                <div class="modal fade" id="editPengalaman<?php echo $pl; ?>" tabindex="-1"
+                  aria-labelledby="editPengalamanLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -138,38 +143,47 @@ $sqlSertifikat->execute();
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Posisi:</label>
                             <input type="text" name="id_pengalaman" hidden value="<?php echo $id_pengalaman; ?>">
-                            <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Web Developer" value="<?php echo $dataPengalaman['posisi']; ?>">
+                            <input type="text" class="form-control" id="posisi" name="posisi" placeholder="Web Developer"
+                              value="<?php echo $dataPengalaman['posisi']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama Perusahaan:</label>
-                            <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" placeholder="Microsoft" value="<?php echo $dataPengalaman['nama_perusahaan']; ?>">
+                            <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan"
+                              placeholder="Microsoft" value="<?php echo $dataPengalaman['nama_perusahaan']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Tanggal Masuk:</label>
-                            <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="<?php echo $dataPengalaman['tanggal_masuk']; ?>">
+                            <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk"
+                              value="<?php echo $dataPengalaman['tanggal_masuk']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Durasi:</label>
-                            <input type="number" class="form-control" id="durasi" name="durasi" placeholder="Tulis dalam bulan (12) " value="<?php echo $dataPengalaman['durasi']; ?>">
+                            <input type="number" class="form-control" id="durasi" name="durasi"
+                              placeholder="Tulis dalam bulan (12) " value="<?php echo $dataPengalaman['durasi']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Lokasi Pekerjaan:</label>
-                            <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan" placeholder="Jakarta" value="<?php echo $dataPengalaman['lokasi_pekerjaan']; ?>">
+                            <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan"
+                              placeholder="Jakarta" value="<?php echo $dataPengalaman['lokasi_pekerjaan']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Deskripsi:</label>
-                            <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Saya berganggung jawab dalam pengembangan web...."><?php echo $dataPengalaman['deskripsi']; ?></textarea>
+                            <textarea class="form-control" id="deskripsi" name="deskripsi"
+                              placeholder="Saya berganggung jawab dalam pengembangan web...."><?php echo $dataPengalaman['deskripsi']; ?></textarea>
                           </div>
                       </div>
                       <div class="modal-footer">
+                        <a href="<?php echo "delete_pengalaman.php?id_pengalaman=$dataPengalaman[id_pengalaman]" ?>"><button
+                            type="button" name="hapus" class="btn btn-danger"
+                            onclick='return confirm("Apakah Anda Yakin?")'>Hapus</button></a>
                         <button type="submit" name="ubahPengalaman" class="btn btn-primary">Save changes</button>
                       </div>
                       </form>
                     </div>
                   </div>
                 </div>
-                <!-- End Modal Ubah Pendidikan-->
-              <?php
+                <!-- End Modal Ubah Pengalaman-->
+                <?php
                 $pl++;
               }
               ?>
@@ -192,7 +206,7 @@ $sqlSertifikat->execute();
               $st = 1;
               while ($dataSertifikat = $sqlSertifikat->fetch()) {
                 $id_sertifikat = $dataSertifikat['id_sertifikat'];
-              ?>
+                ?>
                 <div class="list-group mb-4 shadow rounded">
                   <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="d-flex w-100 justify-content-between">
@@ -206,7 +220,8 @@ $sqlSertifikat->execute();
                       <?php
                       if (isset($_SESSION['user'])) { ?>
                         <div class="ms-auto">
-                          <i class="fa-solid fa-pencil mt-1" role="button" data-bs-toggle="modal" data-bs-target='#editSertifikat<?php echo $st; ?>'></i>
+                          <i class="fa-solid fa-pencil mt-1" role="button" data-bs-toggle="modal"
+                            data-bs-target='#editSertifikat<?php echo $st; ?>'></i>
                         </div>
                       <?php } ?>
                     </div>
@@ -220,7 +235,8 @@ $sqlSertifikat->execute();
                 </div>
 
                 <!-- Modal Ubah Sertifikat-->
-                <div class="modal fade" id="editSertifikat<?php echo $st; ?>" tabindex="-1" aria-labelledby="editSertifikatLabel" aria-hidden="true">
+                <div class="modal fade" id="editSertifikat<?php echo $st; ?>" tabindex="-1"
+                  aria-labelledby="editSertifikatLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -232,19 +248,23 @@ $sqlSertifikat->execute();
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama Sertifikat:</label>
                             <input type="text" hidden name="id_sertifikat" value="<?php echo $id_sertifikat; ?>">
-                            <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat" placeholder="Pengenalan UI/UX" value="<?php echo $dataSertifikat['nama_sertifikat']; ?>">
+                            <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat"
+                              placeholder="Pengenalan UI/UX" value="<?php echo $dataSertifikat['nama_sertifikat']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nama Penerbit:</label>
-                            <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit" placeholder="Dicoding Indonesia" value="<?php echo $dataSertifikat['nama_penerbit']; ?>">
+                            <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit"
+                              placeholder="Dicoding Indonesia" value="<?php echo $dataSertifikat['nama_penerbit']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
-                            <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit" value="<?php echo $dataSertifikat['tanggal_terbit']; ?>">
+                            <input type="date" class="form-control" id="tanggal_terbit" name="tanggal_terbit"
+                              value="<?php echo $dataSertifikat['tanggal_terbit']; ?>">
                           </div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Tanggal Kadaluarsa:</label>
-                            <input type="date" class="form-control" id="tanggal_kadaluarsa" name="tanggal_kadaluarsa" value="<?php echo $dataSertifikat['tanggal_kadaluarsa']; ?>">
+                            <input type="date" class="form-control" id="tanggal_kadaluarsa" name="tanggal_kadaluarsa"
+                              value="<?php echo $dataSertifikat['tanggal_kadaluarsa']; ?>">
                           </div>
                       </div>
                       <div class="modal-footer">
@@ -254,7 +274,7 @@ $sqlSertifikat->execute();
                   </div>
                 </div>
                 <!-- End Modal Ubah Sertifikat-->
-              <?php
+                <?php
                 $st++;
               }
               ?>
@@ -277,18 +297,20 @@ $sqlSertifikat->execute();
             <?php
             $pk = 1;
             while ($dataPendidikan = $sqlPendidikan->fetch()) {
-            ?>
+              ?>
               <form method="post">
                 <div class="d-flex flex-row justify-content-between align-items-center">
                   <div>
-                    <span class="fs-6 badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">
+                    <span
+                      class="fs-6 badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">
                       <?php echo $dataPendidikan['nama_tempat']; ?>
                     </span>
                   </div>
                   <div class="pt-1">
                     <?php
                     if (isset($_SESSION['user'])) { ?><span role="button">
-                        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#editPendidikan<?php echo $pk; ?>"></i>
+                        <i class="fa-solid fa-pencil" data-bs-toggle="modal"
+                          data-bs-target="#editPendidikan<?php echo $pk; ?>"></i>
                       </span>
                     <?php } ?>
                   </div>
@@ -303,7 +325,8 @@ $sqlSertifikat->execute();
                 <hr>
               </form>
               <!-- Modal Ubah Pendidikan-->
-              <div class="modal fade" id="editPendidikan<?php echo $pk; ?>" tabindex="-1" aria-labelledby="editPendidikanLabel" aria-hidden="true">
+              <div class="modal fade" id="editPendidikan<?php echo $pk; ?>" tabindex="-1"
+                aria-labelledby="editPendidikanLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -314,8 +337,10 @@ $sqlSertifikat->execute();
                       <form method="post">
                         <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Nama Tempat:</label>
-                          <input type="text" value="<?php echo $dataPendidikan['id_pendidikan']; ?>" hidden name="id_pendidikan">
-                          <input type="text" class="form-control" id="nama_tempat" name="edt_nama_tempat" placeholder="Universitas Darma Persada" value="<?php echo $dataPendidikan['nama_tempat']; ?>">
+                          <input type="text" value="<?php echo $dataPendidikan['id_pendidikan']; ?>" hidden
+                            name="id_pendidikan">
+                          <input type="text" class="form-control" id="nama_tempat" name="edt_nama_tempat"
+                            placeholder="Universitas Darma Persada" value="<?php echo $dataPendidikan['nama_tempat']; ?>">
                         </div>
                         <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Jenjang:</label>
@@ -336,19 +361,24 @@ $sqlSertifikat->execute();
 
                         <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Jurusan:</label>
-                          <input type="text" class="form-control" id="jurusan" name="edt_jurusan" placeholder="Teknologi Informasi" value="<?php echo $dataPendidikan['jurusan']; ?>">
+                          <input type="text" class="form-control" id="jurusan" name="edt_jurusan"
+                            placeholder="Teknologi Informasi" value="<?php echo $dataPendidikan['jurusan']; ?>">
                         </div>
                         <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Tahun Mulai:</label>
-                          <input type="number" class="form-control" id="tahun_mulai" name="edt_tahun_mulai" value="<?php echo $dataPendidikan['tahun_mulai']; ?>">
+                          <input type="number" class="form-control" id="tahun_mulai" name="edt_tahun_mulai"
+                            value="<?php echo $dataPendidikan['tahun_mulai']; ?>">
                         </div>
                         <div class="form-group">
                           <label for="recipient-name" class="col-form-label">Tahun Lulus:</label>
-                          <input type="number" class="form-control" id="tahun_lulus" name="edt_tahun_lulus" value="<?php echo $dataPendidikan['tahun_lulus']; ?>">
+                          <input type="number" class="form-control" id="tahun_lulus" name="edt_tahun_lulus"
+                            value="<?php echo $dataPendidikan['tahun_lulus']; ?>">
                         </div>
                     </div>
                     <div class="modal-footer">
-                      <a href="<?php echo "delete_pendidikan.php?id_pendidikan=$dataPendidikan[id_pendidikan]" ?>"><input type="button" name="hapus" class="btn btn-danger" value="Hapus" onclick='return confirm("Apakah Anda Yakin?")'></a>
+                      <a href="<?php echo "delete_pendidikan.php?id_pendidikan=$dataPendidikan[id_pendidikan]" ?>"><input
+                          type="button" name="hapus" class="btn btn-danger" value="Hapus"
+                          onclick='return confirm("Apakah Anda Yakin?")'></a>
                       <button type="submit" name="ubahPendidikan" class="btn btn-primary">Save changes</button>
                     </div>
                     </form>
@@ -356,7 +386,7 @@ $sqlSertifikat->execute();
                 </div>
               </div>
               <!-- End Modal Ubah Pendidikan-->
-            <?php
+              <?php
               $pk++;
             }
             ?>
@@ -369,14 +399,14 @@ $sqlSertifikat->execute();
                 <?php
                 if (isset($_SESSION['user'])) {
                   if ($countKeahlian < 10) {
-                ?>
+                    ?>
                     <span role="button" data-bs-toggle="modal" data-bs-target="#tambahKeahlian" class="me-2">
                       <i class="fa-solid fa-plus fs-5 me-3"></i>
                     </span>
                     <span role="button" data-bs-toggle="modal" data-bs-target="#editKeahlian">
                       <i class="fa-solid fa-pencil fs-5"></i>
                     </span>
-                <?php
+                    <?php
                   }
                 }
                 ?>
@@ -385,13 +415,14 @@ $sqlSertifikat->execute();
             <hr class="mb-4">
             <?php
             while ($dataKeahlian = $sqlKeahlian->fetch()) {
-            ?>
+              ?>
               <div class="d-flex flex-coloumn mb-3 justify-content-center align-items-center">
-                <span class="fs-6 w-100 badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">
+                <span
+                  class="fs-6 w-100 badge bg-primary-subtle border border-primary-subtle text-primary-emphasis rounded-pill">
                   <?php echo $dataKeahlian['nama_keahlian']; ?>
                 </span>
               </div>
-            <?php
+              <?php
             }
             ?>
           </div>
@@ -414,25 +445,30 @@ $sqlSertifikat->execute();
           <form method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Foto:</label>
-              <center> <img src="<?php echo $data['foto']; ?>" style="width: 200px; height: 200px;" class="form-control mb-3"> </center>
+              <center> <img src="<?php echo $data['foto']; ?>" style="width: 200px; height: 200px;"
+                  class="form-control mb-3"> </center>
               <input type="file" class="form-control" name="gambar" id="gambar" accept="image/*">
               <input type="text" value="<?php echo $data['foto']; ?>" name="gambarLama" hidden>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nama Lengkap:</label>
-              <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama lengkap anda" value="<?php echo $data['nama']; ?> ">
+              <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama lengkap anda"
+                value="<?php echo $data['nama']; ?> ">
             </div>
             <div class=" form-group">
               <label for="recipient-name" class="col-form-label">Email:</label>
-              <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email anda" value="<?php echo $data['email']; ?> ">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email anda"
+                value="<?php echo $data['email']; ?> ">
             </div>
             <div class=" form-group">
               <label for="recipient-name" class="col-form-label">Alamat:</label>
-              <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan alamat anda" value="<?php echo $data['alamat']; ?> ">
+              <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukkan alamat anda"
+                value="<?php echo $data['alamat']; ?> ">
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nomor telepon:</label>
-              <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="08**********" value="<?php echo $data['nomor_telepon']; ?> ">
+              <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="08**********"
+                value="<?php echo $data['nomor_telepon']; ?> ">
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Tentang Anda:</label>
@@ -450,7 +486,8 @@ $sqlSertifikat->execute();
   <!-- End Modal Ubah Profile-->
 
   <!-- Modal Tambah Pendidikan-->
-  <div class="modal fade" id="tambahPendidikan" tabindex="-1" aria-labelledby="tambahPendidikanLabel" aria-hidden="true">
+  <div class="modal fade" id="tambahPendidikan" tabindex="-1" aria-labelledby="tambahPendidikanLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -461,7 +498,8 @@ $sqlSertifikat->execute();
           <form method="post">
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nama Tempat:</label>
-              <input type="text" class="form-control" id="nama_tempat" name="nama_tempat" placeholder="Universitas Darma Persada">
+              <input type="text" class="form-control" id="nama_tempat" name="nama_tempat"
+                placeholder="Universitas Darma Persada">
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Jenjang:</label>
@@ -564,11 +602,13 @@ $sqlSertifikat->execute();
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Keahlian
                   <?php echo $upk; ?>:
-                </label> <input type="text" hidden name="id_keahlian<?php echo $upk; ?>" value="<?php echo $dataEditKeahlian['id_keahlian']; ?>">
+                </label> <input type="text" hidden name="id_keahlian<?php echo $upk; ?>"
+                  value="<?php echo $dataEditKeahlian['id_keahlian']; ?>">
 
-                <input type="text" class="form-control" id="keahlian" name="keahlian<?php echo $upk; ?>" placeholder="Cohtoh: Kotlin" value="<?php echo $dataEditKeahlian['nama_keahlian']; ?>">
+                <input type="text" class="form-control" id="keahlian" name="keahlian<?php echo $upk; ?>"
+                  placeholder="Cohtoh: Kotlin" value="<?php echo $dataEditKeahlian['nama_keahlian']; ?>">
               </div>
-            <?php $upk++;
+              <?php $upk++;
             } ?>
         </div>
         <div class="modal-footer">
@@ -581,7 +621,8 @@ $sqlSertifikat->execute();
   <!-- End Modal Ubah Keahlian-->
 
   <!-- Modal Tambah Pengalaman-->
-  <div class="modal fade" id="tambahPengalaman" tabindex="-1" aria-labelledby="tambahPengalamanLabel" aria-hidden="true">
+  <div class="modal fade" id="tambahPengalaman" tabindex="-1" aria-labelledby="tambahPengalamanLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -596,7 +637,8 @@ $sqlSertifikat->execute();
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nama Perusahaan:</label>
-              <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" placeholder="Microsoft"></textarea>
+              <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan"
+                placeholder="Microsoft"></textarea>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Tanggal Masuk:</label>
@@ -604,15 +646,18 @@ $sqlSertifikat->execute();
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Durasi:</label>
-              <input type="number" class="form-control" id="durasi" name="durasi" placeholder="Tulis dalam bulan (12) "></textarea>
+              <input type="number" class="form-control" id="durasi" name="durasi"
+                placeholder="Tulis dalam bulan (12) "></textarea>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Lokasi Pekerjaan:</label>
-              <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan" placeholder="Jakarta"></textarea>
+              <input type="text" class="form-control" id="lokasi_pekerjaan" name="lokasi_pekerjaan"
+                placeholder="Jakarta"></textarea>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Deskripsi:</label>
-              <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Saya berganggung jawab dalam pengembangan web...."></textarea>
+              <textarea class="form-control" id="deskripsi" name="deskripsi"
+                placeholder="Saya berganggung jawab dalam pengembangan web...."></textarea>
             </div>
         </div>
         <div class="modal-footer">
@@ -625,7 +670,8 @@ $sqlSertifikat->execute();
   <!-- End Modal Tambah Pengalaman-->
 
   <!-- Modal Tambah Sertifikat-->
-  <div class="modal fade" id="tambahSertifikat" tabindex="-1" aria-labelledby="tambahSertifikatLabel" aria-hidden="true">
+  <div class="modal fade" id="tambahSertifikat" tabindex="-1" aria-labelledby="tambahSertifikatLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -636,11 +682,13 @@ $sqlSertifikat->execute();
           <form method="post">
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nama Sertifikat:</label>
-              <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat" placeholder="Pengenalan UI/UX"></textarea>
+              <input type="text" class="form-control" id="nama_sertifikat" name="nama_sertifikat"
+                placeholder="Pengenalan UI/UX"></textarea>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Nama Penerbit:</label>
-              <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit" placeholder="Dicoding Indonesia"></textarea>
+              <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit"
+                placeholder="Dicoding Indonesia"></textarea>
             </div>
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Tanggal Terbit:</label>
@@ -714,7 +762,8 @@ $sqlSertifikat->execute();
     $tentang = $_POST['tentang_anda'];
     $nama = $_POST['nama'];
     $email = $_POST['email'];
-    $alamat = $_POST['alamat'];;
+    $alamat = $_POST['alamat'];
+    ;
     $nomor_telepon = $_POST['nomor_telepon'];
     $sqlEditTentang = $koneksiPdo->prepare("UPDATE pengguna SET foto='$tujuan', nama = '$nama', email = '$email', alamat = '$alamat', nomor_telepon = '$nomor_telepon', about = '$tentang' where id_pengguna = '$id_pengguna'");
     $sqlEditTentang->execute();

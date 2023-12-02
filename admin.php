@@ -111,13 +111,7 @@ $result = $koneksi->query($ambil);
 		</div>
 	</div>
 
-	<!-- Bootstrap JS and dependencies -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
+	<script src="script.js"></script>
 </body>
 
 </html>
