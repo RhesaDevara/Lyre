@@ -16,8 +16,7 @@ require 'koneksi.php';
         <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
@@ -111,7 +110,7 @@ require 'koneksi.php';
                                 " . $_SESSION['user']['nama'] . "
                             </a>
                             <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
-                                <li><a class='dropdown-item' href='#'>Profile</a></li>
+                                <li><a class='dropdown-item' href='user_profile.php'>Profile</a></li>
                                 <li><hr class='dropdown-divider'></li>
                                 <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
                             </ul>

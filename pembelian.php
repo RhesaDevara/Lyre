@@ -3,6 +3,7 @@ include 'navbar.php';
 $sql = $koneksiPdo->prepare("SELECT * FROM pembelian");
 $sql->execute();
 
+$today = date("d-m-Y");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,9 +24,19 @@ $sql->execute();
                 <div class="table-title">
                     <div class="row">
                         <div class="col-md-8">
-                            <h2>Data <b>Pembelian</b></h2>
+                            <div class="d-flex flex-row">
+                                <div>
+                                    <h2>Data <b>Pembelian</b></h2>
+                                </div>
+                                <div>
+                                    <input type="button" onclick="printFunc()" value="Print" class="btn btn-warning mt-2 ms-2">
+                                </div>
+                            </div>
+                            <div>
+                                <?php echo $today; ?>
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class=" col-md-4">
                             <div class="row">
                                 <div class="col-6">
                                 </div>
@@ -38,6 +49,8 @@ $sql->execute();
                         <th> ID Pembelian </th>
                         <th> Nama Perusahaan </th>
                         <th> Nama Paket </th>
+                        <th> Metode Pembayaran </th>
+                        <th> Nama </th>
                         <th> Harga </th>
                         <th> Tanggal Pembelian </th>
                     </tr>
@@ -65,6 +78,8 @@ $sql->execute();
                             <td> <?php echo $data['id_pembelian']; ?></td>
                             <td> <?php echo $dataPerusahaan['nama_perusahaan']; ?></td>
                             <td> <?php echo $dataPaket['nama_paket']; ?></td>
+                            <td> <?php echo $data['payment_method']; ?></td>
+                            <td> <?php echo $data['name_on_card']; ?></td>
                             <td> Rp. <?php echo $harga_format ?> ,-</td>
                             <td> <?php echo $data['tanggal_pembelian']; ?></td>
                         </tr>
@@ -89,6 +104,10 @@ $sql->execute();
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        function printFunc() {
+            window.print();
+        }
     </script>
 </body>
 

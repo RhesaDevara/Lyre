@@ -1,25 +1,7 @@
 <?php
 include 'navbar.php';
-
-$keyword = '';
-$orderBy = 'nama_perusahaan';
-$orderDirection = 'ASC';
-
-// Cek apakah ada data pencarian yang dikirimkan melalui URL
-if (isset($_GET['keyword'])) {
-	$keyword = $_GET['keyword'];
-}
-
-// Periksa parameter sort dari URL dan atur kolom dan arah pengurutan
-if (isset($_GET['sort'])) {
-	if ($_GET['sort'] === 'desc') {
-		$orderDirection = 'DESC'; // Jika sort=desc, atur urutan ke descending
-	}
-}
-
-// Melakukan pencarian data berdasarkan keyword pencarian dan pengurutan
-$ambil = "SELECT * FROM perusahaan WHERE nama_perusahaan LIKE '%$keyword%' OR email_perusahaan LIKE '%$keyword%' ORDER BY $orderBy $orderDirection";
-$result = $koneksi->query($ambil);
+$sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan ORDER BY status_akun ASC");
+$sqlPerusahaan->execute();
 ?>
 
 <!DOCTYPE html>
@@ -28,127 +10,87 @@ $result = $koneksi->query($ambil);
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>LYRE - Admin</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-	<link rel="stylesheet" href="assets/css/crud.css">
+	<title>Document</title>
 </head>
+
 <body>
-	<div style="width:95%; margin:auto;">
-		<div  class="table-responsive">
-			<div class="table-wrapper">
-				<div class="table-title">
-					<div class="row">
-						<div class="col-md-8">
-							<h2>Daftar <b>Perusahaan</b></h2>
+	<div class="container pt-5">
+		<?php
+		while ($data = $sqlPerusahaan->fetch()) {
+			$id_perusahaan = $data['id_perusahaan'];
+			$stats_akun = $data['status_akun'];
+			$nama_perusahaan = $data['nama_perusahaan'];
+		?>
+			<div class="card mb-3 mx-2 shadow-sm">
+				<div class="row g-0 align-items-center">
+					<div class="col-md-2 text-center p-lg-4 mt-4 mt-md-0">
+						<div class="d-flex align-items-center justify-content-center text-center mx-auto">
+							<img src="<?php echo $data['logo'] ?>" class="rounded" alt="Company Logo" style="width: 100px; height: 100px;">
 						</div>
-						<div class="col-md-4">
-							<div class="row">
-								<div class="col-6">
-								</div>
-								<div class="col-6">
-									<div class="search-box-crud">
-										<i class="fa-solid fa-magnifying-glass"></i>
-										<!-- Form untuk pencarian -->
-										<form method="GET" action="">
-											<input type="text" class="form-control" placeholder="Search&hellip;"
-												name="keyword" value="<?php echo htmlspecialchars($keyword); ?>">
-										</form>
+					</div>
+					<div class="col-md-10">
+						<div class="card-body d-md-flex flex-md-row flex-column align-md-items-start align-items-center justify-content-between text-start">
+							<div>
+								<div class="d-flex flex-row">
+									<div class="me-2">
+										<h5 class="card-title">
+											<?php echo $data['nama_perusahaan']; ?>
+										</h5>
+									</div>
+									<div class="text-secondary">
+										<?php
+										if ($stats_akun == 'Belum Review') {
+											echo "<span class='text-warning fw-bold'>(Status: " . $data['status_akun'] . ")</span>";
+										} else if ($stats_akun == 'Sedang Review') {
+											echo "<span class='text-primary fw-bold'>(Status: " . $data['status_akun'] . ")</span>";
+										} else {
+											echo "<span class='text-success fw-bold'>(Status: Aktif)</span>";
+										} ?>
 									</div>
 								</div>
+								<div class="text-secondary">
+									<span>
+										<?php
+										echo $data['email_perusahaan']; ?>
+									</span>
+								</div>
+								<ul class="list-inline text-secondary">
+									<li class="list-inline-item me-3">
+										<i class="fa-solid fa-location-dot"></i>
+										<?php echo $data['alamat_perusahaan']; ?>
+									</li> <br>
+									<li class="list-inline-item me-3 mt-3">
+										<i class="fa-solid fa-phone"></i>
+										<?php echo $data['nomor_telepon'] ?>
+									</li>
+									<li class="list-inline-item">
+										<i class="fa-solid fa-upload"></i>
+										<?php echo $data['kuota'] ?>
+									</li>
+								</ul>
 							</div>
+							<div class="my-auto mt-md-0 mt-md-3 text-md-end text-center d-grid">
+								<a href=<?php echo "company_profile.php?id_perusahaan=$id_perusahaan"; ?>>
+									<button class="btn btn-secondary form-control mt-2">Lihat Detail</button></a>
+								<?php
+								if ($data['status_akun'] == "Belum Review") { ?>
+									<?php echo "<a href='proses_perusahaan.php?id_perusahaan=$id_perusahaan&nama_perusahaan=$nama_perusahaan&action=review'>"; ?>
+									<input type="button" value="Review" class="btn btn-primary mt-1 form-control" onclick='return confirm("Apakah Anda Yakin?")'></a>
+								<?php } else if ($data['status_akun'] == "Sedang Review") { ?>
+									<?php echo "<a href='confirmed.php?id_perusahaan=$id_perusahaan'>"; ?>
+									<input type="button" value="Sedang Review" class="btn btn-warning mt-1 form-control"></a>
+								<?php } else { ?>
+									<input type="button" value="Aktif" class="btn btn-success mt-1 form-control" style="width: 100%;">
+								<?php } ?>
+							</div>
+
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover table-bordered text-center">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>ID</th>
-							<th>
-								Nama Perusahaan
-								<a
-									href="?keyword=<?php echo htmlspecialchars($keyword); ?>&sort=<?php echo ($orderDirection === 'ASC') ? 'desc' : 'asc'; ?>">
-									<i
-										class="text-dark fa fa-sort <?php echo ($orderDirection === 'ASC') ? 'asc' : 'desc'; ?>"></i>
-								</a>
-							</th>
-							<th>Email</th>
-							<th>Telepon</th>
-							<th>Alamat</th>
-							<th>Deskripsi</th>
-							<th>Kuota</th>
-							<th>Status Akun</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php $nomor = 1; ?>
-						<?php while ($data = $result->fetch_assoc()) { 
-                                $id_perusahaan = $data['id_perusahaan'];
-                                $nama_perusahaan = $data['nama_perusahaan'];
-                                ?>
-							<tr>
-								<td>
-									<?= $nomor; ?>
-								</td>
-								<td>
-									<?php echo $id_perusahaan; ?>
-								</td>
-								<td>
-									<?php echo $nama_perusahaan;  ?>
-								</td>
-								<td>
-									<?php echo $data['email_perusahaan']; ?>
-								</td>
-								<td>
-									<?php echo $data['nomor_telepon']; ?>
-								</td>
-								<td>
-									<?php echo $data['alamat_perusahaan']; ?>
-								</td>
-								<td>
-									<?php echo $data['deskripsi_perusahaan']; ?>
-								</td>
-								<td>
-									<?php echo $data['kuota']; ?>
-								</td>
-								<td>
-									<?php echo $data['status_akun']; ?>
-								</td>
-								<td>
-                                    <?php 
-                                        if($data['status_akun'] == 'Belum Review'){
-                                            ?> 
-                                            <?php echo "<form method='post' action='proses_perusahaan.php?id_perusahaan=$id_perusahaan&nama_perusahaan=$nama_perusahaan&action=review'>"; ?>
-                                                <input type="submit" class="btn btn-primary" value="Konfirmasi">
-                                            </form>
-                                            <?php
-                                        }else if($data['status_akun'] == 'Sedang Review'){ ?>
-                                        <?php echo "<form method='post' action='confirmed.php?id_perusahaan=$id_perusahaan'>"; ?>
-                                            <input type="submit" class="btn btn-secondary" value="Sedang di Konfirmasi">
-                                        </form>
-                                            <?php
-                                        }else if($data['status_akun'] == 'Aktif'){ ?>
-                                            <button type="submit" class="btn btn-success">Lihat Profile</button>
-                                        <?php }
-                                    ?>
-								</td>
-							</tr>
-							<?php $nomor++; ?>
-						<?php } ?>
-					</tbody>
-				</table>
 			</div>
-		</div>
-	</div>
+		<?php }
 
-	<!-- Bootstrap JS and dependencies -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
+		?>
 </body>
+
 </html>

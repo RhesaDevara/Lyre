@@ -1,14 +1,12 @@
 <?php
 include 'navbar.php';
+$search = $_POST['search'];
 
-$id_perusahaan = $_SESSION['company']['id_perusahaan'];
-$sqlSession = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
-$sqlSession->execute();
-$_SESSION['company'] = $sqlSession->fetch();
+$sqlSearch = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where posisi LIKE '%$search%'");
+$sqlSearch->execute();
 
-$sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_perusahaan = '$id_perusahaan'");
-$sql->execute();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +14,6 @@ $sql->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Apply and Recruit</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -25,23 +22,17 @@ $sql->execute();
             background: #f5f5f5;
         }
     </style>
+
     <div class="container mt-5">
         <div class="row mt-5">
             <div class="col-lg-8 mx-auto">
                 <div class="mb-5">
-                    <?php
-                    if ($_SESSION['company']['status_akun'] == "Sudah Aktif") { ?>
-                        <center> <a href="new_vacancy.php" class="btn btn-primary mb-3">Buat Lowongan</a> </center>
-                    <?php } else { ?>
-                        <div class="alert alert-warning">
-                            <center> Akun anda sedang dalam proses verifikasi, anda belum dapat membuat lowongan </center>
-                        </div>
-                    <?php } ?>
                     <div class="row row-cols-1 row-cols-md-2 g-4">
-                        <?php while ($data = $sql->fetch()) {
+                        <?php while ($data = $sqlSearch->fetch()) {
                             $id_lowongan = $data['id_lowongan'];
-                            $tanggal_posting = strtotime($data['tanggal_posting']);
-                            $selisih_detik = time() - $tanggal_posting;
+                            $id_perusahaan = $data['id_perusahaan'];
+                            $tanggal_posting_unix = strtotime($data['tanggal_posting']);
+                            $selisih_detik = time() - $tanggal_posting_unix;
 
                             if ($selisih_detik < 60) {
                                 $selisih = $selisih_detik . " Seconds Ago";
@@ -56,47 +47,25 @@ $sql->execute();
                             } else {
                                 $selisih = floor($selisih_detik / 31536000) . " Years Ago";
                             }
+
+                            $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+                            $sqlPerusahaan->execute();
+
+                            $dataPerusahaan = $sqlPerusahaan->fetch();
                         ?>
                             <div class="col">
-                                <div class="card card-bordered card-hover cursor-pointer">
+                                <div class="card">
                                     <div class="row g-0 align-items-center">
                                         <div class="col-md-4">
-                                            <div class="d-flex align-items-center justify-content-center text-center pt-3 pb-md-5">
-                                                <img src="<?php echo $_SESSION['company']['logo'] ?>" class="rounded" alt="Company Logo" style="width: 100px; height: 100px;">
+                                            <div class="d-flex align-items-center justify-content-center text-center pt-3 pt-md-0  pb-md-5">
+                                                <img src="<?php echo $dataPerusahaan['logo']; ?>" class="rounded" alt="Company Logo" style="width: 100px; height: 100px;">
                                             </div>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
-                                                <div class="d-flex flex-column">
-                                                    <div class="card-title">
-                                                        <div class="fw-bold">
-                                                            <span class="d-md-flex fs-5">
-                                                                <?php echo $data['posisi']; ?>
-                                                            </span>
-                                                            <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
-                                                                <span class="text-danger">(
-                                                                    <?php echo $data['status_lowongan']; ?> )
-                                                                </span>
-                                                            <?php } else { ?>
-                                                                <span class="text-success">(
-                                                                    <?php echo $data['status_lowongan']; ?> )
-                                                                </span>
-                                                            <?php } ?>
-                                                        </div>
-
-                                                    </div>
-                                                    <!-- <div class="fw-bold">
-                                                        <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
-                                                            <span class="text-danger">(
-                                                                <?php echo $data['status_lowongan']; ?> )
-                                                            </span>
-                                                        <?php } else { ?>
-                                                            <span class="text-success">(
-                                                                <?php echo $data['status_lowongan']; ?> )
-                                                            </span>
-                                                        <?php } ?>
-                                                    </div> -->
-                                                </div>
+                                                <h5 class="card-title">
+                                                    <?php echo $data['posisi']; ?>
+                                                </h5>
                                                 <ul class="list-unstyled text-secondary d-flex flex-column">
                                                     <li class="mb-1 me-3">
                                                         <i class="fa-solid fa-building"></i>

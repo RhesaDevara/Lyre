@@ -33,7 +33,10 @@ $jumlah_soal = $_POST['jumlah_soal'];
                     <center>
                         <table width=75% border=0 id="questionTable">
                             <tr>
-                                <th colspan=8> <center> <h4>Soal</h4> </th>
+                                <th colspan=8>
+                                    <center>
+                                        <h4>Soal</h4>
+                                </th>
                             </tr>
                         </table>
                         <script>
@@ -51,16 +54,16 @@ $jumlah_soal = $_POST['jumlah_soal'];
                                 <tr>
                                     <td rowspan=4> Pilihan </td>
                                     <td rowspan=4> : </td>
-                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="A"> A <input type="text" class="form-control mb-4" name="a${i}" required> </label></td>
+                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="A" required> A <input type="text" class="form-control mb-4" name="a${i}" required> </label></td>
                                 </tr>
                                 <tr>
-                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="B"> B <input type="text" class="form-control mb-4" name="b${i}" required></label></td>
+                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="B" required> B <input type="text" class="form-control mb-4" name="b${i}" required></label></td>
                                 </tr>
                                 <tr>
-                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="C"> C <input type="text" class="form-control mb-4" name="c${i}" required></label></td>
+                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="C" required> C <input type="text" class="form-control mb-4" name="c${i}" required></label></td>
                                 </tr>
                                 <tr>
-                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="D"> D <input type="text" class="form-control mb-4" name="d${i}" required></label></td>
+                                    <td> <label><input type="radio" name="pgno${i}" class="mt-3" value="D" required> D <input type="text" class="form-control mb-4" name="d${i}" required></label></td>
                                 </tr>
                                 <tr>
                                     <td colspan=8> <hr> </td>
