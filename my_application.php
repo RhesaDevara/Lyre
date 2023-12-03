@@ -97,7 +97,7 @@ $countLamaran = $sqlCountLamaran->fetchColumn();
                                                 <i class="far fa-money-bill-alt"></i>
                                                 <?php
                                                 $gaji = $dataLowongan['gaji'];
-                                                $gaji_format = number_format($harga, 0, ",", ".");
+                                                $gaji_format = number_format($gaji, 0, ",", ".");
                                                 echo "Rp. " . $gaji_format . ",-"; ?>
                                             </li>
                                             <li class="list-inline-item">
