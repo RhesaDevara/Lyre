@@ -2,6 +2,7 @@
 include 'navbar.php';
 $sqlCount = $koneksiPdo->prepare("SELECT COUNT(*) FROM lowongan_pekerjaan");
 $sqlCount->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -23,209 +24,318 @@ $sqlCount->execute();
         body {
             background: #f5f5f5;
         }
+
+        .logo-tes {
+            width: 5rem;
+        }
     </style>
-    <form method="post">
-        <div class="d-flex flew-row" style="border: none; margin: 0;">
-            <div class="mt-5 text-white" style="width:25%; height: 550px; background: #20444F;  position: fixed; border-radius: 0px 30px 30px 0px;">
-                <div class="px-4 pt-4">
-                    <h4> Filter </h4>
-                    <hr>
-                    <h5> Gaji </h5>
-                    <table>
-                        <tr>
-                            <td><input type="number" name="min" class="input form-control" placeholder="Min" autocomplete="off"> </td>
-                            <td width="10%" class="text-white px-2">
-                                <div style="border: 1px solid white; height: 2px; background: white;">
-                            </td>
-                            <td><input type="number" name="max" class="input form-control" placeholder="Max" autocomplete="off"> </td>
-                        </tr>
-                    </table>
-                    <h5 class="mt-4"> Lokasi </h5>
-                    <input class="form-check-input" type="radio" name="lokasi" value="" checked hidden>
 
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lokasi" id="jakarta" value="Jakarta">
-                        <label class="form-check-label" for="jakarta">
-                            Jakarta
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lokasi" id="bekasi" value="Bekasi">
-                        <label class="form-check-label" for="bekasi">
-                            Bekasi
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lokasi" id="bogor" value="Bogor">
-                        <label class="form-check-label" for="bogor">
-                            Bogor
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lokasi" id="depok" value="Depok">
-                        <label class="form-check-label" for="depok">
-                            Depok
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lokasi" id="tangerang" value="Tangerang">
-                        <label class="form-check-label" for="tangerang">
-                            Tangerang
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="lokasi" id="bandung" value="Bandung">
-                        <label class="form-check-label" for="bandung">
-                            Bandung
-                        </label>
-                    </div>
 
-                    <h5 class="mt-4"> Tanggal Post sesudah </h5>
-                    <input type="date" class="form-control" name="tanggal_post">
+    <section class="py-8 mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 col-12">
+                    <div class="mt-4">
+                        <div class="bg-white rounded-md-pill me-lg-10 shadow rounded-3">
+                            <div class="p-md-2 p-4">
+                                <!-- form -->
+                                <form method="post" class="row g-1">
+                                    <div class="col-12 col-md-9">
 
-                    <center> <button type="submit" name="btnFilter" class="btn btn-primary mt-4 form-control"> Terapkan </button></center>
-                </div>
-            </div>
-    </form>
-    <div style="width: 20%"></div>
-    <div>
-        <div class="container mt-5">
-            <div class="row mt-5">
-                <div class="col-lg-8 mx-auto">
-                    <div class="container mb-2">
-                        <form method="post">
-                            <div class="d-flex flex-row" style="width: 100%;">
-                                <div style="width: 100%;">
-                                    <input type="text" name="search" placeholder="Cari disini..." class="form-control">
-                                </div>
-                                <div>
-                                    <button type="submit" name="btnSearch" class="btn btn-primary">Cari</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="mb-5">
-                        <div class="row row-cols-1 row-cols-md-2 g-4">
-                            <?php
-                            if (isset($_POST['search'])) {
-                                $search = $_POST['search'];
-                                $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where posisi LIKE '%$search%' AND status_lowongan = 'Aktif'");
-                                $sql->execute();
-                            } else {
-                                if (isset($_POST['btnFilter'])) {
-                                    $min = $_POST['min'];
-                                    $max = $_POST['max'];
-                                    $lokasi = $_POST['lokasi'];
-                                    $tanggal_post = $_POST['tanggal_post'];
-
-                                    if (!isset($min) || $min == "" || empty($min)) {
-                                        $min = 0;
-                                    }
-                                    if (!isset($max) || $max == "" || empty($max)) {
-                                        $max = 10000000000;
-                                    }
-
-                                    if (!isset($lokasi) || $lokasi == "" || empty($lokasi)) {
-                                        $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif' AND gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post'");
-                                        $sql->execute();
-                                    } else {
-                                        $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif' AND gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post' AND lokasi_pekerjaan = '$lokasi'");
-                                        $sql->execute();
-                                    }
-                                    // } else if (isset($_POST['btnSearch'])) {
-                                    //     $search = $_POST['search'];
-                                    //     $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif'");
-                                    //     $sql->execute();
-                                } else {
-                                    $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif'");
-                                    $sql->execute();
-                                }
-                            }
-
-                            while ($data = $sql->fetch()) {
-                                $id_lowongan = $data['id_lowongan'];
-                                $id_perusahaan = $data['id_perusahaan'];
-                                $tanggal_posting_unix = strtotime($data['tanggal_posting']);
-                                $selisih_detik = time() - $tanggal_posting_unix;
-
-                                if ($selisih_detik < 60) {
-                                    $selisih = $selisih_detik . " Seconds Ago";
-                                } elseif ($selisih_detik < 3600) {
-                                    $selisih = floor($selisih_detik / 60) . " Minutes Ago";
-                                } elseif ($selisih_detik < 86400) {
-                                    $selisih = floor($selisih_detik / 3600) . " Hours Ago";
-                                } elseif ($selisih_detik < 2592000) {
-                                    $selisih = floor($selisih_detik / 86400) . " Days Ago";
-                                } elseif ($selisih_detik < 31536000) {
-                                    $selisih = floor($selisih_detik / 2592000) . " Months Ago";
-                                } else {
-                                    $selisih = floor($selisih_detik / 31536000) . " Years Ago";
-                                }
-
-                                $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
-                                $sqlPerusahaan->execute();
-
-                                $dataPerusahaan = $sqlPerusahaan->fetch();
-                            ?>
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="row g-0 align-items-center">
-                                            <div class="col-md-4">
-                                                <div class="d-flex align-items-center justify-content-center text-center pt-3 pt-md-0  pb-md-5">
-                                                    <img src="<?php echo $dataPerusahaan['logo']; ?>" class="rounded" alt="Company Logo" style="width: 100px; height: 100px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">
-                                                        <?php echo $data['posisi']; ?>
-                                                    </h5>
-                                                    <ul class="list-unstyled text-secondary d-flex flex-column">
-                                                        <li class="mb-1 me-3">
-                                                            <i class="fa-solid fa-building"></i>
-                                                            <?php echo $data['departemen']; ?>
-                                                        </li>
-                                                        <li class="mb-1 me-3">
-                                                            <i class="fa-solid fa-location-dot"></i>
-                                                            <?php echo $data['lokasi_pekerjaan']; ?>
-                                                        </li>
-                                                        <li class="mb-1">
-                                                            <i class="far fa-money-bill-alt"></i>
-                                                            <?php
-                                                            $harga = $data['gaji'];
-                                                            $harga_format = number_format($harga, 0, ",", ".");
-                                                            echo "Rp. " . $harga_format . ",-"; ?>
-                                                        </li>
-                                                    </ul>
-                                                    <div class="text-end">
-                                                        <a href=<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>>
-                                                            <input type="button" class="btn btn-secondary w-100" value="See Detail">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="card-footer d-md-flex justify-content-between text-secondary">
-                                                <small class="text-center">
-                                                    <i class="fa-solid fa-calendar-days"></i> Posted
-                                                    <span class="fs-7 fw-bold">
-                                                        <?php echo $selisih ?>
-                                                    </span>
-                                                </small>
-                                            </div>
+                                        <div class="input-group mb-2 mb-md-0 border-md-0 border rounded-pill">
+                                            <span class="input-group-text bg-transparent border-0 pe-0 ps-md-3 ps-md-0"
+                                                id="searchJob"><svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                    height="14" fill="currentColor" class="bi bi-search text-muted"
+                                                    viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                    </path>
+                                                </svg></span>
+                                            <!-- search -->
+                                            <input type="search" name="search"
+                                                class="form-control  rounded-pill border-0 ps-3 form-focus-none"
+                                                placeholder="Job Title" aria-label="Job Title"
+                                                aria-describedby="searchJob">
                                         </div>
+
                                     </div>
-                                </div>
-                            <?php } ?>
+
+                                    <div class="col-12 col-md-3 text-end d-grid">
+                                        <!-- button -->
+                                        <button type="submit" name="btnSearch"
+                                            class="btn btn-primary rounded-pill">Search</button>
+                                    </div>
+                                </form>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    <div style="height: 1000px;">
+    </section>
 
-    </div>
+
+    <section class="py-7">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- form -->
+                <form method="post" class="row gx-2 gx-md-3 ">
+                    <div class="col-xl-3 col-md-4 mb-6 mb-md-0">
+                        <div class="card border mb-3 shadow-none">
+                            <div class="card-header">
+                                <h4 class="mb-0 fs-5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-filter text-muted me-2" viewBox="0 0 16 16">
+                                        <path
+                                            d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z">
+                                        </path>
+                                    </svg>All Filters</h4>
+                            </div>
+                            <div class="card-body py-3">
+                                <a class="fs-5 text-dark fw-semibold text-decoration-none d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse" href="#collapseExample" role="button"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                    <span>Locations</span>
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                            </path>
+                                        </svg></span>
+                                </a>
+
+
+                                <div class="collapse show" id="collapseExample">
+                                    <div class="mt-3">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="lokasi" id="jakarta"
+                                                value="Jakarta">
+                                            <label class="form-check-label" for="jakarta">
+                                                Jakarta
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="lokasi" id="bekasi"
+                                                value="Bekasi">
+                                            <label class="form-check-label" for="bekasi">
+                                                Bekasi
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="lokasi" id="bogor"
+                                                value="Bogor">
+                                            <label class="form-check-label" for="bogor">
+                                                Bogor
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="lokasi" id="tangerang"
+                                                value="Tangerang">
+                                            <label class="form-check-label" for="tangerang">
+                                                Tangerang
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="lokasi" id="bandung"
+                                                value="Bandung">
+                                            <label class="form-check-label" for="bandung">
+                                                Bandung
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body border-top py-3">
+                                <a class="fs-5 text-dark fw-semibold text-decoration-none d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse" href="#collapseExampleSecond" role="button"
+                                    aria-expanded="false" aria-controls="collapseExampleSecond">
+                                    <span>Salary</span>
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                            </path>
+                                        </svg></span>
+                                </a>
+                                <div class="collapse show" id="collapseExampleSecond">
+                                    <div class="mt-3">
+                                        <input type="number" name="min" class="input form-control" placeholder="Min"
+                                            autocomplete="off" min="0">
+                                        <hr>
+                                        <input type="number" name="max" class="input form-control" placeholder="Max"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body border-top py-3">
+                                <a class="fs-5 text-dark fw-semibold text-decoration-none d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse" href="#collapseExampleThird" role="button"
+                                    aria-expanded="false" aria-controls="collapseExampleThird">
+                                    <span>Last updated</span>
+                                    <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
+                                            </path>
+                                        </svg></span>
+                                </a>
+                                <div class="collapse show" id="collapseExampleThird">
+                                    <div class="mt-3">
+                                        <input type="date" class="form-control" name="tanggal_post">
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-body py-3 d-grid">
+                                <button type="submit" name="btnFilter" class="btn btn-primary mb-1">
+                                    Terapkan
+                                </button>
+                                <button type="submit" name="btnClear" class="btn btn-outline-secondary">
+                                    Clear Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-9 col-md-8 mb-6 mb-md-0">
+                        <?php
+                        if(isset($_POST['search'])) {
+                            $search = $_POST['search'];
+                            $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where posisi LIKE '%$search%' AND status_lowongan = 'Aktif'");
+                            $sql->execute();
+                        } else {
+                            if(isset($_POST['btnFilter'])) {
+                                $min = $_POST['min'];
+                                $max = $_POST['max'];
+                                $tanggal_post = $_POST['tanggal_post'];
+
+                                if(!isset($min) || $min == "" || empty($min)) {
+                                    $min = 0;
+                                }
+                                if(!isset($max) || $max == "" || empty($max)) {
+                                    $max = 10000000000;
+                                }
+
+                                if(isset($_POST['lokasi'])) {
+                                    $lokasi = $_POST['lokasi'];
+                                }
+                                if(!isset($lokasi) || $lokasi == "" || empty($lokasi)) {
+                                    $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif' AND gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post'");
+                                    $sql->execute();
+                                } else {
+                                    $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif' AND gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post' AND lokasi_pekerjaan = '$lokasi'");
+                                    $sql->execute();
+                                }
+                            } else if(isset($_POST['btnClear'])) {
+                                $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif'");
+                                $sql->execute();
+                            } else {
+                                $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif'");
+                                $sql->execute();
+                            }
+                        }
+
+                        while($data = $sql->fetch()) {
+                            $id_lowongan = $data['id_lowongan'];
+                            $id_perusahaan = $data['id_perusahaan'];
+                            $tanggal_posting_unix = strtotime($data['tanggal_posting']);
+                            $selisih_detik = time() - $tanggal_posting_unix;
+
+                            if($selisih_detik < 60) {
+                                $selisih = $selisih_detik." Seconds Ago";
+                            } elseif($selisih_detik < 3600) {
+                                $selisih = floor($selisih_detik / 60)." Minutes Ago";
+                            } elseif($selisih_detik < 86400) {
+                                $selisih = floor($selisih_detik / 3600)." Hours Ago";
+                            } elseif($selisih_detik < 2592000) {
+                                $selisih = floor($selisih_detik / 86400)." Days Ago";
+                            } elseif($selisih_detik < 31536000) {
+                                $selisih = floor($selisih_detik / 2592000)." Months Ago";
+                            } else {
+                                $selisih = floor($selisih_detik / 31536000)." Years Ago";
+                            }
+
+                            $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+                            $sqlPerusahaan->execute();
+
+                            $dataPerusahaan = $sqlPerusahaan->fetch();
+                            ?>
+                            <div class="card card-bordered mb-3 card-hover cursor-pointer">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="d-xl-flex">
+                                            <div class="mb-3 mb-md-0 text-center">
+                                                <img src="<?php echo $dataPerusahaan['logo']; ?>" alt="course"
+                                                    class="rounded logo-tes mt-md-2">
+                                            </div>
+                                            <div class="ms-xl-3 w-100 mt-3 mt-xl-1">
+                                                <div class="d-flex justify-content-between mb-4">
+                                                    <div>
+                                                        <h3 class="mb-1 fs-4"><a
+                                                                href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
+                                                                class="text-dark text-decoration-none text-inherit">
+                                                                <?php echo $data['posisi']; ?>
+                                                            </a>
+                                                        </h3>
+
+                                                        <div class="mb-2 mb-md-0 text-secondary">
+                                                            <span class="me-2"> <i class="fa-regular fa-building"></i>
+                                                                <span class="ms-1">
+                                                                    <?php echo $data['departemen']; ?>
+                                                                </span></span>
+                                                            <span class="me-2">
+                                                                <i class="far fa-money-bill-alt"></i>
+                                                                <span class="ms-1">
+                                                                    <?php
+                                                                    $harga = $data['gaji'];
+                                                                    $harga_format = number_format($harga, 0, ",", ".");
+                                                                    echo "Rp. ".$harga_format.",-"; ?>
+                                                                </span></span>
+                                                            <span class="me-2">
+                                                                <i class="fa-solid fa-location-dot"></i>
+                                                                <span class="ms-1">
+                                                                    <?php echo $data['lokasi_pekerjaan']; ?>
+                                                                </span></span>
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="text-secondary">
+                                                        <i class="fa-regular fa-clock"></i><span>
+                                                            <?php echo $selisih ?>
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <a href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
+                                                            class="btn btn-secondary">Detail</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>
