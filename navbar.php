@@ -9,6 +9,7 @@ require 'koneksi.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/css.css">
+    <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
@@ -16,7 +17,8 @@ require 'koneksi.php';
         <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
@@ -29,9 +31,6 @@ require 'koneksi.php';
                 if (isset($_SESSION['user'])) {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='user_profile.php'>Profile</a>
-                        </li>
-                        <li class='nav-item'>
                             <a class='nav-link' href='find_job.php'>Find Job</a>
                         </li>
                         <li class='nav-item'>
@@ -39,9 +38,6 @@ require 'koneksi.php';
                         </li>";
                 } else if (isset($_SESSION['company'])) {
                     echo "
-                        <li class='nav-item'>
-                            <a class='nav-link' href='company_profile.php'>Profile</a>
-                        </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='our_vacancy.php'>Our Vacancy</a>
                         </li>
@@ -116,19 +112,7 @@ require 'koneksi.php';
                             </ul>
                         </div>";
                 } elseif (isset($_SESSION['admin'])) {
-                    $profilePicture = isset($_SESSION['admin']['foto_admin']) ? 'assets/img/' . $_SESSION['admin']['foto_admin'] : 'assets/img/profile.png';
-                    echo "
-                        <div class='d-grid gap-2 d-md-flex justify-content-center'>
-                        <div class='dropdown text-light'>
-                            <a class='btn btn-custom dropdown-toggle text-light' href='#' role='button' id='profileDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
-                                <img src='" . $profilePicture . "' loading='lazy' alt='Profile Picture' width='35' height='35' class='object-fit-cover rounded-circle me-2'>
-                                " . $_SESSION['admin']['nama'] . "
-                            </a>
-                            <ul class='dropdown-menu' aria-labelledby='profileDropdown'>
-                                <li><hr class='dropdown-divider'></li>
-                                <li><a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a></li>
-                            </ul>
-                        </div>";
+                    echo "<a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a>";
                 }
             } else {
                 echo "
@@ -151,5 +135,8 @@ require 'koneksi.php';
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+<script src="script.js"></script>
 
 </html>

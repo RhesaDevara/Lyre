@@ -29,12 +29,20 @@ $sql1->execute();
 </head>
 
 <body>
+    <style>
+        .logo-tes {
+            width: 5rem;
+        }
+    </style>
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row gy-5 gx-md-5">
                 <div class="col-lg-12">
                     <div class="d-flex flex-shrink-0 mb-3">
-                        <img class="img-fluid rounded-circle mt-3 me-5" src="<?php echo $data['logo']; ?>" loading="lazy" alt="User Logo" style="width: 100px; height: 100px; object-fit: cover;border-radius: 100px;" data-bs-toggle="modal" data-bs-target="#ubahFoto">
+                        <img class="img-fluid rounded-circle mt-3 me-5" src="<?php echo $data['logo']; ?>"
+                            loading="lazy" alt="Company Logo"
+                            style="width: 100px; height: 100px; object-fit: cover;border-radius: 100px;"
+                            data-bs-toggle="modal" data-bs-target="#ubahFoto">
 
                         <div>
                             <h3 class="my-3">
@@ -54,7 +62,8 @@ $sql1->execute();
                                 </p>
                             </div>
                             <?php
-                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfile">Edit
+                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-primary"
+                                    data-bs-toggle="modal" data-bs-target="#editProfile">Edit
                                     Profile</button>
                             <?php } ?>
                         </div>
@@ -73,8 +82,136 @@ $sql1->execute();
                                 <h4>Our Vacancy</h4>
                             </div>
                             <hr>
-                            <div class="row row-cols-1 row-cols-md-3 g-4">
-                                <?php while ($data1 = $sql1->fetch()) : ?>
+                            <section class="py-8">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12 mb-6 mb-md-0 py-4">
+
+                                            <div class="row">
+                                                <?php while ($data1 = $sql1->fetch()): ?>
+                                                    <div class="col-lg-4 col-12 mb-4">
+                                                        <!-- Job Grid Start -->
+                                                        <div
+                                                            class="card card-bordered card-hover shadow-sm cursor-pointer h-100">
+                                                            <!-- card body -->
+                                                            <div class="card-body">
+                                                                <div class="mb-3 text-center">
+                                                                    <!-- Img -->
+                                                                    <img src="<?php echo $data['logo']; ?>"
+                                                                        alt="Company Logo" loading="lazy"
+                                                                        class="rounded logo-tes mt-md-2">
+                                                                </div>
+                                                                <!-- text -->
+                                                                <div class="w-100 mt-3">
+                                                                    <div class="d-flex justify-content-between mb-4">
+                                                                        <div>
+                                                                            <!-- Job Grid Heading Start-->
+                                                                            <h3 class="fs-4"><a
+                                                                                    href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
+                                                                                    class="text-dark text-decoration-none text-inherit">
+                                                                                    <?php echo $data1['posisi']; ?>
+                                                                                </a>
+                                                                            </h3>
+                                                                            <!-- Job Grid Heading End-->
+                                                                            <?php
+                                                                            if (isset($_SESSION['company'])) { ?>
+                                                                                <?php if ($data1['status_lowongan'] == "Non Aktif") { ?>
+                                                                                    <span
+                                                                                        class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded my-1 fs-6">
+                                                                                        <?php echo $data1['status_lowongan']; ?>
+                                                                                    </span>
+                                                                                <?php } else { ?>
+                                                                                    <span
+                                                                                        class="badge bg-success-subtle border border-successs-subtle text-success-emphasis rounded my-1 fs-6">
+                                                                                        <?php echo $data1['status_lowongan']; ?>
+                                                                                    </span>
+                                                                                <?php } ?>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                                <!--Job Listing Meta Start-->
+                                                                <div>
+                                                                    <div class="mb-4 text-secondary fs-5">
+                                                                        <div class="mb-2 mb-md-0">
+                                                                            <div class="mt-1"> <i
+                                                                                    class="fa-solid fa-building"></i><span
+                                                                                    class="ms-1">
+                                                                                    <?php echo $data1['departemen']; ?>
+                                                                                </span></div>
+                                                                            <div class="mt-1">
+                                                                                <i
+                                                                                    class="fa-solid fa-location-dot"></i><span
+                                                                                    class="ms-1">
+                                                                                    <?php echo $data1['lokasi_pekerjaan']; ?>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="mt-1">
+                                                                                <i class="far fa-money-bill-alt"></i><span
+                                                                                    class="ms-1 ">
+                                                                                    <?php
+                                                                                    $harga = $data1['gaji'];
+                                                                                    $harga_format = number_format($harga, 0, ",", ".");
+                                                                                    echo "Rp. " . $harga_format . ",-"; ?>
+                                                                                </span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div
+                                                                        class="d-flex justify-content-between align-items-center">
+                                                                        <div class="text-secondary">
+                                                                            <i class="fa-regular fa-clock"></i><span>
+                                                                                <?php
+                                                                                $tanggal_posting = new DateTime($data1['tanggal_posting']);
+                                                                                $tanggal_formatted = $tanggal_posting->format('d F Y');
+                                                                                $now = new DateTime();
+                                                                                $interval = $tanggal_posting->diff($now);
+
+                                                                                if ($interval->m < 1) {
+                                                                                    $selisih = $tanggal_formatted;
+                                                                                } elseif ($interval->y > 0) {
+                                                                                    $selisih = $interval->y . " Years Ago";
+                                                                                } elseif ($interval->m > 0) {
+                                                                                    $selisih = $interval->m . " Months Ago";
+                                                                                } elseif ($interval->d > 0) {
+                                                                                    $selisih = $interval->d . " Days Ago";
+                                                                                } elseif ($interval->h > 0) {
+                                                                                    $selisih = $interval->h . " Hours Ago";
+                                                                                } elseif ($interval->i > 0) {
+                                                                                    $selisih = $interval->i . " Minutes Ago";
+                                                                                } else {
+                                                                                    $selisih = $interval->s . " Seconds Ago";
+                                                                                }
+                                                                                echo $selisih ?>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div>
+                                                                            <a href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
+                                                                                class="btn btn-secondary">Detail</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--Job Listing Meta End-->
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- Job Grid End -->
+
+                                                    </div>
+                                                <?php endwhile; ?>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </section>
+                            <!-- <div class="row row-cols-1 row-cols-md-3 g-4">
+                                <?php while ($data1 = $sql1->fetch()): ?>
                                     <div class="col">
                                         <div class="card">
                                             <div class="row g-0 align-items-center">
@@ -143,43 +280,54 @@ $sql1->execute();
                                         </div>
                                     </div>
                                 <?php endwhile; ?>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Modal Ubah Profile-->
-                <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+                <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="editProfileLabel">Ubah Profile</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form method="post" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Foto:</label>
-                                        <center> <img src="<?php echo $data['logo']; ?>" style="width: 200px; height: 200px;" class="form-control mb-3">
+                                        <center> <img src="<?php echo $data['logo']; ?>"
+                                                style="width: 200px; height: 200px;" class="form-control mb-3">
                                         </center>
                                         <input type="file" class="form-control" name="logo" id="logo" accept="image/*">
-                                        <input type="text" value="<?php echo $data['logo']; ?>" name="gambarLama" hidden>
+                                        <input type="text" value="<?php echo $data['logo']; ?>" name="gambarLama"
+                                            hidden>
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nama Perusahaan:</label>
-                                        <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" placeholder="Masukkan nama perusahaan anda" value="<?php echo $data['nama_perusahaan']; ?> ">
+                                        <input type="text" class="form-control" id="nama_perusahaan"
+                                            name="nama_perusahaan" placeholder="Masukkan nama perusahaan anda"
+                                            value="<?php echo $data['nama_perusahaan']; ?> ">
                                     </div>
                                     <div class=" form-group">
                                         <label for="recipient-name" class="col-form-label">Email Perusahaan:</label>
-                                        <input type="email" class="form-control" id="email_perusahaan" name="email_perusahaan" placeholder="Masukkan email perusahaan anda" value="<?php echo $data['email_perusahaan']; ?> ">
+                                        <input type="email" class="form-control" id="email_perusahaan"
+                                            name="email_perusahaan" placeholder="Masukkan email perusahaan anda"
+                                            value="<?php echo $data['email_perusahaan']; ?> ">
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Nomor telepon:</label>
-                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="08**********" value="<?php echo $data['nomor_telepon']; ?> ">
+                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon"
+                                            placeholder="08**********" value="<?php echo $data['nomor_telepon']; ?> ">
                                     </div>
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Deskripsi Perusahaan:</label>
-                                        <textarea class="form-control" id="deskripsi_perusahaan" name="deskripsi_perusahaan" placeholder="Tuliskan tentang perusahaan anda"><?php echo $data['deskripsi_perusahaan']; ?></textarea>
+                                        <textarea class="form-control" id="deskripsi_perusahaan"
+                                            name="deskripsi_perusahaan"
+                                            placeholder="Tuliskan tentang perusahaan anda"><?php echo $data['deskripsi_perusahaan']; ?></textarea>
                                     </div>
                             </div>
                             <div class="modal-footer">

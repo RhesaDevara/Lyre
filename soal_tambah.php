@@ -11,23 +11,19 @@ $jumlah_soal = $_POST['jumlah_soal'];
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://unpkg.com/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/css/css.css" rel="stylesheet">
-</head>
 
 <body>
     <div class="mt-5 p-2">
         <center>
-            <h3> Soal Tes : <b><?php echo $data['posisi']; ?></b> </h3>
+            <h3> Soal Tes : <b>
+                    <?php echo $data['posisi']; ?>
+                </b> </h3>
         </center>
         <?php
         echo "<form method='post' action='question_process.php?id_lowongan=$id_lowongan'>"; ?>
         <div class="my-5">
-            <input type="number" id="jumlah_pertanyaan" name="jumlah_pertanyaan" min="1" value="<?php echo $jumlah_soal; ?>" hidden>
+            <input type="number" id="jumlah_pertanyaan" name="jumlah_pertanyaan" min="1"
+                value="<?php echo $jumlah_soal; ?>" hidden>
             <center>
                 <div>
                     <center>

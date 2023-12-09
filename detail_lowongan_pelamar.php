@@ -61,17 +61,22 @@ if (isset($_GET['status_lamaran'])) {
                                         <?php echo $data['posisi']; ?>
                                     </h3>
                                 </div>
-                                <div class="mt-2 ms-2 fw-bold">
-                                    <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
-                                        <p class="text-danger">(
-                                            <?php echo $data['status_lowongan']; ?> )
-                                        </p>
-                                    <?php } else { ?>
-                                        <p class="text-success">(
-                                            <?php echo $data['status_lowongan']; ?> )
-                                        </p>
-                                    <?php } ?>
-                                </div>
+                                <?php
+                                if (isset($_SESSION['company'])) { ?>
+                                    <div class="mb-1 fw-bold">
+                                        <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
+                                            <span
+                                                class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded ms-xl-2 my-1 fs-6">
+                                                <?php echo $data['status_lowongan']; ?>
+                                            </span>
+                                        <?php } else { ?>
+                                            <span
+                                                class="badge bg-success-subtle border border-successs-subtle text-success-emphasis rounded ms-xl-2 my-1 fs-6">
+                                                <?php echo $data['status_lowongan']; ?>
+                                            </span>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
                             </div>
                             <h5 class="text-muted mb-3">
                                 <a href="<?php echo "company_profile.php?id_perusahaan=$data[id_perusahaan]"; ?>" class="text-decoration-none">

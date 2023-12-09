@@ -30,17 +30,16 @@ $sqlCount->execute();
         }
     </style>
 
-
     <section class="py-8 mb-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-md-10 col-12">
                     <div class="mt-4">
-                        <div class="bg-white rounded-md-pill me-lg-10 shadow rounded-3">
+                        <div class="bg-white rounded-md-pill me-lg-10 shadow-sm rounded-3">
                             <div class="p-md-2 p-4">
                                 <!-- form -->
-                                <form method="post" class="row g-1">
-                                    <div class="col-12 col-md-9">
+                                <form method="post" class="row g-2">
+                                    <div class="col-12 col-md-10">
 
                                         <div class="input-group mb-2 mb-md-0 border-md-0 border rounded-pill">
                                             <span class="input-group-text bg-transparent border-0 pe-0 ps-md-3 ps-md-0"
@@ -53,14 +52,13 @@ $sqlCount->execute();
                                                 </svg></span>
                                             <!-- search -->
                                             <input type="search" name="search"
-                                                class="form-control  rounded-pill border-0 ps-3 form-focus-none"
+                                                class="form-control rounded-pill border-0 ps-3 form-focus-none"
                                                 placeholder="Job Title" aria-label="Job Title"
                                                 aria-describedby="searchJob">
                                         </div>
 
                                     </div>
-
-                                    <div class="col-12 col-md-3 text-end d-grid">
+                                    <div class="col-12 col-md-2 text-end d-grid">
                                         <!-- button -->
                                         <button type="submit" name="btnSearch"
                                             class="btn btn-primary rounded-pill">Search</button>
@@ -77,13 +75,13 @@ $sqlCount->execute();
     </section>
 
 
-    <section class="py-7">
+    <section class="py-8">
         <div class="container">
             <div class="row justify-content-center">
                 <!-- form -->
                 <form method="post" class="row gx-2 gx-md-3 ">
                     <div class="col-xl-3 col-md-4 mb-6 mb-md-0">
-                        <div class="card border mb-3 shadow-none">
+                        <div class="card border mb-3 shadow-sm">
                             <div class="card-header">
                                 <h4 class="mb-0 fs-5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-filter text-muted me-2" viewBox="0 0 16 16">
@@ -205,34 +203,34 @@ $sqlCount->execute();
 
                     <div class="col-xl-9 col-md-8 mb-6 mb-md-0">
                         <?php
-                        if(isset($_POST['search'])) {
+                        if (isset($_POST['search'])) {
                             $search = $_POST['search'];
                             $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where posisi LIKE '%$search%' AND status_lowongan = 'Aktif'");
                             $sql->execute();
                         } else {
-                            if(isset($_POST['btnFilter'])) {
+                            if (isset($_POST['btnFilter'])) {
                                 $min = $_POST['min'];
                                 $max = $_POST['max'];
                                 $tanggal_post = $_POST['tanggal_post'];
 
-                                if(!isset($min) || $min == "" || empty($min)) {
+                                if (!isset($min) || $min == "" || empty($min)) {
                                     $min = 0;
                                 }
-                                if(!isset($max) || $max == "" || empty($max)) {
+                                if (!isset($max) || $max == "" || empty($max)) {
                                     $max = 10000000000;
                                 }
 
-                                if(isset($_POST['lokasi'])) {
+                                if (isset($_POST['lokasi'])) {
                                     $lokasi = $_POST['lokasi'];
                                 }
-                                if(!isset($lokasi) || $lokasi == "" || empty($lokasi)) {
+                                if (!isset($lokasi) || $lokasi == "" || empty($lokasi)) {
                                     $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif' AND gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post'");
                                     $sql->execute();
                                 } else {
                                     $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif' AND gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post' AND lokasi_pekerjaan = '$lokasi'");
                                     $sql->execute();
                                 }
-                            } else if(isset($_POST['btnClear'])) {
+                            } else if (isset($_POST['btnClear'])) {
                                 $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where status_lowongan = 'Aktif'");
                                 $sql->execute();
                             } else {
@@ -241,24 +239,24 @@ $sqlCount->execute();
                             }
                         }
 
-                        while($data = $sql->fetch()) {
+                        while ($data = $sql->fetch()) {
                             $id_lowongan = $data['id_lowongan'];
                             $id_perusahaan = $data['id_perusahaan'];
                             $tanggal_posting_unix = strtotime($data['tanggal_posting']);
                             $selisih_detik = time() - $tanggal_posting_unix;
 
-                            if($selisih_detik < 60) {
-                                $selisih = $selisih_detik." Seconds Ago";
-                            } elseif($selisih_detik < 3600) {
-                                $selisih = floor($selisih_detik / 60)." Minutes Ago";
-                            } elseif($selisih_detik < 86400) {
-                                $selisih = floor($selisih_detik / 3600)." Hours Ago";
-                            } elseif($selisih_detik < 2592000) {
-                                $selisih = floor($selisih_detik / 86400)." Days Ago";
-                            } elseif($selisih_detik < 31536000) {
-                                $selisih = floor($selisih_detik / 2592000)." Months Ago";
+                            if ($selisih_detik < 60) {
+                                $selisih = $selisih_detik . " Seconds Ago";
+                            } elseif ($selisih_detik < 3600) {
+                                $selisih = floor($selisih_detik / 60) . " Minutes Ago";
+                            } elseif ($selisih_detik < 86400) {
+                                $selisih = floor($selisih_detik / 3600) . " Hours Ago";
+                            } elseif ($selisih_detik < 2592000) {
+                                $selisih = floor($selisih_detik / 86400) . " Days Ago";
+                            } elseif ($selisih_detik < 31536000) {
+                                $selisih = floor($selisih_detik / 2592000) . " Months Ago";
                             } else {
-                                $selisih = floor($selisih_detik / 31536000)." Years Ago";
+                                $selisih = floor($selisih_detik / 31536000) . " Years Ago";
                             }
 
                             $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
@@ -266,7 +264,7 @@ $sqlCount->execute();
 
                             $dataPerusahaan = $sqlPerusahaan->fetch();
                             ?>
-                            <div class="card card-bordered mb-3 card-hover cursor-pointer">
+                            <div class="card card-bordered mb-3 shadow-sm card-hover cursor-pointer">
                                 <div class="card-body">
                                     <div>
                                         <div class="d-xl-flex">
@@ -285,29 +283,26 @@ $sqlCount->execute();
                                                         </h3>
 
                                                         <div class="mb-2 mb-md-0 text-secondary">
-                                                            <span class="me-2"> <i class="fa-regular fa-building"></i>
-                                                                <span class="ms-1">
-                                                                    <?php echo $data['departemen']; ?>
-                                                                </span></span>
-                                                            <span class="me-2">
-                                                                <i class="far fa-money-bill-alt"></i>
-                                                                <span class="ms-1">
-                                                                    <?php
-                                                                    $harga = $data['gaji'];
-                                                                    $harga_format = number_format($harga, 0, ",", ".");
-                                                                    echo "Rp. ".$harga_format.",-"; ?>
-                                                                </span></span>
-                                                            <span class="me-2">
-                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                <span class="ms-1">
-                                                                    <?php echo $data['lokasi_pekerjaan']; ?>
-                                                                </span></span>
+                                                            <div class="d-flex flex-column flex-md-row">
+                                                                <!-- Mengubah menjadi kolom pada mobile -->
+                                                                <span class="me-2"> <i class="fa-regular fa-building"></i>
+                                                                    <span class="ms-1">
+                                                                        <?php echo $data['departemen']; ?>
+                                                                    </span></span>
+                                                                <span class="me-2"> <i class="far fa-money-bill-alt"></i>
+                                                                    <span class="ms-1">
+                                                                        <?php
+                                                                        $harga = $data['gaji'];
+                                                                        $harga_format = number_format($harga, 0, ",", ".");
+                                                                        echo "Rp. " . $harga_format . ",-"; ?>
+                                                                    </span></span>
+                                                                <span class="me-2"> <i class="fa-solid fa-location-dot"></i>
+                                                                    <span class="ms-1">
+                                                                        <?php echo $data['lokasi_pekerjaan']; ?>
+                                                                    </span></span>
+                                                            </div>
                                                         </div>
-
-
                                                     </div>
-
-
                                                 </div>
 
                                                 <div class="d-flex justify-content-between align-items-center">

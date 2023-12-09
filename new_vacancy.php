@@ -40,11 +40,6 @@ include 'navbar.php';
                             required>
                     </div>
                     <div class="mb-3">
-                        <label for="deskripsi_pekerjaan" class="form-label mt-2">Deskripsi Pekerjaan</label>
-                        <input type="text" class="form-control" name="deskripsi_pekerjaan"
-                            placeholder="Masukkan deskripsi pekerjaan" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="gaji" class="form-label mt-2">Gaji</label>
                         <input type="number" class="form-control" name="gaji" placeholder="Masukkan gaji" required>
                     </div>
@@ -52,6 +47,11 @@ include 'navbar.php';
                         <label for="lokasi_pekerjaan" class="form-label mt-2">Lokasi Pekerjaan</label>
                         <input type="text" class="form-control" name="lokasi_pekerjaan"
                             placeholder="Masukkan lokasi pekerjaan" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deskripsi_pekerjaan" class="form-label mt-2">Deskripsi Pekerjaan</label>
+                        <textarea class="form-control h-100" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan"
+                            placeholder="Masukkan deskripsi pekerjaan"></textarea>
                     </div>
                     <div class="text-left">
                         <button type="submit" class="btn btn-success w-100">Buat Lowongan</button>
@@ -61,7 +61,25 @@ include 'navbar.php';
         </div>
     </div>
 
-    <script></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#deskripsi_pekerjaan'), {
+                toolbar: {
+                    items: [
+                        'undo', 'redo',
+                        '|', 'heading',
+                        '|', 'bold', 'italic',
+                        '|', 'bulletedList', 'numberedList',
+                        '|', 'blockQuote', 'link',
+                    ],
+                    shouldNotGroupWhenFull: false
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
