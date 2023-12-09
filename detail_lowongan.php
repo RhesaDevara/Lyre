@@ -82,9 +82,9 @@ $count = $cekSoal->fetchColumn();
                                 </p>
                                 <p class="me-4"><i class="far fa-money-bill-alt text-primary me-1"></i>
                                     <?php
-                                    $harga = $data['gaji'];
-                                    $harga_format = number_format($harga, 0, ",", ".");
-                                    echo "Rp. " . $harga_format . ",-"; ?>
+                                    $gaji = $data['gaji'];
+                                    $gaji_format = number_format($gaji, 0, ",", ".");
+                                    echo "Rp. " . $gaji_format . ",-"; ?>
                                 </p>
                                 <p><i class="fa-solid fa-calendar-days text-primary me-1"></i>
                                     <?php
@@ -220,9 +220,9 @@ $count = $cekSoal->fetchColumn();
                                                                     <li class="list-inline-item me-3 mt-3">
                                                                         <i class="far fa-money-bill-alt"></i>
                                                                         <?php
-                                                                        $harga = $dataLowongan['gaji'];
-                                                                        $harga_format = number_format($harga, 0, ",", ".");
-                                                                        echo "Rp. " . $harga_format . ",-"; ?>
+                                                                        $gaji = $dataLowongan['gaji'];
+                                                                        $gaji_format = number_format($gaji, 0, ",", ".");
+                                                                        echo "Rp. " . $gaji_format . ",-"; ?>
                                                                     </li>
                                                                     <li class="list-inline-item">
                                                                         <i class="fa-solid fa-calendar-days"></i>
@@ -320,7 +320,7 @@ $count = $cekSoal->fetchColumn();
                         </p>
                         <p><i class="fa fa-angle-right text-primary me-2"></i>Salary:
                             <?php
-                            echo "Rp. " . $harga_format . ",-"; ?>
+                            echo "Rp. " . $gaji_format . ",-"; ?>
                         </p>
                         <p><i class="fa fa-angle-right text-primary me-2"></i>Location:
                             <?php echo $data['lokasi_pekerjaan']; ?>
@@ -400,8 +400,7 @@ $count = $cekSoal->fetchColumn();
                         'undo', 'redo',
                         '|', 'heading',
                         '|', 'bold', 'italic',
-                        '|', 'bulletedList', 'numberedList',
-                        '|', 'blockQuote', 'link',
+                        '|', 'bulletedList', 'numberedList', 'blockQuote',
                     ],
                     shouldNotGroupWhenFull: false
                 }

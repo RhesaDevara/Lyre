@@ -43,22 +43,14 @@
                                         <input type="password" class="form-control" name="password" id="password"
                                             value="" required placeholder="********">
                                     </div>
-                                    <div class="mb-3 form-check">
-                                        <input class="form-check-input" type="checkbox" value="" name="remember_me"
-                                            id="remember_me">
-                                        <label class="form-check-label" for="remember_me">Keep me logged in</label>
-                                    </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
                                             <button class="btn btn-login-register" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </form>
-                                <hr class="mt-5 mb-4 border border-secondary">
-                                <div class="d-flex gap-2 gap-md-4 flex-row justify-content-end">
-                                    <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
-                                </div>
-                                <p class="mt-5 mb-3">Don't have an account? Sign up here.</p>
+                                <hr class="mt-3 mb-4 border border-secondary">
+                                <p class="mt-3 mb-3">Don't have an account? Sign up here.</p>
                                 <div class="d-flex gap-3 mb-1 flex-column flex-xl-row">
                                     <a href="daftar_user.php" class="btn btn-select-register">Applicant</a>
                                     <a href="daftar_company.php" class="btn btn-select-register">Company</a>

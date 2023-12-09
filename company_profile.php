@@ -105,14 +105,12 @@ $sql1->execute();
                                                                 <div class="w-100 mt-3">
                                                                     <div class="d-flex justify-content-between mb-4">
                                                                         <div>
-                                                                            <!-- Job Grid Heading Start-->
                                                                             <h3 class="fs-4"><a
                                                                                     href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
                                                                                     class="text-dark text-decoration-none text-inherit">
                                                                                     <?php echo $data1['posisi']; ?>
                                                                                 </a>
                                                                             </h3>
-                                                                            <!-- Job Grid Heading End-->
                                                                             <?php
                                                                             if (isset($_SESSION['company'])) { ?>
                                                                                 <?php if ($data1['status_lowongan'] == "Non Aktif") { ?>
@@ -131,7 +129,6 @@ $sql1->execute();
                                                                     </div>
 
                                                                 </div>
-                                                                <!--Job Listing Meta Start-->
                                                                 <div>
                                                                     <div class="mb-4 text-secondary fs-5">
                                                                         <div class="mb-2 mb-md-0">
@@ -151,9 +148,9 @@ $sql1->execute();
                                                                                 <i class="far fa-money-bill-alt"></i><span
                                                                                     class="ms-1 ">
                                                                                     <?php
-                                                                                    $harga = $data1['gaji'];
-                                                                                    $harga_format = number_format($harga, 0, ",", ".");
-                                                                                    echo "Rp. " . $harga_format . ",-"; ?>
+                                                                                    $gaji = $data1['gaji'];
+                                                                                    $gaji_format = number_format($gaji, 0, ",", ".");
+                                                                                    echo "Rp. " . $gaji_format . ",-"; ?>
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -193,11 +190,9 @@ $sql1->execute();
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <!--Job Listing Meta End-->
 
                                                             </div>
                                                         </div>
-                                                        <!-- Job Grid End -->
 
                                                     </div>
                                                 <?php endwhile; ?>

@@ -79,9 +79,9 @@ $count = $cekSoal->fetchColumn();
                                 </p>
                                 <p class="me-4"><i class="far fa-money-bill-alt text-primary me-1"></i>
                                     <?php
-                                    $harga = $data['gaji'];
-                                    $harga_format = number_format($harga, 0, ",", ".");
-                                    echo "Rp. " . $harga_format . ",-"; ?>
+                                    $gaji = $data['gaji'];
+                                    $gaji_format = number_format($gaji, 0, ",", ".");
+                                    echo "Rp. " . $gaji_format . ",-"; ?>
                                 </p>
                                 <p><i class="fa-solid fa-calendar-days text-primary me-1"></i>
                                     <?php
@@ -344,7 +344,7 @@ $count = $cekSoal->fetchColumn();
                         </p>
                         <p><i class="fa fa-angle-right text-primary me-2"></i>Salary:
                             <?php
-                            echo "Rp. " . $harga_format . ",-"; ?>
+                            echo "Rp. " . $gaji_format . ",-"; ?>
                         </p>
                         <p><i class="fa fa-angle-right text-primary me-2"></i>Location:
                             <?php echo $data['lokasi_pekerjaan']; ?>
@@ -412,6 +412,24 @@ $count = $cekSoal->fetchColumn();
             </div>
         </div>
     </div>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#deskripsi'), {
+                toolbar: {
+                    items: [
+                        'undo', 'redo',
+                        '|', 'heading',
+                        '|', 'bold', 'italic',
+                        '|', 'bulletedList', 'numberedList', 'blockQuote',
+                    ],
+                    shouldNotGroupWhenFull: false
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
 </body>
 
 <?php

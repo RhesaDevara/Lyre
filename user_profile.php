@@ -50,9 +50,9 @@ $sqlSertifikat->execute();
       <div class="row gy-5 gx-md-5">
         <div class="col-lg-8">
           <div class="d-flex flex-shrink-0 mb-5">
-            <img class="img-fluid rounded-circle me-5" src="<?php echo $data['foto']; ?>" loading="lazy" alt="User Logo"
-              style="width: 200px; height: 200px; object-fit: cover;border-radius: 100px;" data-bs-toggle="modal"
-              data-bs-target="#ubahFoto">
+            <img class="img-fluid rounded-circle mt-3 me-5" src="<?php echo $data['foto']; ?>" loading="lazy"
+              alt="User Logo" style="width: 100px; height: 100px; object-fit: cover;border-radius: 100px;"
+              data-bs-toggle="modal" data-bs-target="#ubahFoto">
             <div>
               <h3 class="mb-1 mt-4">
                 <?php echo $data['nama']; ?>

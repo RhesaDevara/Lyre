@@ -12,11 +12,6 @@ $sqlCount->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LYRE - Apply and Recruit</title>
-    <style>
-        .custom-radio {
-            height: 50px;
-        }
-    </style>
 </head>
 
 <body>
@@ -242,21 +237,25 @@ $sqlCount->execute();
                         while ($data = $sql->fetch()) {
                             $id_lowongan = $data['id_lowongan'];
                             $id_perusahaan = $data['id_perusahaan'];
-                            $tanggal_posting_unix = strtotime($data['tanggal_posting']);
-                            $selisih_detik = time() - $tanggal_posting_unix;
+                            $tanggal_posting = new DateTime($data['tanggal_posting']);
+                            $tanggal_formatted = $tanggal_posting->format('d F Y');
+                            $now = new DateTime();
+                            $interval = $tanggal_posting->diff($now);
 
-                            if ($selisih_detik < 60) {
-                                $selisih = $selisih_detik . " Seconds Ago";
-                            } elseif ($selisih_detik < 3600) {
-                                $selisih = floor($selisih_detik / 60) . " Minutes Ago";
-                            } elseif ($selisih_detik < 86400) {
-                                $selisih = floor($selisih_detik / 3600) . " Hours Ago";
-                            } elseif ($selisih_detik < 2592000) {
-                                $selisih = floor($selisih_detik / 86400) . " Days Ago";
-                            } elseif ($selisih_detik < 31536000) {
-                                $selisih = floor($selisih_detik / 2592000) . " Months Ago";
+                            if ($interval->m < 1) {
+                                $selisih = $tanggal_formatted;
+                            } elseif ($interval->y > 0) {
+                                $selisih = $interval->y . " Years Ago";
+                            } elseif ($interval->m > 0) {
+                                $selisih = $interval->m . " Months Ago";
+                            } elseif ($interval->d > 0) {
+                                $selisih = $interval->d . " Days Ago";
+                            } elseif ($interval->h > 0) {
+                                $selisih = $interval->h . " Hours Ago";
+                            } elseif ($interval->i > 0) {
+                                $selisih = $interval->i . " Minutes Ago";
                             } else {
-                                $selisih = floor($selisih_detik / 31536000) . " Years Ago";
+                                $selisih = $interval->s . " Seconds Ago";
                             }
 
                             $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
@@ -275,16 +274,21 @@ $sqlCount->execute();
                                             <div class="ms-xl-3 w-100 mt-3 mt-xl-1">
                                                 <div class="d-flex justify-content-between mb-4">
                                                     <div>
-                                                        <h3 class="mb-1 fs-4"><a
+                                                        <h3 class="mb-2 fs-4"><a
                                                                 href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
                                                                 class="text-dark text-decoration-none text-inherit">
                                                                 <?php echo $data['posisi']; ?>
                                                             </a>
                                                         </h3>
 
+                                                        <h5 class="mb-2 fs-6"><a
+                                                                href="<?php echo "company_profile.php?id_perusahaan=$dataPerusahaan[id_perusahaan]"; ?>"
+                                                                class="text-decoration-none text-inherit">
+                                                                <?php echo $dataPerusahaan['nama_perusahaan']; ?>
+                                                            </a></h5>
+
                                                         <div class="mb-2 mb-md-0 text-secondary">
                                                             <div class="d-flex flex-column flex-md-row">
-                                                                <!-- Mengubah menjadi kolom pada mobile -->
                                                                 <span class="me-2"> <i class="fa-regular fa-building"></i>
                                                                     <span class="ms-1">
                                                                         <?php echo $data['departemen']; ?>
@@ -292,9 +296,9 @@ $sqlCount->execute();
                                                                 <span class="me-2"> <i class="far fa-money-bill-alt"></i>
                                                                     <span class="ms-1">
                                                                         <?php
-                                                                        $harga = $data['gaji'];
-                                                                        $harga_format = number_format($harga, 0, ",", ".");
-                                                                        echo "Rp. " . $harga_format . ",-"; ?>
+                                                                        $gaji = $data['gaji'];
+                                                                        $gaji_format = number_format($gaji, 0, ",", ".");
+                                                                        echo "Rp. " . $gaji_format . ",-"; ?>
                                                                     </span></span>
                                                                 <span class="me-2"> <i class="fa-solid fa-location-dot"></i>
                                                                     <span class="ms-1">

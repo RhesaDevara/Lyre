@@ -21,7 +21,8 @@ $countUser = $rowUser->fetchColumn();
 
 if ($countUser == true) {
     $_SESSION['user'] = $checkUser->fetch();
-    header('location: index.php');
+    echo "<script>alert('Login Berhasil');</script>";
+    echo "<script>location='index.php';</script>";
 } else {
     $sqlCompany = "SELECT * FROM perusahaan WHERE email_perusahaan = ? AND password = ?";
     $rowCompany = $koneksiPdo->prepare($sqlCompany);
@@ -29,7 +30,8 @@ if ($countUser == true) {
     $countCompany = $rowCompany->fetchColumn();
     if ($countCompany == true) {
         $_SESSION['company'] = $checkCompany->fetch();
-        header('location: index.php');
+        echo "<script>alert('Login Berhasil');</script>";
+        echo "<script>location='index.php';</script>";
     } else {
         $sqlAdmin = "SELECT * FROM admin WHERE email = ? AND password = ?";
         $rowAdmin = $koneksiPdo->prepare($sqlAdmin);
@@ -37,9 +39,11 @@ if ($countUser == true) {
         $countAdmin = $rowAdmin->fetchColumn();
         if ($countAdmin == true) {
             $_SESSION['admin'] = $checkAdmin->fetch();
-            header('location: index.php');
+            echo "<script>alert('Login Berhasil');</script>";
+            echo "<script>location='index.php';</script>";
         } else {
-            header('location: home.php');
+            echo "<script>alert('Login Gagal');</script>";
+            echo "<script>location='login.php';</script>";
         }
     }
 }

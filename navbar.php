@@ -112,7 +112,8 @@ require 'koneksi.php';
                             </ul>
                         </div>";
                 } elseif (isset($_SESSION['admin'])) {
-                    echo "<a class='dropdown-item' href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");'>Logout</a>";
+                    echo "<div class='d-grid gap-2 d-md-flex justify-content-md-end'>
+                    <a href='logout.php' onclick='return confirm(\"Apakah Anda Yakin?\");' class='btn btn-danger form-control'>Logout</a></div>";
                 }
             } else {
                 echo "
@@ -135,7 +136,6 @@ require 'koneksi.php';
 </nav>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
 <script src="script.js"></script>
 

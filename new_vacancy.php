@@ -63,14 +63,13 @@ include 'navbar.php';
 
     <script>
         ClassicEditor
-            .create(document.querySelector('#deskripsi_pekerjaan'), {
+            .create(document.querySelector('#deskripsi'), {
                 toolbar: {
                     items: [
                         'undo', 'redo',
                         '|', 'heading',
                         '|', 'bold', 'italic',
-                        '|', 'bulletedList', 'numberedList',
-                        '|', 'blockQuote', 'link',
+                        '|', 'bulletedList', 'numberedList', 'blockQuote',
                     ],
                     shouldNotGroupWhenFull: false
                 }

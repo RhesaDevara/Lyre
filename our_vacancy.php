@@ -180,40 +180,34 @@ $sql->execute();
 
                     <div class="col-xl-9 col-md-8 mb-6 mb-md-0">
                         <?php
-                        if (isset($_POST['search'])) {
-                            $search = $_POST['search'];
-                            $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where posisi LIKE '%$search%' ");
-                            $sql->execute();
-                        } else {
-                            if (isset($_POST['btnFilter'])) {
-                                $min = $_POST['min'];
-                                $max = $_POST['max'];
-                                $tanggal_post = $_POST['tanggal_post'];
+                        if (isset($_POST['btnFilter'])) {
+                            $min = $_POST['min'];
+                            $max = $_POST['max'];
+                            $tanggal_post = $_POST['tanggal_post'];
 
-                                if (!isset($min) || $min == "" || empty($min)) {
-                                    $min = 0;
-                                }
-                                if (!isset($max) || $max == "" || empty($max)) {
-                                    $max = 10000000000;
-                                }
-
-                                if (isset($_POST['lokasi'])) {
-                                    $lokasi = $_POST['lokasi'];
-                                }
-                                if (!isset($lokasi) || $lokasi == "" || empty($lokasi)) {
-                                    $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post'");
-                                    $sql->execute();
-                                } else {
-                                    $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post' AND lokasi_pekerjaan = '$lokasi'");
-                                    $sql->execute();
-                                }
-                            } else if (isset($_POST['btnClear'])) {
-                                $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan");
-                                $sql->execute();
-                            } else {
-                                $sql = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan");
-                                $sql->execute();
+                            if (!isset($min) || $min == "" || empty($min)) {
+                                $min = 0;
                             }
+                            if (!isset($max) || $max == "" || empty($max)) {
+                                $max = 10000000000;
+                            }
+
+                            if (isset($_POST['lokasi'])) {
+                                $lokasi = $_POST['lokasi'];
+                            }
+                            if (!isset($lokasi) || $lokasi == "" || empty($lokasi)) {
+                                $sql3 = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post'");
+                                $sql3->execute();
+                            } else {
+                                $sql3 = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where gaji >= '$min' AND gaji <= '$max' AND tanggal_posting > '$tanggal_post' AND lokasi_pekerjaan = '$lokasi'");
+                                $sql3->execute();
+                            }
+                        } else if (isset($_POST['btnClear'])) {
+                            $sql3 = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan");
+                            $sql3->execute();
+                        } else {
+                            $sql3 = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan");
+                            $sql3->execute();
                         }
 
                         while ($data = $sql->fetch()) {
@@ -256,23 +250,29 @@ $sql->execute();
                                             <div class="ms-xl-3 w-100 mt-3 mt-xl-1">
                                                 <div class="d-flex justify-content-between mb-4">
                                                     <div>
-                                                        <h3 class="mb-1 fs-4"><a
+                                                        <h3 class="mb-2 fs-4"><a
                                                                 href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
                                                                 class="text-dark text-decoration-none text-inherit">
                                                                 <?php echo $data['posisi']; ?>
                                                             </a>
                                                             <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
                                                                 <span
-                                                                    class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded ms-xl-2 my-1 fs-6">
+                                                                    class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded my-1 fs-6">
                                                                     <?php echo $data['status_lowongan']; ?>
                                                                 </span>
                                                             <?php } else { ?>
                                                                 <span
-                                                                    class="badge bg-success-subtle border border-successs-subtle text-success-emphasis rounded ms-xl-2 my-1 fs-6">
+                                                                    class="badge bg-success-subtle border border-successs-subtle text-success-emphasis rounded my-1 fs-6">
                                                                     <?php echo $data['status_lowongan']; ?>
                                                                 </span>
                                                             <?php } ?>
                                                         </h3>
+
+                                                        <h5 class="mb-2 fs-6"><a
+                                                                href="<?php echo "company_profile.php?id_perusahaan=$dataPerusahaan[id_perusahaan]"; ?>"
+                                                                class="text-decoration-none text-inherit">
+                                                                <?php echo $dataPerusahaan['nama_perusahaan']; ?>
+                                                            </a></h5>
 
                                                         <div class="mb-2 mb-md-0 text-secondary">
                                                             <div class="d-flex flex-column flex-md-row">
@@ -283,9 +283,9 @@ $sql->execute();
                                                                 <span class="me-2"> <i class="far fa-money-bill-alt"></i>
                                                                     <span class="ms-1">
                                                                         <?php
-                                                                        $harga = $data['gaji'];
-                                                                        $harga_format = number_format($harga, 0, ",", ".");
-                                                                        echo "Rp. " . $harga_format . ",-"; ?>
+                                                                        $gaji = $data['gaji'];
+                                                                        $gaji_format = number_format($gaji, 0, ",", ".");
+                                                                        echo "Rp. " . $gaji_format . ",-"; ?>
                                                                     </span></span>
                                                                 <span class="me-2"> <i class="fa-solid fa-location-dot"></i>
                                                                     <span class="ms-1">
