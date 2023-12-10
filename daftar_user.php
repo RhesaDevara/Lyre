@@ -64,10 +64,6 @@
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="education" class="form-label">Education <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="education" name="education" placeholder="Enter your education" required>
-                                    </div>
-                                    <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>
                                         <textarea class="form-control" id="address" name="address" rows="3"></textarea>
                                     </div>
@@ -102,7 +98,6 @@ if (isset($_POST["daftar"])) {
     $nama = $_POST["name"];
     $dob = $_POST["dob"];
     $phone = $_POST["phone"];
-    $pendidikan = $_POST["education"];
     $alamat = $_POST["address"];
 
     // Cek konfirmasi password
@@ -127,8 +122,8 @@ if (isset($_POST["daftar"])) {
         echo "<script>location='daftar_user.php';</script>";
     } else {
         // Jika email dan NIN belum pernah digunakan, lakukan pendaftaran
-        $insertQuery = "INSERT INTO pengguna (foto, nik, nama, tanggal_lahir, email, password, nomor_telepon, pendidikan_terakhir, alamat) 
-                        VALUES ('photo/profile.png', '$nik', '$nama', '$dob', '$email', '$password', '$phone', '$pendidikan', '$alamat')";
+        $insertQuery = "INSERT INTO pengguna (foto, nik, nama, tanggal_lahir, email, password, nomor_telepon, alamat) 
+                        VALUES ('photo/profile.png', '$nik', '$nama', '$dob', '$email', '$password', '$phone', '$alamat')";
         if ($koneksi->query($insertQuery) === TRUE) {
             echo "<script>alert('Pendaftaran Berhasil, Silahkan Login');</script>";
             echo "<script>location='login.php';</script>";

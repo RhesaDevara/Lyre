@@ -17,8 +17,7 @@ require 'koneksi.php';
         <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
@@ -44,9 +43,13 @@ require 'koneksi.php';
                         <li class='nav-item'>
                             <a class='nav-link' href='buy_package.php'>Package</a>
                         </li>";
-                } else if (isset($_SESSION['admin'])) {
+                } else if (isset($_SESSION['admin'])) { ?>
 
-                    if ($_SESSION['admin']['email'] == "admin@gmail.com") {
+                    <li class='nav-item'>
+                        <a class='nav-link' href='find_job.php'> Job List</a>
+                    </li>
+                <?php
+                    if ($_SESSION['admin']['hak_akses'] == "Superadmin") {
                         echo "
                             <li class='nav-item'>
                                 <a class='nav-link' href='admin.php'>Admin</a>
@@ -79,6 +82,9 @@ require 'koneksi.php';
                         </li>";
                 }
                 ?>
+                <li class='nav-item'>
+                    <a class='nav-link' href='about_us.php'>About Us</a>
+                </li>
             </ul>
             <?php
             if (isset($_SESSION['user']) || isset($_SESSION['company']) || isset($_SESSION['admin'])) {

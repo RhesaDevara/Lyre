@@ -18,8 +18,7 @@ include 'navbar.php';
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="text-left mb-3 mt-3">
-                    <a href="admin.php" title="Back To Admin List" data-toggle="tooltip"><i
-                            class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
+                    <a href="admin.php" title="Back To Admin List" data-toggle="tooltip"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
                 </div>
                 <div class="table-title">
                     <div class="row">
@@ -38,14 +37,19 @@ include 'navbar.php';
                         <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                     </div>
                     <div class="mb-3">
+                        <label for="hak_akses" class="form-label mt-2">Hak Akses</label><br>
+                        <select name="hak_akses" id="hak_akses" class="form-control">
+                            <option value="Admin">Admin</option>
+                            <option value="Superadmin">Superadmin</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label mt-2">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Enter your password"
-                            required>
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirm-password" class="form-label mt-2">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirm-password"
-                            placeholder="Confirm your password" required>
+                        <input type="password" class="form-control" name="confirm-password" placeholder="Confirm your password" required>
                     </div>
                     <div class="text-left">
                         <button type="submit" class="btn btn-primary form-control">Add Admin</button>

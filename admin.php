@@ -52,8 +52,7 @@ $result = $koneksi->query($ambil);
 										<i class="fa-solid fa-magnifying-glass"></i>
 										<!-- Form untuk pencarian -->
 										<form method="GET" action="">
-											<input type="text" class="form-control" placeholder="Search&hellip;"
-												name="keyword" value="<?php echo htmlspecialchars($keyword); ?>">
+											<input type="text" class="form-control" placeholder="Search&hellip;" name="keyword" value="<?php echo htmlspecialchars($keyword); ?>">
 										</form>
 									</div>
 								</div>
@@ -69,13 +68,12 @@ $result = $koneksi->query($ambil);
 							<th>ID</th>
 							<th>
 								Name
-								<a
-									href="?keyword=<?php echo htmlspecialchars($keyword); ?>&sort=<?php echo ($orderDirection === 'ASC') ? 'desc' : 'asc'; ?>">
-									<i
-										class="text-dark fa fa-sort <?php echo ($orderDirection === 'ASC') ? 'asc' : 'desc'; ?>"></i>
+								<a href="?keyword=<?php echo htmlspecialchars($keyword); ?>&sort=<?php echo ($orderDirection === 'ASC') ? 'desc' : 'asc'; ?>">
+									<i class="text-dark fa fa-sort <?php echo ($orderDirection === 'ASC') ? 'asc' : 'desc'; ?>"></i>
 								</a>
 							</th>
 							<th>Email</th>
+							<th>Hak Akses</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -96,11 +94,11 @@ $result = $koneksi->query($ambil);
 									<?php echo $data['email']; ?>
 								</td>
 								<td>
-									<a href="admin_ubah.php?id=<?php echo $data['id_admin']; ?>" class="edit" title="Edit"
-										data-toggle="tooltip"><i class="fas fa-edit text-warning fs-5"></i></a>
-									<a href="admin_hapus.php?id=<?php echo $data['id_admin']; ?>" class="delete"
-										title="Delete" data-toggle="tooltip"><i
-											class="fas fa-trash-alt text-danger fs-5"></i></a>
+									<?php echo $data['hak_akses']; ?>
+								</td>
+								<td>
+									<a href="admin_ubah.php?id=<?php echo $data['id_admin']; ?>" class="edit" title="Edit" data-toggle="tooltip"><i class="fas fa-edit text-warning fs-5"></i></a>
+									<a href="admin_hapus.php?id=<?php echo $data['id_admin']; ?>" class="delete" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt text-danger fs-5"></i></a>
 								</td>
 							</tr>
 							<?php $nomor++; ?>

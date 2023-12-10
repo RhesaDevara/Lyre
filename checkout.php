@@ -46,15 +46,15 @@ $tambahKuota = $data['kuota'];
                 <hr class="mb-4">
                 <div class="d-block my-3">
                     <div class="custom-control custom-radio">
-                        <input id="credit" name="paymentMethod" type="radio" checked="" required value="Credit Card">
+                        <input id="credit" name="paymentMethod" class="form-check-input" type="radio" checked="" required value="Credit Card">
                         <label class="custom-control-label" for="credit">Credit card</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input id="debit" name="paymentMethod" type="radio" required value="Debit Card">
+                        <input id="debit" name="paymentMethod" class="form-check-input" type="radio" required value="Debit Card">
                         <label class="custom-control-label" for="debit">Debit card</label>
                     </div>
                     <div class="custom-control custom-radio">
-                        <input id="paypal" name="paymentMethod" type="radio" required value="PayPal">
+                        <input id="paypal" name="paymentMethod" class="form-check-input" type="radio" required value="PayPal">
                         <label class="custom-control-label" for="paypal">PayPal</label>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ $tambahKuota = $data['kuota'];
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="cc-number">Credit card number</label>
-                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
+                    <input type="number" class="form-control" id="cc-number" placeholder="" required>
                     <div class="invalid-feedback"> Credit card number is required </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@ $tambahKuota = $data['kuota'];
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="cc-cvv">CVV</label>
-                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+                    <input type="number" class="form-control" id="cc-cvv" placeholder="" required>
                     <div class="invalid-feedback"> Security code required </div>
                 </div>
             </div>

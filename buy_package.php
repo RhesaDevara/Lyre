@@ -1,10 +1,10 @@
 <?php
 include 'navbar.php';
-    
-    $id_perusahaan = $_SESSION['company']['id_perusahaan'];
-    $sqlSession = $koneksiPdo -> prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
-    $sqlSession -> execute();
-    $_SESSION['company'] = $sqlSession -> fetch();
+
+$id_perusahaan = $_SESSION['company']['id_perusahaan'];
+$sqlSession = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+$sqlSession->execute();
+$_SESSION['company'] = $sqlSession->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +42,8 @@ include 'navbar.php';
                                     </small>
                                 </h1>
                                 <ul class="list-unstyled mt-3 mb-4">
-                                    <li>Bagus untuk perusahaan yang baru memulai untuk membuat lowongan. Paket ini memiliki
-                                        harga yang sangat terjangkau yang akan memberikan 2 kuota lowongan untuk di unggah
+                                    <li>
+                                        <?php echo $perpaket['deskripsi_paket']; ?>
                                     </li>
                                     <li class="fs-3">
                                         <?php echo 'Rp. ' . number_format($perpaket['harga'], 0, ',', '.'); ?>,-
