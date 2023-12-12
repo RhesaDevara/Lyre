@@ -22,9 +22,6 @@ $tambahKuota = $data['kuota'];
 
 <body>
     <div class="container mt-5" style="width: 50%">
-        <center>
-            <h3> Checkout </h3>
-        </center>
         <div class="row">
             <h4 class="mb-3 mt-5">Detail Item</h4>
             <hr>
@@ -42,50 +39,92 @@ $tambahKuota = $data['kuota'];
         </div>
         <form method="post">
             <div class="row">
-                <h4 class="mt-5 mb-3">Payment</h4>
+                <h4 class="mt-5 mb-3">Pembayaran</h4>
                 <hr class="mb-4">
                 <div class="d-block my-3">
                     <div class="custom-control custom-radio">
                         <input id="credit" name="paymentMethod" class="form-check-input" type="radio" checked="" required value="Credit Card">
-                        <label class="custom-control-label" for="credit">Credit card</label>
+                        <label class="custom-control-label" for="credit">Kartu Kredit</label>
                     </div>
                     <div class="custom-control custom-radio">
                         <input id="debit" name="paymentMethod" class="form-check-input" type="radio" required value="Debit Card">
-                        <label class="custom-control-label" for="debit">Debit card</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input id="paypal" name="paymentMethod" class="form-check-input" type="radio" required value="PayPal">
-                        <label class="custom-control-label" for="paypal">PayPal</label>
+                        <label class="custom-control-label" for="debit">Kartu Debit</label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="cc-name">Name on card</label>
+                    <label for="cc-name">Nama</label>
                     <input type="text" name="nameoncard" class="form-control" id="cc-name" required>
-                    <small class="text-muted">Full name as displayed on card</small>
+                    <small class="text-muted">Nama lengkap yang terdaftar pada kartu</small>
                     <div class="invalid-feedback"> Name on card is required </div>
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="cc-number">Credit card number</label>
-                    <input type="number" class="form-control" id="cc-number" placeholder="" required>
+                    <label for="cc-number">Nomor Kartu</label>
+                    <input type="text" class="form-control" id="creditCard" placeholder="XXXX-XXXX-XXXX-XXXX" required maxlength="19">
+
+                    <script>
+                        document.getElementById('creditCard').addEventListener('input', function(e) {
+                            // Menghapus karakter selain angka
+                            let creditCardNumber = e.target.value.replace(/\D/g, '');
+
+                            // Menambahkan tanda '-' setelah setiap 4 digit
+                            creditCardNumber = creditCardNumber.replace(/(\d{4})/g, '$1-');
+
+                            // Menghapus tanda '-' terakhir jika ada
+                            creditCardNumber = creditCardNumber.replace(/-$/, '');
+
+                            // Menetapkan nilai ke dalam input
+                            e.target.value = creditCardNumber;
+                        });
+                    </script>
+
                     <div class="invalid-feedback"> Credit card number is required </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3 mb-3">
-                    <label for="cc-expiration">Expiration</label>
-                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+                    <label for="cc-expiration">Kadaluarsa</label>
+                    <input type="text" class="form-control" id="cc-expiration" placeholder="MM/YY" maxlength="5" required>
+
+                    <script>
+                        document.getElementById('cc-expiration').addEventListener('input', function(e) {
+                            // Menghapus karakter selain angka
+                            let expirationDate = e.target.value.replace(/\D/g, '');
+
+                            // Menambahkan tanda '/' setelah dua digit pertama
+                            expirationDate = expirationDate.replace(/(\d{2})/, '$1/');
+
+                            // Menghapus karakter setelah 5 karakter
+                            expirationDate = expirationDate.substring(0, 5);
+
+                            // Menetapkan nilai ke dalam input
+                            e.target.value = expirationDate;
+                        });
+                    </script>
                     <div class="invalid-feedback"> Expiration date required </div>
                 </div>
                 <div class="col-md-3 mb-3">
                     <label for="cc-cvv">CVV</label>
-                    <input type="number" class="form-control" id="cc-cvv" placeholder="" required>
+                    <input type="text" class="form-control" id="cc-cvv" placeholder="XXX" required maxlength="3">
+
+                    <script>
+                        document.getElementById('cc-cvv').addEventListener('input', function(e) {
+                            // Menghapus karakter selain angka
+                            let cvv = e.target.value.replace(/\D/g, '');
+
+                            // Menghapus karakter setelah 3 digit
+                            cvv = cvv.substring(0, 3);
+
+                            // Menetapkan nilai ke dalam input
+                            e.target.value = cvv;
+                        });
+                    </script>
                     <div class="invalid-feedback"> Security code required </div>
                 </div>
             </div>
             <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit" name="bayar">Continue to checkout</button>
+            <button class="btn btn-primary btn-lg btn-block form-control" type="submit" name="bayar">Bayar</button>
         </form>
     </div>
     </div>

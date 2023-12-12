@@ -41,7 +41,7 @@ $sqlCount->execute();
                                                 </path>
                                             </svg></span>
                                         <!-- search -->
-                                        <input type="search" name="search" class="form-control rounded-pill border-0 ps-3 form-focus-none" placeholder="Job Title" aria-label="Job Title" aria-describedby="searchJob">
+                                        <input type="search" name="search" class="form-control rounded-pill border-0 ps-3 form-focus-none" placeholder="Posisi Pekerjaan" aria-label="Job Title" aria-describedby="searchJob">
                                     </div>
 
                                 </div>
@@ -76,7 +76,7 @@ $sqlCount->execute();
                             </div>
                             <div class="card-body py-3">
                                 <a class="fs-5 text-dark fw-semibold text-decoration-none d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                    <span>Locations</span>
+                                    <span>Lokasi</span>
                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
                                             </path>
@@ -122,7 +122,7 @@ $sqlCount->execute();
 
                             <div class="card-body border-top py-3">
                                 <a class="fs-5 text-dark fw-semibold text-decoration-none d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#collapseExampleSecond" role="button" aria-expanded="false" aria-controls="collapseExampleSecond">
-                                    <span>Salary</span>
+                                    <span>Gaji</span>
                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
                                             </path>
@@ -140,7 +140,7 @@ $sqlCount->execute();
 
                             <div class="card-body border-top py-3">
                                 <a class="fs-5 text-dark fw-semibold text-decoration-none d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#collapseExampleThird" role="button" aria-expanded="false" aria-controls="collapseExampleThird">
-                                    <span>Last updated</span>
+                                    <span>Dipost Sesudah</span>
                                     <span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z">
                                             </path>
@@ -160,7 +160,7 @@ $sqlCount->execute();
                                     Terapkan
                                 </button>
                                 <button type="submit" name="btnClear" class="btn btn-outline-secondary">
-                                    Clear Data
+                                    Bersihkan
                                 </button>
                             </div>
                         </div>
@@ -212,20 +212,20 @@ $sqlCount->execute();
                             $now = new DateTime();
                             $interval = $tanggal_posting->diff($now);
 
-                            if ($interval->m < 1) {
-                                $selisih = $tanggal_formatted;
-                            } elseif ($interval->y > 0) {
-                                $selisih = $interval->y . " Years Ago";
+                            // if ($interval->m < 1) {
+                            //     $selisih = $tanggal_formatted;
+                            if ($interval->y > 0) {
+                                $selisih = $interval->y . " Tahun yang lalu";
                             } elseif ($interval->m > 0) {
-                                $selisih = $interval->m . " Months Ago";
+                                $selisih = $interval->m . " Bulan yang lalu";
                             } elseif ($interval->d > 0) {
-                                $selisih = $interval->d . " Days Ago";
+                                $selisih = $interval->d . " Hari yang lalu";
                             } elseif ($interval->h > 0) {
-                                $selisih = $interval->h . " Hours Ago";
+                                $selisih = $interval->h . " Jam yang lalu";
                             } elseif ($interval->i > 0) {
-                                $selisih = $interval->i . " Minutes Ago";
+                                $selisih = $interval->i . " Menit yang lalu";
                             } else {
-                                $selisih = $interval->s . " Seconds Ago";
+                                $selisih = $interval->s . " Detik yang lalu";
                             }
 
                             $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");

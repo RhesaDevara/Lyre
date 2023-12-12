@@ -16,11 +16,19 @@ if ($action == 'review') {
     $sql1->execute();
     header("location:company.php");
 } else if ($action == 'confirm') {
-    $sql2 = $koneksiPdo->prepare("UPDATE perusahaan set status_akun = 'Aktif' where id_perusahaan = '$id_perusahaan'");
+    $sql2 = $koneksiPdo->prepare("UPDATE perusahaan set status_akun = 'Sudah Aktif' where id_perusahaan = '$id_perusahaan'");
     $sql2->execute();
 
     $sql3 = $koneksiPdo->prepare("UPDATE konfirmasi_perusahaan set status_akun = 'Sudah Aktif', tanggal_selesai = '$today' where id_perusahaan = '$id_perusahaan'");
     $sql3->execute();
 
+    header("location:company.php");
+} else {
+
+    $sql2 = $koneksiPdo->prepare("UPDATE perusahaan set status_akun = 'Ditolak' where id_perusahaan = '$id_perusahaan'");
+    $sql2->execute();
+
+    $sql4 = $koneksiPdo->prepare("UPDATE konfirmasi_perusahaan set status_akun = 'Ditolak', tanggal_selesai = '$today' where id_perusahaan = '$id_perusahaan'");
+    $sql4->execute();
     header("location:company.php");
 }

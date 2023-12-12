@@ -21,11 +21,11 @@
                             <div class="col-10 col-xl-8 py-3 text-center">
                                 <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy" title="Back To Home" data-toggle="tooltip" src="assets/img/logo2.png" width="245" height="80" alt=""></a>
                                 <hr class="border border-light mb-4">
-                                <h2 class="h1 mb-4">You're in Applicant<br>Register Page</h2>
-                                <p class="lead m-0 mb-3">Do you want to register as a Company? <br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="daftar_company.php">Let's
-                                        Go Here!!</a>
+                                <h2 class="h3 mb-4">Anda sedang berada di halaman <br>Daftar Pelamar</h2>
+                                <p class="lead m-0 mb-3">Ingin daftar sebagai Perusahaan? <br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="daftar_company.php">
+                                        Lewat sini!!!</a>
                                 </p>
-                                <p class="lead m-0">Already have an account?<br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="login.php">Login Here!!</a>
+                                <p class="lead m-0">Sudah punya akun?<br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="login.php">Masuk Disini!!!</a>
                                 </p>
                             </div>
                         </div>
@@ -33,10 +33,10 @@
                     <div class="col-12 col-md-6">
                         <div class="card border border-light shadow-sm">
                             <div class="card-body">
-                                <h3 class="card-title mb-3">Register Applicant</h3>
+                                <h3 class="card-title mb-3">Daftar Pelamar</h3>
                                 <form method="post">
                                     <div class="mb-3">
-                                        <label for="nin" class="form-label">National Identification Number <span class="text-danger">*</span></label>
+                                        <label for="nin" class="form-label">NIK <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" id="nin" name="nin" min="0" placeholder="Enter your national identification number" required>
                                     </div>
                                     <div class="mb-3">
@@ -44,32 +44,32 @@
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                                        <label for="password" class="form-label">Kata Sandi <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="confirm-password" class="form-label">Confirm Password <span class="text-danger">*</span></label>
+                                        <label for="confirm-password" class="form-label">Konfirmasi Kata Sandi <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                                        <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="dob" class="form-label">Date Of Birth <span class="text-danger">*</span></label>
+                                        <label for="dob" class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
                                         <input type="date" class="form-control" id="dob" name="dob" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                                        <label for="phone" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
                                         <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="address" class="form-label">Address</label>
+                                        <label for="address" class="form-label">Alamat</label>
                                         <textarea class="form-control" id="address" name="address" rows="3"></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
-                                            <button name="daftar" type="submit" class="btn btn-login-register">Register</button>
+                                            <button name="daftar" type="submit" class="btn btn-login-register">Daftar</button>
                                         </div>
                                     </div>
                                 </form>

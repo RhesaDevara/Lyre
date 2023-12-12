@@ -106,7 +106,7 @@ $countLamaran = $sqlCountLamaran->fetchColumn();
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="my-auto mt-md-0 mt-md-3 text-md-end text-center d-grid">
+                                    <div class="mt-md-0 mt-md-3 text-md-end text-center d-grid" style="width:25%">
                                         <?php
                                         if ($status_lamaran == "Diperiksa") { ?>
                                             <button class="btn btn-warning w-100" disabled>Kerjakan Tes</button>
@@ -115,17 +115,17 @@ $countLamaran = $sqlCountLamaran->fetchColumn();
                                             <?php } else if ($status_lamaran == "Tahap Tes") {
                                             if ($countHasilTes == 0) {
                                             ?>
-                                                <a href=<?php echo "tes.php?id_lamaran=$id_lamaran&id_lowongan=$id_lowongan"; ?>><button class="btn btn-primary w-100">Kerjakan Tes</button></a>
+                                                <a href=<?php echo "tes.php?id_lamaran=$id_lamaran&id_lowongan=$id_lowongan"; ?>><button class="btn btn-primary w-100" onclick='return confirm("Apakah Anda Yakin?")'>Kerjakan Tes</button></a>
                                             <?php
                                             } else {
                                             ?>
-                                                <a href=#><button class="btn btn-info w-100" disabled>Sedang Diproses</button></a>
+                                                <a href=#><button class="btn btn-primary w-100" disabled>Sedang Diproses</button></a>
                                             <?php
                                             }
                                         } else if ($status_lamaran == "Lolos") { ?>
                                             <a href="<?php echo "keterangan_hasil.php?id_lamaran=$id_lamaran"; ?>"><button class="btn btn-success w-100">Lolos</button></a>
                                         <?php } else { ?>
-                                            <button class="btn btn-info w-100" disabled>Sedang Diproses</button>
+                                            <button class="btn btn-primary w-100" disabled>Sedang Diproses</button>
                                         <?php } ?>
                                         <?php echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?>
                                         <button class="btn btn-secondary w-100 mt-2">Lihat Detail</button></a>

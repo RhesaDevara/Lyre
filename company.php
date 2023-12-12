@@ -2,6 +2,7 @@
 include 'navbar.php';
 $sqlPerusahaan = $koneksiPdo->prepare("SELECT * FROM perusahaan ORDER BY status_akun ASC");
 $sqlPerusahaan->execute();
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +11,9 @@ $sqlPerusahaan->execute();
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+	<link rel="stylesheet" href="assets/css/crud.css">
+	<title>LYRE - Perusahaan</title>
 </head>
 
 <body>
@@ -20,6 +23,12 @@ $sqlPerusahaan->execute();
 			$id_perusahaan = $data['id_perusahaan'];
 			$stats_akun = $data['status_akun'];
 			$nama_perusahaan = $data['nama_perusahaan'];
+
+
+			$sqlCountLowongan = $koneksiPdo->prepare("SELECT count(*) FROM lowongan_pekerjaan where id_perusahaan = '$id_perusahaan'");
+			$sqlCountLowongan->execute();
+
+			$countLowongan = $sqlCountLowongan->fetchColumn();
 		?>
 			<div class="card mb-3 mx-2 shadow-sm">
 				<div class="row g-0 align-items-center">
@@ -43,6 +52,8 @@ $sqlPerusahaan->execute();
 											echo "<span class='text-warning fw-bold'>(Status: " . $data['status_akun'] . ")</span>";
 										} else if ($stats_akun == 'Sedang Review') {
 											echo "<span class='text-primary fw-bold'>(Status: " . $data['status_akun'] . ")</span>";
+										} else if ($stats_akun == 'Ditolak') {
+											echo "<span class='text-danger fw-bold'>(Status: Ditolak)</span>";
 										} else {
 											echo "<span class='text-success fw-bold'>(Status: Aktif)</span>";
 										} ?>
@@ -65,11 +76,11 @@ $sqlPerusahaan->execute();
 									</li>
 									<li class="list-inline-item">
 										<i class="fa-solid fa-upload"></i>
-										<?php echo $data['kuota'] ?>
+										<?php echo $countLowongan ?>
 									</li>
 								</ul>
 							</div>
-							<div class="my-auto mt-md-0 mt-md-3 text-md-end text-center d-grid">
+							<div class="mt-md-0 mt-md-3 text-md-end text-center d-grid" style="width: 25%">
 								<a href=<?php echo "company_profile.php?id_perusahaan=$id_perusahaan"; ?>>
 									<button class="btn btn-secondary form-control mt-2">Lihat Detail</button></a>
 								<?php
@@ -78,9 +89,12 @@ $sqlPerusahaan->execute();
 									<input type="button" value="Review" class="btn btn-primary mt-1 form-control" onclick='return confirm("Apakah Anda Yakin?")'></a>
 								<?php } else if ($data['status_akun'] == "Sedang Review") { ?>
 									<?php echo "<a href='confirmed.php?id_perusahaan=$id_perusahaan'>"; ?>
-									<input type="button" value="Sedang Review" class="btn btn-warning mt-1 form-control"></a>
+									<input type="button" value="Sedang Review" class="btn btn-warning mt-1 w-100"></a>
+								<?php } else if ($data['status_akun'] == "Ditolak") { ?>
+
+									<input type="button" value="Ditolak" class="btn btn-danger mt-1 w-100">
 								<?php } else { ?>
-									<input type="button" value="Aktif" class="btn btn-success mt-1 form-control" style="width: 100%;">
+									<input type="button" value="Aktif" class="btn btn-success mt-1 w-100">
 								<?php } ?>
 							</div>
 

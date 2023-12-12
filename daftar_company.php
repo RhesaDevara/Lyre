@@ -19,11 +19,12 @@
                             <div class="col-10 col-xl-8 py-3 text-center">
                                 <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy" title="Back To Home" data-toggle="tooltip" src="assets/img/logo2.png" width="245" height="80" alt=""></a>
                                 <hr class="border border-light mb-4">
-                                <h2 class="h1 mb-4">You're in Company<br>Register Page</h2>
-                                <p class="lead m-0 mb-3">Do you want to register as a Applicant? <br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="daftar_user.php">Let's
-                                        Go Here!!</a>
+                                <h2 class="h3 mb-4">Anda sedang berada di halaman <br>Daftar Perusahaan</h2>
+                                <p class="lead m-0 mb-3">Ingin daftar sebagai Pelamar? <br>
+                                    <a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="daftar_user.php">
+                                        Lewat sini!!!</a>
                                 </p>
-                                <p class="lead m-0">Already have an account?<br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="login.php">Login Here!!</a>
+                                <p class="lead m-0">Sudah punya akun?<br><a class="link-offset-2 link-offset-3-hover link-underline-light text-light" href="login.php">Masuk Disini!!!</a>
                                 </p>
                             </div>
                         </div>

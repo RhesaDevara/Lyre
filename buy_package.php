@@ -19,7 +19,7 @@ $_SESSION['company'] = $sqlSession->fetch();
     <div class="container py-3">
         <header>
             <div class="packages-header p-3 pb-md-4 mx-auto text-center">
-                <h1 class="display-4 fw-normal text-body-emphasis">Packages</h1>
+                <h1 class="display-4 fw-normal text-body-emphasis">Paket</h1>
                 <p class="fs-5 text-body-secondary">Belilah paket dibawah agar anda dapat tetap dapat mengunggah
                     lowongan terbaru anda. Dijamin Harga Termurah Seindonesia!!</p>
             </div>

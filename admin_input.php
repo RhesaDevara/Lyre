@@ -23,18 +23,18 @@ include 'navbar.php';
                 <div class="table-title">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h2>Add <b>Admin</b></h2>
+                            <h2>Tambah <b>Admin</b></h2>
                         </div>
                     </div>
                 </div>
                 <form method="POST" action="admin_process.php">
                     <div class="mb-3">
-                        <label for="na me" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
+                        <label for="na me" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" name="name" placeholder="Masukkan nama lengkap" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label mt-2">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                        <input type="email" class="form-control" name="email" placeholder="Masukkan email" required>
                     </div>
                     <div class="mb-3">
                         <label for="hak_akses" class="form-label mt-2">Hak Akses</label><br>
@@ -44,15 +44,15 @@ include 'navbar.php';
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label mt-2">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Enter your password" required>
+                        <label for="password" class="form-label mt-2">Kata Sandi</label>
+                        <input type="password" class="form-control" name="password" placeholder="Masukkan password" required>
                     </div>
                     <div class="mb-3">
-                        <label for="confirm-password" class="form-label mt-2">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirm-password" placeholder="Confirm your password" required>
+                        <label for="confirm-password" class="form-label mt-2">Konfirmasi Kata Sandi</label>
+                        <input type="password" class="form-control" name="confirm-password" placeholder="Konfirmasi Password" required>
                     </div>
                     <div class="text-left">
-                        <button type="submit" class="btn btn-primary form-control">Add Admin</button>
+                        <button type="submit" class="btn btn-success w-100">Tambah Admin</button>
                     </div>
                 </form>
             </div>

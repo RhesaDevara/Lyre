@@ -40,19 +40,19 @@ $result = $koneksi->query($ambil);
 				<div class="table-title">
 					<div class="row">
 						<div class="col-md-8">
-							<h2>Admin <b>List</b></h2>
+							<h2>Daftar <b>Admin</b></h2>
 						</div>
 						<div class="col-md-4">
 							<div class="row">
 								<div class="col-6">
-									<a href="admin_input.php" class="btn btn-primary float-end">Add Admin</a>
+									<a href="admin_input.php" class="btn btn-primary float-end">Tambah Admin</a>
 								</div>
 								<div class="col-6">
 									<div class="search-box-crud">
 										<i class="fa-solid fa-magnifying-glass"></i>
 										<!-- Form untuk pencarian -->
 										<form method="GET" action="">
-											<input type="text" class="form-control" placeholder="Search&hellip;" name="keyword" value="<?php echo htmlspecialchars($keyword); ?>">
+											<input type="text" class="form-control" placeholder="Cari&hellip;" name="keyword" value="<?php echo htmlspecialchars($keyword); ?>">
 										</form>
 									</div>
 								</div>
@@ -67,14 +67,14 @@ $result = $koneksi->query($ambil);
 							<th>No</th>
 							<th>ID</th>
 							<th>
-								Name
+								Nama
 								<a href="?keyword=<?php echo htmlspecialchars($keyword); ?>&sort=<?php echo ($orderDirection === 'ASC') ? 'desc' : 'asc'; ?>">
 									<i class="text-dark fa fa-sort <?php echo ($orderDirection === 'ASC') ? 'asc' : 'desc'; ?>"></i>
 								</a>
 							</th>
 							<th>Email</th>
 							<th>Hak Akses</th>
-							<th>Actions</th>
+							<th>Aksi</th>
 						</tr>
 					</thead>
 					<tbody>

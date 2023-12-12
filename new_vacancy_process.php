@@ -6,7 +6,6 @@ $departemen = $_POST['departemen'];
 $deskripsi = $_POST['deskripsi_pekerjaan'];
 $gaji = $_POST['gaji'];
 $lokasi = $_POST['lokasi_pekerjaan'];
-$jumlah_pertanyaan = $_POST['jumlah_pertanyaan'];
 $today = date("Y-m-d");
 
 $id_perusahaan = $_SESSION['company']['id_perusahaan'];
@@ -25,4 +24,14 @@ $sql2 = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$i
 $sql2->execute();
 
 $_SESSION['company'] = $sql2->fetch();
-header('location:our_vacancy.php');
+
+$sql3 = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_perusahaan = '$id_perusahaan' AND posisi = '$posisi' AND departemen = '$departemen' AND 
+gaji = '$gaji' AND lokasi_pekerjaan = '$lokasi' AND tanggal_posting = '$today'");
+$sql3->execute();
+
+$dataLowongan = $sql3->fetch();
+
+$id_lowongan = $dataLowongan['id_lowongan'];
+
+echo "<script>alert('Lowongan berhasil dibuat!');</script>";
+echo "<script>location='detail_lowongan.php?id_lowongan=$id_lowongan';</script>";

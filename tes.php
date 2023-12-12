@@ -1,5 +1,8 @@
 <?php
+require 'koneksi_pdo.php';
+require 'koneksi.php';
 
+session_start();
 $id_pengguna = $_SESSION['user']['id_pengguna'];
 $id_lamaran = $_GET['id_lamaran'];
 $id_lowongan = $_GET['id_lowongan'];
@@ -43,8 +46,7 @@ $data = $sql->fetch();
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
                                     <div class="d-flex align-items-center">
-                                        <span> <img src="<?php echo $data['logo']; ?>" alt="course" class="rounded"
-                                                style="width: 6.5rem;"></span>
+                                        <span> <img src="<?php echo $data['logo']; ?>" alt="course" class="rounded" style="width: 6.5rem;"></span>
                                         <div class="ms-3">
                                             <h3 class="mb-0"><span class="text-inherit">
                                                     <?php echo $data['posisi']; ?>
@@ -86,65 +88,49 @@ $data = $sql->fetch();
                                         <h3 class="mb-3 mt-1">
                                             <?php echo $dataSoal['pertanyaan']; ?>
                                         </h3>
-                                        <input type="text" name="id_soal<?php echo $i; ?>"
-                                            value="<?php echo $dataSoal['id_soal']; ?>" hidden>
-                                        <input type="text" name="kunciJawaban<?php echo $i; ?>"
-                                            value="<?php echo $dataSoal['jawaban']; ?>" hidden>
+                                        <input type="text" name="id_soal<?php echo $i; ?>" value="<?php echo $dataSoal['id_soal']; ?>" hidden>
+                                        <input type="text" name="kunciJawaban<?php echo $i; ?>" value="<?php echo $dataSoal['jawaban']; ?>" hidden>
                                         <div class="list-group">
-                                            <input class="form-check-input" type="radio" name="jawaban<?php echo $i; ?>"
-                                                value="Z" id="flexRadioDefault0_<?php echo $i; ?>" checked hidden>
+                                            <input class="form-check-input" type="radio" name="jawaban<?php echo $i; ?>" value="Z" id="flexRadioDefault0_<?php echo $i; ?>" checked hidden>
 
                                             <div class="list-group-item list-group-item-action " aria-current="true">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="jawaban<?php echo $i; ?>" value="A"
-                                                        id="flexRadioDefault1_<?php echo $i; ?>">
-                                                    <label class="form-check-label stretched-link"
-                                                        for="flexRadioDefault1_<?php echo $i; ?>">
+                                                    <input class="form-check-input" type="radio" name="jawaban<?php echo $i; ?>" value="A" id="flexRadioDefault1_<?php echo $i; ?>">
+                                                    <label class="form-check-label stretched-link" for="flexRadioDefault1_<?php echo $i; ?>">
                                                         <?php echo $dataSoal['pilihan_a']; ?>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="list-group-item list-group-item-action">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="jawaban<?php echo $i; ?>" value="B"
-                                                        id="flexRadioDefault2_<?php echo $i; ?>">
-                                                    <label class="form-check-label stretched-link"
-                                                        for="flexRadioDefault2_<?php echo $i; ?>">
+                                                    <input class="form-check-input" type="radio" name="jawaban<?php echo $i; ?>" value="B" id="flexRadioDefault2_<?php echo $i; ?>">
+                                                    <label class="form-check-label stretched-link" for="flexRadioDefault2_<?php echo $i; ?>">
                                                         <?php echo $dataSoal['pilihan_b']; ?>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="list-group-item list-group-item-action">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="jawaban<?php echo $i; ?>" value="C"
-                                                        id="flexRadioDefault3_<?php echo $i; ?>">
-                                                    <label class="form-check-label stretched-link"
-                                                        for="flexRadioDefault3_<?php echo $i; ?>">
+                                                    <input class="form-check-input" type="radio" name="jawaban<?php echo $i; ?>" value="C" id="flexRadioDefault3_<?php echo $i; ?>">
+                                                    <label class="form-check-label stretched-link" for="flexRadioDefault3_<?php echo $i; ?>">
                                                         <?php echo $dataSoal['pilihan_c']; ?>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="list-group-item list-group-item-action">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="jawaban<?php echo $i; ?>" value="D"
-                                                        id="flexRadioDefault4_<?php echo $i; ?>">
-                                                    <label class="form-check-label stretched-link"
-                                                        for="flexRadioDefault4_<?php echo $i; ?>">
+                                                    <input class="form-check-input" type="radio" name="jawaban<?php echo $i; ?>" value="D" id="flexRadioDefault4_<?php echo $i; ?>">
+                                                    <label class="form-check-label stretched-link" for="flexRadioDefault4_<?php echo $i; ?>">
                                                         <?php echo $dataSoal['pilihan_d']; ?>
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
-                                        <?php $i++;
+                                    <?php $i++;
                                     } ?>
                                     <div class="text-end">
-                                        <button type="submit" class="btn btn-success" id="submit" name="submit"
-                                            onclick='return confirm("Apakah Anda Yakin?")'>
+                                        <button type="submit" class="btn btn-success" id="submit" name="submit" onclick='return confirm("Apakah Anda Yakin?")'>
                                             Finish <i class="fa-regular fa-circle-check"></i>
                                         </button>
 
@@ -163,9 +149,9 @@ $data = $sql->fetch();
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Saat halaman dimuat, cek apakah terdapat nilai yang tersimpan di localStorage untuk setiap tombol radio.
-            $('input[type="radio"]').each(function () {
+            $('input[type="radio"]').each(function() {
                 var radioName = $(this).attr('name');
                 var storedValue = localStorage.getItem(radioName);
                 if (storedValue === $(this).val()) {
@@ -174,15 +160,15 @@ $data = $sql->fetch();
             });
 
             // Ketika tombol radio dipilih, simpan nilainya ke dalam localStorage.
-            $('input[type="radio"]').on('change', function () {
+            $('input[type="radio"]').on('change', function() {
                 var radioName = $(this).attr('name');
                 var checkedValue = $(this).val();
                 localStorage.setItem(radioName, checkedValue);
             });
 
             // Saat tombol "Finish" ditekan, hapus semua nilai yang tersimpan di localStorage.
-            $('#submit').on('click', function () {
-                $('input[type="radio"]').each(function () {
+            $('#submit').on('click', function() {
+                $('input[type="radio"]').each(function() {
                     var radioName = $(this).attr('name');
                     localStorage.removeItem(radioName);
                 });
@@ -195,7 +181,7 @@ $data = $sql->fetch();
 <?php
 
 $benar = 0;
-if (isset($_POST['submit']) || $_POST['forcedSubmit']) {
+if (isset($_POST['submit']) || isset($_POST['forcedSubmit'])) {
     for ($j = 1; $j <= $countSoal; $j++) {
         $id_soal = $_POST['id_soal'];
         $kunciJawaban = $_POST['kunciJawaban' . $j];

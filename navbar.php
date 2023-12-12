@@ -23,14 +23,14 @@ require 'koneksi.php';
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link" href="index.php">Beranda</a>
                 </li>
                 <?php
                 session_start();
                 if (isset($_SESSION['user'])) {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='find_job.php'>Find Job</a>
+                            <a class='nav-link' href='find_job.php'>Lowongan</a>
                         </li>
                         <li class='nav-item'>
                             <a class='nav-link' href='my_application.php'>Lamaran Saya</a>
@@ -38,15 +38,15 @@ require 'koneksi.php';
                 } else if (isset($_SESSION['company'])) {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='our_vacancy.php'>Our Vacancy</a>
+                            <a class='nav-link' href='our_vacancy.php'>Lowongan Anda</a>
                         </li>
                         <li class='nav-item'>
-                            <a class='nav-link' href='buy_package.php'>Package</a>
+                            <a class='nav-link' href='buy_package.php'>Paket</a>
                         </li>";
                 } else if (isset($_SESSION['admin'])) { ?>
 
                     <li class='nav-item'>
-                        <a class='nav-link' href='find_job.php'> Job List</a>
+                        <a class='nav-link' href='find_job.php'> List Lowongan </a>
                     </li>
                 <?php
                     if ($_SESSION['admin']['hak_akses'] == "Superadmin") {
@@ -55,10 +55,10 @@ require 'koneksi.php';
                                 <a class='nav-link' href='admin.php'>Admin</a>
                             </li>
                             <li class='nav-item'>
-                                <a class='nav-link' href='package.php'>Package</a>
+                                <a class='nav-link' href='package.php'>Paket</a>
                             </li>
                             <li class='nav-item'>
-                                <a class='nav-link' href='company.php'>Company</a>
+                                <a class='nav-link' href='company.php'>Perusahaan</a>
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
@@ -69,7 +69,7 @@ require 'koneksi.php';
                     } else {
                         echo "
                             <li class='nav-item'>
-                                <a class='nav-link' href='company.php'>Company</a>
+                                <a class='nav-link' href='company.php'>Perusahaan</a>
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
@@ -78,12 +78,12 @@ require 'koneksi.php';
                 } else {
                     echo "
                         <li class='nav-item'>
-                            <a class='nav-link' href='find_job.php'>Find Job</a>
+                            <a class='nav-link' href='find_job.php'>Lowongan</a>
                         </li>";
                 }
                 ?>
                 <li class='nav-item'>
-                    <a class='nav-link' href='about_us.php'>About Us</a>
+                    <a class='nav-link' href='about_us.php'>Tentang Kami</a>
                 </li>
             </ul>
             <?php
@@ -124,14 +124,14 @@ require 'koneksi.php';
             } else {
                 echo "
                 <div class='d-grid gap-2 d-md-flex justify-content-md-end'>
-                <a href='login.php' class='btn btn-nav-login me-2 form-control'>Login</a>
+                <a href='login.php' class='btn btn-nav-login me-2 form-control'>Masuk</a>
                 <div class='dropdown text-light'>
                     <button class='btn btn-nav-register form-control dropdown-toggle' type='button' id='registerDropdown' data-bs-toggle='dropdown' aria-expanded='false'>
-                        Register
+                        Daftar
                     </button>
                     <ul class='dropdown-menu' aria-labelledby='registerDropdown'>
-                        <li><a class='dropdown-item' href='daftar_user.php'>Register as Applicant</a></li>
-                        <li><a class='dropdown-item' href='daftar_company.php'>Register as Company</a></li>
+                        <li><a class='dropdown-item' href='daftar_user.php'>Daftar sebagai Pelamar</a></li>
+                        <li><a class='dropdown-item' href='daftar_company.php'>Daftar sebagai Perusahaan</a></li>
                     </ul>
                 </div>";
             }

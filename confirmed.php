@@ -68,11 +68,14 @@ $data = $sql->fetch();
                         <td> <?php echo $data['deskripsi_perusahaan']; ?> </td>
                     </tr>
                     <tr>
-                        <td colspan=3> <input type="submit" value="Konfirmasi" class="btn form-control btn-primary">
+                        <td colspan=3> <input type="submit" value="Konfirmasi" class="btn form-control btn-primary"> <br>
+                            </form>
+                            <?php echo "<form method='post' action='proses_perusahaan.php?id_perusahaan=$id_perusahaan&action=reject'>"; ?>
+                            <input type="submit" name="reject" value="Tolak" class="btn form-control btn-danger mt-2">
+                            </form>
                         </td>
                     </tr>
                 </table>
-                </form>
             </div>
         </div>
     </div>
@@ -85,5 +88,6 @@ $data = $sql->fetch();
         });
     </script>
 </body>
+
 
 </html>

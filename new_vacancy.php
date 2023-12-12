@@ -19,8 +19,7 @@ include 'navbar.php';
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="text-left mb-3 mt-3">
-                    <a href="our_vacancy.php" title="Back To Our Vacancy" data-toggle="tooltip"><i
-                            class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
+                    <a href="our_vacancy.php" title="Back To Our Vacancy" data-toggle="tooltip"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
                 </div>
                 <div class="table-title">
                     <div class="row">
@@ -36,8 +35,7 @@ include 'navbar.php';
                     </div>
                     <div class="mb-3">
                         <label for="departemen" class="form-label">Departemen</label>
-                        <input type="text" class="form-control" name="departemen" placeholder="Masukkan departemen"
-                            required>
+                        <input type="text" class="form-control" name="departemen" placeholder="Masukkan departemen" required>
                     </div>
                     <div class="mb-3">
                         <label for="gaji" class="form-label mt-2">Gaji</label>
@@ -45,13 +43,11 @@ include 'navbar.php';
                     </div>
                     <div class="mb-3">
                         <label for="lokasi_pekerjaan" class="form-label mt-2">Lokasi Pekerjaan</label>
-                        <input type="text" class="form-control" name="lokasi_pekerjaan"
-                            placeholder="Masukkan lokasi pekerjaan" required>
+                        <input type="text" class="form-control" name="lokasi_pekerjaan" placeholder="Masukkan lokasi pekerjaan" required>
                     </div>
                     <div class="mb-3">
                         <label for="deskripsi_pekerjaan" class="form-label mt-2">Deskripsi Pekerjaan</label>
-                        <textarea class="form-control h-100" id="deskripsi_pekerjaan" name="deskripsi_pekerjaan"
-                            placeholder="Masukkan deskripsi pekerjaan"></textarea>
+                        <textarea id="deskripsi_pekerjaan" name="deskripsi_pekerjaan" placeholder="Masukkan deskripsi pekerjaan"></textarea>
                     </div>
                     <div class="text-left">
                         <button type="submit" class="btn btn-success w-100">Buat Lowongan</button>
@@ -63,7 +59,7 @@ include 'navbar.php';
 
     <script>
         ClassicEditor
-            .create(document.querySelector('#deskripsi'), {
+            .create(document.querySelector('#deskripsi_pekerjaan'), {
                 toolbar: {
                     items: [
                         'undo', 'redo',
