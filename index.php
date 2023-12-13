@@ -19,10 +19,11 @@
                 <div class="hero-content">
                     <div class="row">
                         <div class="col-lg-6">
-                            <h1 class="display-4"><b>Pekerjaan Impian</b> <br>Anda Sedang Menunggu</h1>
+                            <h1 class="display-5"><b>Pekerjaan Impian</b> <br>Anda Sedang Menunggu</h1>
                             <p class="lead">Cari pekerjaan yang cocok dengan kemampuan dan keahlian anda.</p>
                             <div class="search-input input-group mb-3">
-                                <input class="form-control" type="search" name="search" id="search-input" placeholder="Cari...">
+                                <input class="form-control" type="search" name="search" id="search-input"
+                                    placeholder="Cari...">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa-solid fa-magnifying-glass"></i>

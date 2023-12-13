@@ -12,7 +12,7 @@ if (isset($_POST["daftar"])) {
 
     // Cek konfirmasi password
     if ($password != $confirm_password) {
-        echo "<script>alert('Pendaftaran Gagal, Email Perusahaan Sudah Digunakan');</script>";
+        echo "<script>alert('Pendaftaran Gagal, Kata Sandi Tidak Sesuai!!');</script>";
         echo "<script>location='daftar_user.php';</script>";
         return false;
     }

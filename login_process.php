@@ -42,7 +42,7 @@ if ($countUser == true) {
             echo "<script>alert('Login Berhasil');</script>";
             echo "<script>location='index.php';</script>";
         } else {
-            echo "<script>alert('Login Gagal');</script>";
+            echo "<script>alert('Login Gagal, Periksa Kembali Email dan Password Anda!!');</script>";
             echo "<script>location='login.php';</script>";
         }
     }

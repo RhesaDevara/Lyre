@@ -16,6 +16,7 @@ $data = $sql->fetch();
 
 $sql1 = $koneksiPdo->prepare("SELECT * FROM lowongan_pekerjaan where id_perusahaan = '$id_perusahaan'");
 $sql1->execute();
+
 ?>
 <!DOCTYPE html>
 <?php
@@ -62,9 +63,9 @@ $sql1->execute();
                                 </p>
                             </div>
                             <?php
-                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-primary"
+                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-warning"
                                     data-bs-toggle="modal" data-bs-target="#editProfile">Edit
-                                    Profile</button>
+                                    Profil</button>
                             <?php } ?>
                         </div>
                     </div>
@@ -79,7 +80,7 @@ $sql1->execute();
                     <div class="mb-5">
                         <div class="d-flex flex-column">
                             <div class="text-center d-flex align-items-center justify-content-between">
-                                <h4>Our Vacancy</h4>
+                                <h4>Lowongan Kami</h4>
                             </div>
                             <hr>
                             <section class="py-8">
@@ -90,18 +91,14 @@ $sql1->execute();
                                             <div class="row">
                                                 <?php while ($data1 = $sql1->fetch()): ?>
                                                     <div class="col-lg-4 col-12 mb-4">
-                                                        <!-- Job Grid Start -->
                                                         <div
                                                             class="card card-bordered card-hover shadow-sm cursor-pointer h-100">
-                                                            <!-- card body -->
                                                             <div class="card-body">
                                                                 <div class="mb-3 text-center">
-                                                                    <!-- Img -->
                                                                     <img src="<?php echo $data['logo']; ?>"
                                                                         alt="Company Logo" loading="lazy"
                                                                         class="rounded logo-tes mt-md-2">
                                                                 </div>
-                                                                <!-- text -->
                                                                 <div class="w-100 mt-3">
                                                                     <div class="d-flex justify-content-between mb-4">
                                                                         <div>
@@ -161,6 +158,7 @@ $sql1->execute();
                                                                         <div class="text-secondary">
                                                                             <i class="fa-regular fa-clock"></i><span>
                                                                                 <?php
+                                                                                $id_lowongan = $data1['id_lowongan'];
                                                                                 $tanggal_posting = new DateTime($data1['tanggal_posting']);
                                                                                 $tanggal_formatted = $tanggal_posting->format('d F Y');
                                                                                 $now = new DateTime();
@@ -205,77 +203,6 @@ $sql1->execute();
 
                                 </div>
                             </section>
-                            <!-- <div class="row row-cols-1 row-cols-md-3 g-4">
-                                <?php while ($data1 = $sql1->fetch()): ?>
-                                    <div class="col">
-                                        <div class="card">
-                                            <div class="row g-0 align-items-center">
-                                                <div class="col-md-4">
-                                                    <div class="d-flex align-items-center justify-content-center text-center pt-3 pt-md-0 pb-md-5">
-                                                        <img src="<?php echo $data['logo']; ?>" class="rounded" alt="Logo Perusahaan" style="width: 100px; height: 100px;">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">
-                                                            <?php echo $data1['posisi']; ?>
-                                                        </h5>
-                                                        <ul class="list-unstyled text-secondary d-flex flex-column">
-                                                            <li class="mb-1 me-3">
-                                                                <i class="fa-solid fa-building"></i>
-                                                                <?php echo $data1['departemen']; ?>
-                                                            </li>
-                                                            <li class="mb-1 me-3">
-                                                                <i class="fa-solid fa-location-dot"></i>
-                                                                <?php echo $data1['lokasi_pekerjaan']; ?>
-                                                            </li>
-                                                            <li class="mb-1">
-                                                                <i class="far fa-money-bill-alt"></i>
-                                                                <?php
-                                                                $harga = $data1['gaji'];
-                                                                $harga_format = number_format($harga, 0, ",", ".");
-                                                                echo "Rp. " . $harga_format . ",-"; ?>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="text-end">
-                                                            <?php $id_lowongan = $data1['id_lowongan'];
-                                                            echo "<a href='detail_lowongan.php?id_lowongan=$id_lowongan'>"; ?>
-                                                            <button class="btn btn-secondary w-100">See Detail</button>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer d-md-flex justify-content-between text-secondary">
-                                                    <small class="text-center">
-                                                        <i class="fa-solid fa-calendar-days"></i> Posted
-                                                        <?php
-                                                        $tanggal_posting = strtotime($data1['tanggal_posting']);
-                                                        $selisih_detik = time() - $tanggal_posting;
-
-                                                        if ($selisih_detik < 60) {
-                                                            $selisih = $selisih_detik . " Seconds Ago";
-                                                        } elseif ($selisih_detik < 3600) {
-                                                            $selisih = floor($selisih_detik / 60) . " Minutes Ago";
-                                                        } elseif ($selisih_detik < 86400) {
-                                                            $selisih = floor($selisih_detik / 3600) . " Hours Ago";
-                                                        } elseif ($selisih_detik < 2592000) {
-                                                            $selisih = floor($selisih_detik / 86400) . " Days Ago";
-                                                        } elseif ($selisih_detik < 31536000) {
-                                                            $selisih = floor($selisih_detik / 2592000) . " Months Ago";
-                                                        } else {
-                                                            $selisih = floor($selisih_detik / 31536000) . " Years Ago";
-                                                        }
-                                                        ?>
-                                                        <span class="fs-7 fw-bold">
-                                                            <?php echo $selisih ?>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endwhile; ?>
-                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -286,7 +213,7 @@ $sql1->execute();
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editProfileLabel">Ubah Profile</h5>
+                                <h5 class="modal-title" id="editProfileLabel">Ubah Profil</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -326,7 +253,8 @@ $sql1->execute();
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" name="ubahProfile" class="btn btn-primary">Save changes</button>
+                                <button type="submit" name="ubahProfile" class="btn btn-primary">Simpan
+                                    Perubahan</button>
                             </div>
                             </form>
                         </div>

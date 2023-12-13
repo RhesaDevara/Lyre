@@ -17,7 +17,8 @@ require 'koneksi.php';
         <a class="navbar-brand my-1 fs-3" href="index.php">
             <img src="assets/img/logo2.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-center">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNav">
@@ -45,12 +46,12 @@ require 'koneksi.php';
                         </li>";
                 } else if (isset($_SESSION['admin'])) { ?>
 
-                    <li class='nav-item'>
-                        <a class='nav-link' href='find_job.php'> List Lowongan </a>
-                    </li>
-                <?php
-                    if ($_SESSION['admin']['hak_akses'] == "Superadmin") {
-                        echo "
+                            <li class='nav-item'>
+                                <a class='nav-link' href='find_job.php'> List Lowongan </a>
+                            </li>
+                        <?php
+                        if ($_SESSION['admin']['hak_akses'] == "Superadmin") {
+                            echo "
                             <li class='nav-item'>
                                 <a class='nav-link' href='admin.php'>Admin</a>
                             </li>
@@ -66,15 +67,15 @@ require 'koneksi.php';
                             <li class='nav-item'>
                                 <a class='nav-link' href='pembelian.php'>Pembelian</a>
                             </li>";
-                    } else {
-                        echo "
+                        } else {
+                            echo "
                             <li class='nav-item'>
                                 <a class='nav-link' href='company.php'>Perusahaan</a>
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
                             </li>";
-                    }
+                        }
                 } else {
                     echo "
                         <li class='nav-item'>
@@ -130,8 +131,8 @@ require 'koneksi.php';
                         Daftar
                     </button>
                     <ul class='dropdown-menu' aria-labelledby='registerDropdown'>
-                        <li><a class='dropdown-item' href='daftar_user.php'>Daftar sebagai Pelamar</a></li>
-                        <li><a class='dropdown-item' href='daftar_company.php'>Daftar sebagai Perusahaan</a></li>
+                        <li><a class='dropdown-item' href='daftar_user.php'>Daftar Pelamar</a></li>
+                        <li><a class='dropdown-item' href='daftar_company.php'>Daftar Perusahaan</a></li>
                     </ul>
                 </div>";
             }

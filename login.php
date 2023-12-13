@@ -17,9 +17,11 @@
                     <div class="col-12 col-md-6 text-white bg-login-register">
                         <div class="d-flex align-items-center justify-content-center h-100">
                             <div class="col-10 col-xl-8 py-3 text-center">
-                                <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy" src="assets/img/logo2.png" width="245" height="80" title="Back To Home" data-toggle="tooltip"></a>
+                                <a href="index.php"><img class="img-fluid rounded mb-4" loading="lazy"
+                                        src="assets/img/logo2.png" width="245" height="80" title="Back To Home"
+                                        data-toggle="tooltip"></a>
                                 <hr class="border border-light mb-4">
-                                <h2 class="h1 mb-4">Pekerjaan Impian <br>Anda sedang Menunggu</h2>
+                                <h4 class="mb-4">Pekerjaan Impian <br>Anda sedang Menunggu</h4>
                                 <p class="lead m-0">Cari pekerjaan yang cocok dengan kemampuan dan keahlian anda.</p>
                             </div>
                         </div>
@@ -30,12 +32,16 @@
                                 <h3 class="card-title mb-3">Masuk</h3>
                                 <form action="login_process.php" method="post">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="email" id="email" placeholder="nama@email.com" required>
+                                        <label for="email" class="form-label">Email <span
+                                                class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="email" id="email"
+                                            placeholder="nama@email.com" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="password" class="form-label">Kata Sandi <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" name="password" id="password" value="" required placeholder="********">
+                                        <label for="password" class="form-label">Kata Sandi <span
+                                                class="text-danger">*</span></label>
+                                        <input type="password" class="form-control" name="password" id="password"
+                                            value="" required placeholder="********">
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
@@ -45,9 +51,9 @@
                                 </form>
                                 <hr class="mt-3 mb-4 border border-secondary">
                                 <p class="mt-3 mb-3">Tidak punya akun? Daftar disini.</p>
-                                <div class="d-flex gap-3 mb-1 flex-column flex-xl-column">
+                                <div class="d-flex gap-3 flex-column flex-xl-column">
                                     <a href="daftar_user.php" class="btn btn-select-register form-control">Pelamar</a>
-                                    <center class="text-secondary"> Atau </center>
+                                    <p class="text-secondary text-center text-uppercase fw-bold mb-0">Atau</p>
                                     <a href="daftar_company.php" class="btn btn-select-register">Perusahaan</a>
                                 </div>
                             </div>
