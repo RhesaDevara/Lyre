@@ -14,7 +14,8 @@ if ($action == 'review') {
     $sql1 = $koneksiPdo->prepare("INSERT INTO konfirmasi_perusahaan (id_admin, id_perusahaan, nama_admin, nama_perusahaan, tanggal_mulai, status_akun) 
         values ('$id_admin', '$id_perusahaan', '$nama_admin', '$nama_perusahaan', '$today', 'Sedang Review')");
     $sql1->execute();
-    header("location:company.php");
+    echo "<script>alert('Perusahaan Sedang Direview!!');</script>";
+    echo "<script>location='company.php';</script>";
 } else if ($action == 'confirm') {
     $sql2 = $koneksiPdo->prepare("UPDATE perusahaan set status_akun = 'Sudah Aktif' where id_perusahaan = '$id_perusahaan'");
     $sql2->execute();
@@ -22,7 +23,8 @@ if ($action == 'review') {
     $sql3 = $koneksiPdo->prepare("UPDATE konfirmasi_perusahaan set status_akun = 'Sudah Aktif', tanggal_selesai = '$today' where id_perusahaan = '$id_perusahaan'");
     $sql3->execute();
 
-    header("location:company.php");
+    echo "<script>alert('Perusahaan Telah Dikonfirmasi!!');</script>";
+    echo "<script>location='company.php';</script>";
 } else {
 
     $sql2 = $koneksiPdo->prepare("UPDATE perusahaan set status_akun = 'Ditolak' where id_perusahaan = '$id_perusahaan'");
@@ -30,5 +32,6 @@ if ($action == 'review') {
 
     $sql4 = $koneksiPdo->prepare("UPDATE konfirmasi_perusahaan set status_akun = 'Ditolak', tanggal_selesai = '$today' where id_perusahaan = '$id_perusahaan'");
     $sql4->execute();
-    header("location:company.php");
+    echo "<script>alert('Perusahaan Telah Ditolak!!');</script>";
+    echo "<script>location='company.php';</script>";
 }

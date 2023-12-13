@@ -1,14 +1,20 @@
 <?php
 include 'navbar.php';
 
-if (isset($_SESSION['company'])) {
-    $id_perusahaan = $_SESSION['company']['id_perusahaan'];
-    $sqlSession = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
-    $sqlSession->execute();
-    $_SESSION['company'] = $sqlSession->fetch();
-} else {
+if (isset($_GET['id_perusahaan'])) {
     $id_perusahaan = $_GET['id_perusahaan'];
+} else {
+    $id_perusahaan = $_SESSION['company']['id_perusahaan'];
 }
+
+
+
+// if (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan) {
+//     $id_perusahaan = $_SESSION['company']['id_perusahaan'];
+//     $sqlSession = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
+//     $sqlSession->execute();
+//     $_SESSION['company'] = $sqlSession->fetch();
+// }
 
 $sql = $koneksiPdo->prepare("SELECT * FROM perusahaan where id_perusahaan = '$id_perusahaan'");
 $sql->execute();
@@ -62,9 +68,9 @@ $sql1->execute();
                                     <?php echo $data['alamat_perusahaan']; ?>
                                 </p>
                             </div>
-                            <?php
-                            if (isset($_SESSION['company'])) { ?><button type="button" class="btn btn-warning"
-                                    data-bs-toggle="modal" data-bs-target="#editProfile">Edit
+                            <?php if (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan) { ?><button
+                                    type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                    data-bs-target="#editProfile">Edit
                                     Profil</button>
                             <?php } ?>
                         </div>
@@ -95,21 +101,21 @@ $sql1->execute();
                                                             class="card card-bordered card-hover shadow-sm cursor-pointer h-100">
                                                             <div class="card-body">
                                                                 <div class="mb-3 text-center">
-                                                                    <img src="<?php echo $data['logo']; ?>"
-                                                                        alt="Company Logo" loading="lazy"
-                                                                        class="rounded logo-tes mt-md-2">
+                                                                    <img src="<?php
+                                                                    $id_lowongan = $data1['id_lowongan'];
+                                                                    echo $data['logo']; ?>" alt="Company Logo"
+                                                                        loading="lazy" class="rounded logo-tes mt-md-2">
                                                                 </div>
                                                                 <div class="w-100 mt-3">
                                                                     <div class="d-flex justify-content-between mb-4">
                                                                         <div>
-                                                                            <h3 class="fs-4"><a
+                                                                            <h3 class="mb-2 fs-4"><a
                                                                                     href="<?php echo "detail_lowongan.php?id_lowongan=$id_lowongan"; ?>"
                                                                                     class="text-dark text-decoration-none text-inherit">
                                                                                     <?php echo $data1['posisi']; ?>
                                                                                 </a>
                                                                             </h3>
-                                                                            <?php
-                                                                            if (isset($_SESSION['company'])) { ?>
+                                                                            <?php if (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan) { ?>
                                                                                 <?php if ($data1['status_lowongan'] == "Non Aktif") { ?>
                                                                                     <span
                                                                                         class="badge bg-danger-subtle border border-danger-subtle text-danger-emphasis rounded my-1 fs-6">
@@ -158,7 +164,6 @@ $sql1->execute();
                                                                         <div class="text-secondary">
                                                                             <i class="fa-regular fa-clock"></i><span>
                                                                                 <?php
-                                                                                $id_lowongan = $data1['id_lowongan'];
                                                                                 $tanggal_posting = new DateTime($data1['tanggal_posting']);
                                                                                 $tanggal_formatted = $tanggal_posting->format('d F Y');
                                                                                 $now = new DateTime();

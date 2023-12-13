@@ -20,7 +20,8 @@ $pecah = $ambil->fetch_assoc();
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="text-left mb-3 mt-3">
-                    <a href="admin.php" title="Back To Admin List" data-toggle="tooltip"><i class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
+                    <a href="admin.php" title="Back To Admin List" data-toggle="tooltip"><i
+                            class="fa-solid fa-arrow-left fa-2xl" style="color: #20444F;"></i></a>
                 </div>
                 <div class="table-title">
                     <div class="row">
@@ -32,11 +33,13 @@ $pecah = $ambil->fetch_assoc();
                 <form method="POST">
                     <div class="mb-3">
                         <label for="na me" class="form-label">Full Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter your full name" value="<?php echo $pecah['nama']; ?>" required>
+                        <input type="text" class="form-control" name="name" placeholder="Enter your full name"
+                            value="<?php echo $pecah['nama']; ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label mt-2">Email</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter your email" value="<?php echo $pecah['email']; ?>" required>
+                        <input type="email" class="form-control" name="email" placeholder="Enter your email"
+                            value="<?php echo $pecah['email']; ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="hak_akses" class="form-label mt-2">Hak Akses</label><br>
@@ -53,11 +56,13 @@ $pecah = $ambil->fetch_assoc();
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label mt-2">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Enter your password" value="<?php echo $pecah['password']; ?>" required>
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password"
+                            value="<?php echo $pecah['password']; ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="confirm-password" class="form-label mt-2">Confirm Password</label>
-                        <input type="password" class="form-control" name="confirm-password" placeholder="Confirm your password" value="<?php echo $pecah['password']; ?>" required>
+                        <input type="password" class="form-control" name="confirm-password"
+                            placeholder="Confirm your password" value="<?php echo $pecah['password']; ?>" required>
                     </div>
                     <div class="text-left">
                         <button type="submit" name="ubah" class="btn btn-primary form-control">Change Admin</button>

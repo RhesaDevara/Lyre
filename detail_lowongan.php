@@ -21,6 +21,7 @@ $sql->execute();
 $data = $sql->fetch();
 
 
+
 $sql1 = $koneksiPdo->prepare("SELECT * FROM soal where id_lowongan = '$id_lowongan'");
 $sql1->execute();
 
@@ -44,8 +45,9 @@ $count = $cekSoal->fetchColumn();
             <div class="row gy-5 gx-md-5">
                 <div class="col-lg-8">
                     <div class="d-flex align-items-top mb-5">
-                        <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php echo $data['logo'] ?>"
-                            alt="Company Logo" style="width: 100px; height: 100px;">
+                        <img class="flex-shrink-0 img-fluid rounded me-4" src="<?php
+                        $id_perusahaan = $data['id_perusahaan'];
+                        echo $data['logo']; ?>" alt="Company Logo" style="width: 100px; height: 100px;">
                         <div>
                             <div class="d-flex flex-column flex-md-row">
                                 <div>
@@ -54,7 +56,7 @@ $count = $cekSoal->fetchColumn();
                                     </h3>
                                 </div>
                                 <?php
-                                if (isset($_SESSION['company'])) { ?>
+                                if (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan) { ?>
                                     <div class="mb-1 fw-bold">
                                         <?php if ($data['status_lowongan'] == "Non Aktif") { ?>
                                             <span
@@ -93,7 +95,7 @@ $count = $cekSoal->fetchColumn();
                                 </p>
                             </div>
                             <form method="post">
-                                <?php if (isset($_SESSION['company'])) {
+                                <?php if (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan) {
                                     if ($data['status_lowongan'] == "Non Aktif") { ?>
                                         <button type="submit" name="aktif"
                                             onclick='return confirm("Apakah anda yakin ingin mengaktifkan lowongan?")'
@@ -111,7 +113,7 @@ $count = $cekSoal->fetchColumn();
                         </div>
                     </div>
 
-                    <?php if (isset($_SESSION['user']) || !isset($_SESSION['company'])) { ?>
+                    <?php if (isset($_SESSION['user']) || isset($_SESSION['company']) || (!isset($_SESSION['company']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan)) { ?>
                         <div class="mb-5">
                             <h4 class="mb-3">Deskripsi Pekerjaan</h4>
                             <p>
@@ -288,8 +290,7 @@ $count = $cekSoal->fetchColumn();
                     }
                     ?>
 
-                    <?php
-                    if (isset($_SESSION['company'])) { ?>
+                    <?php if (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan) { ?>
                         <!-- Tabs navs -->
                         <ul class="nav nav-tabs mb-3" id="detail-lowongan" role="tablist">
                             <li class="nav-item w-25" role="presentation">
