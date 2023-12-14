@@ -2,12 +2,26 @@
 include 'navbar.php';
 $id_lowongan = $_GET['id_lowongan'];
 
+if (isset($_GET['id_perusahaan'])) {
+    $id_perusahaan = $_GET['id_perusahaan'];
+} else {
+    $id_perusahaan = $_SESSION['company']['id_perusahaan'];
+}
+
+if ((isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan)) {
+    echo "<script>location='404.html';</script>";
+}
+
 if (isset($_SESSION['user'])) {
     $id_pengguna = $_SESSION['user']['id_pengguna'];
     $cekLamaran = $koneksiPdo->prepare("SELECT count(*) from lamaran where id_pengguna = '$id_pengguna' and id_lowongan = '$id_lowongan'");
     $cekLamaran->execute();
 
     $countLamaran = $cekLamaran->fetchColumn();
+}
+
+if ((isset($_SESSION['user']['id_pengguna']) && $_SESSION['user']['id_pengguna'] == $id_pengguna)) {
+    echo "<script>location='403.html';</script>";
 }
 
 // Lakukan JOIN antara tabel lowongan_pekerjaan dan perusahaan
@@ -30,7 +44,6 @@ if (isset($_GET['status_lamaran'])) {
 } else {
     $status_lamaran = "";
 }
-
 
 ?>
 <script>

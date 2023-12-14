@@ -113,7 +113,7 @@ $count = $cekSoal->fetchColumn();
                         </div>
                     </div>
 
-                    <?php if (isset($_SESSION['user']) || isset($_SESSION['company']) || (!isset($_SESSION['company']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan)) { ?>
+                    <?php if (isset($_SESSION['user']) || (isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] !== $id_perusahaan)) { ?>
                         <div class="mb-5">
                             <h4 class="mb-3">Deskripsi Pekerjaan</h4>
                             <p>
@@ -399,7 +399,8 @@ $count = $cekSoal->fetchColumn();
                                 <a href="<?php echo "delete_vacancy.php?id_lowongan=$data[id_lowongan]" ?>"><button
                                         type="button" name="hapus" class="btn btn-danger"
                                         onclick='return confirm("Apakah Anda Yakin?")'>Hapus</button></a>
-                                <button type="submit" name="ubahLowongan" class="btn btn-primary">Save changes</button>
+                                <button type="submit" name="ubahLowongan" class="btn btn-primary">Simpan
+                                    Perubahan</button>
                             </div>
                             </form>
                         </div>
