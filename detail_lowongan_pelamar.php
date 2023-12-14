@@ -9,10 +9,6 @@ if (isset($_GET['id_perusahaan'])) {
 }
 
 if (isset($_SESSION['user'])) {
-    echo "<script>location='404.html';</script>";
-}
-
-if (isset($_SESSION['user'])) {
     $id_pengguna = $_SESSION['user']['id_pengguna'];
     $cekLamaran = $koneksiPdo->prepare("SELECT count(*) from lamaran where id_pengguna = '$id_pengguna' and id_lowongan = '$id_lowongan'");
     $cekLamaran->execute();
@@ -31,6 +27,9 @@ $sql = $koneksiPdo->prepare("SELECT lp.*, p.* FROM lowongan_pekerjaan lp
 $sql->execute();
 $data = $sql->fetch();
 
+if (isset($_SESSION['company']['id_perusahaan']) && $data['id_perusahaan'] !== $id_perusahaan) {
+    echo "<script>location='404.html';</script>";
+}
 
 $sql1 = $koneksiPdo->prepare("SELECT * FROM soal where id_lowongan = '$id_lowongan'");
 $sql1->execute();
