@@ -97,6 +97,9 @@ $result = $koneksi->query($ambil);
                                     <i class="text-dark fa fa-sort <?php echo ($orderBy === 'harga' && $orderDirection === 'ASC') ? 'asc' : 'desc'; ?>"></i>
                                 </a>
                             </th>
+                            <th width="40%">
+                                Deskripsi Paket
+                            </th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -119,6 +122,9 @@ $result = $koneksi->query($ambil);
                                 <td>
                                     <?php $harga_format = number_format($data['harga'], 0, ',', '.');
                                     echo "Rp. " . $harga_format ?>
+                                </td>
+                                <td>
+                                    <?php echo $data['deskripsi_paket']; ?>
                                 </td>
                                 <td>
 

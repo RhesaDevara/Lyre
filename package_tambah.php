@@ -38,7 +38,11 @@ include 'navbar.php';
                     </div>
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga</label>
-                        <input type="text" class="form-control" id="harga" name="harga" min="1" placeholder="Masukkan harga" required>
+                        <input type="number" class="form-control" id="harga" name="harga" min="1" placeholder="Masukkan harga" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="packageName" class="form-label">Deskripsi Paket</label>
+                        <textarea class="form-control" id="deskripsi" name="deskripsi" placeholder="Masukkan deskripsi paket" required></textarea>
                     </div>
                     <div class="text-left">
                         <button type="submit" name="tambah" class="btn btn-success w-100">Tambah Paket</button>
@@ -58,9 +62,11 @@ if (isset($_POST["tambah"])) {
     $namaPaket = $_POST["packageName"];
     $kuota = $_POST["kuota"];
     $harga = $_POST["harga"];
-    $koneksi->query("INSERT INTO paket (nama_paket, kuota ,harga) VALUES ('$namaPaket', '$kuota', '$harga')");
+    $deskripsi = $_POST["deskripsi"];
+    $koneksi->query("INSERT INTO paket (nama_paket, kuota ,harga,deskripsi_paket) VALUES ('$namaPaket', '$kuota', '$harga','$deskripsi')");
 
-    echo "<div class='alert-info alert-info'>Data Tersimpan</div>";
+
+    echo "<script>alert('Paket berhasil Ditambah');</script>";
     echo "<script>location='package.php';</script>";
 }
 

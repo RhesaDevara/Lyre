@@ -8,7 +8,7 @@ if (isset($_GET['id_perusahaan'])) {
     $id_perusahaan = $_SESSION['company']['id_perusahaan'];
 }
 
-if ((isset($_SESSION['company']['id_perusahaan']) && $_SESSION['company']['id_perusahaan'] == $id_perusahaan)) {
+if (isset($_SESSION['user'])) {
     echo "<script>location='404.html';</script>";
 }
 
@@ -20,7 +20,7 @@ if (isset($_SESSION['user'])) {
     $countLamaran = $cekLamaran->fetchColumn();
 }
 
-if ((isset($_SESSION['user']['id_pengguna']) && $_SESSION['user']['id_pengguna'] == $id_pengguna)) {
+if (isset($_SESSION['user'])) {
     echo "<script>location='403.html';</script>";
 }
 
@@ -44,6 +44,25 @@ if (isset($_GET['status_lamaran'])) {
 } else {
     $status_lamaran = "";
 }
+
+
+$sqlCountDitolak = $koneksiPdo->prepare("SELECT count(*) FROM lamaran where id_lowongan = '$id_lowongan' AND status_lamaran = 'Ditolak'");
+$sqlCountDitolak->execute();
+
+$sqlCountDiperiksa = $koneksiPdo->prepare("SELECT count(*) FROM lamaran where id_lowongan = '$id_lowongan' AND status_lamaran = 'Diperiksa'");
+$sqlCountDiperiksa->execute();
+
+$sqlCountTahapTes = $koneksiPdo->prepare("SELECT count(*) FROM lamaran where id_lowongan = '$id_lowongan' AND status_lamaran = 'Tahap Tes'");
+$sqlCountTahapTes->execute();
+
+$sqlCountLolos = $koneksiPdo->prepare("SELECT count(*) FROM lamaran where id_lowongan = '$id_lowongan' AND status_lamaran = 'Lolos'");
+$sqlCountLolos->execute();
+
+$countDitolak = $sqlCountDitolak->fetchColumn();
+$countDiperiksa = $sqlCountDiperiksa->fetchColumn();
+$countTahapTes = $sqlCountTahapTes->fetchColumn();
+$countLolos = $sqlCountLolos->fetchColumn();
+
 
 ?>
 <script>
@@ -150,10 +169,10 @@ if (isset($_GET['status_lamaran'])) {
                                     </p>
                                     <form method="post">
                                         <div class="d-flex flex-row">
-                                            <div class="menu-detail"><input type="submit" name="ditolak" value="Ditolak" class="btn-pelamar"></div>
-                                            <div class="menu-detail"><input type="submit" name="periksa_cv" value="Periksa CV" class="btn-pelamar"></div>
-                                            <div class="menu-detail"><input type="submit" name="tahap_tes" value="Tahap Tes" class="btn-pelamar"></div>
-                                            <div class="menu-detail"><input type="submit" name="diterima" value="Lolos" class="btn-pelamar"></div>
+                                            <div class="menu-detail"><input type="submit" name="ditolak" value="Ditolak (<?php echo $countDitolak; ?>)" class="btn-pelamar"></div>
+                                            <div class="menu-detail"><input type="submit" name="periksa_cv" value="Periksa CV (<?php echo $countDiperiksa; ?>)" class="btn-pelamar"></div>
+                                            <div class="menu-detail"><input type="submit" name="tahap_tes" value="Tahap Tes (<?php echo $countTahapTes; ?>)" class="btn-pelamar"></div>
+                                            <div class="menu-detail"><input type="submit" name="diterima" value="Lolos (<?php echo $countLolos; ?>)" class="btn-pelamar"></div>
                                         </div>
                                         <div class="mt-4 text-decoration-none text-black">
                                             <div class="mb-3">
