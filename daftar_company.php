@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon" required>
+                                        <input type="number" class="form-control" id="no_telp" name="no_telp" placeholder="Masukkan nomor telepon" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="dob" class="form-label">Alamat Perusahaan <span class="text-danger">*</span></label>
@@ -61,11 +61,11 @@
                                     <div class="mb-3">
                                         <label for="deskripsi_perusahaan" class="form-label">Deskripsi
                                             Perusahaan <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="deskripsi_perusahaan" name="deskripsi_perusahaan" placeholder="Masukkan deskripsi perusahaan" required>
+                                        <textarea class="form-control" id="deskripsi_perusahaan" name="deskripsi_perusahaan" placeholder="Masukkan deskripsi perusahaan" required></textarea>
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-grid">
-                                            <button name="daftar" class="btn btn-login-register" type="submit">Register</button>
+                                            <button name="daftar" class="btn btn-login-register" type="submit" onclick='return confirm("Apakah Anda Yakin?")'>Register</button>
                                         </div>
                                     </div>
                                 </form>

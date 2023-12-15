@@ -68,7 +68,7 @@ $data = $sql->fetch();
                         <td> <?php echo $data['deskripsi_perusahaan']; ?> </td>
                     </tr>
                     <tr>
-                        <td colspan=3> <input type="submit" value="Konfirmasi" class="btn form-control btn-primary"> <br>
+                        <td colspan=3> <input type="submit" value="Konfirmasi" class="btn form-control btn-primary" onclick='return confirm("Apakah Anda Yakin?")'> <br>
                             </form>
                             <?php echo "<form method='post' action='proses_perusahaan.php?id_perusahaan=$id_perusahaan&action=reject'>"; ?>
                             <input type="submit" name="reject" value="Tolak" onclick='return confirm("Apakah Anda Yakin?")' class="btn form-control btn-danger mt-2">

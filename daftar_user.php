@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="phone" class="form-label">Nomor Telepon <span class="text-danger">*</span></label>
-                                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
+                                        <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
                                     </div>
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Alamat</label>
