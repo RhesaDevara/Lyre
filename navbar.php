@@ -1,6 +1,8 @@
 <?php
 require 'koneksi_pdo.php';
 require 'koneksi.php';
+
+//PERUBAHAN PADA NAVBAR UNTUK TES BRANCH
 ?>
 
 <html>
@@ -11,7 +13,6 @@ require 'koneksi.php';
     <link rel="stylesheet" href="assets/css/css.css">
     <link href="//cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-custom">
     <div class="container">
         <a class="navbar-brand my-1 fs-3" href="index.php">
@@ -46,12 +47,12 @@ require 'koneksi.php';
                         </li>";
                 } else if (isset($_SESSION['admin'])) { ?>
 
-                            <li class='nav-item'>
-                                <a class='nav-link' href='find_job.php'> List Lowongan </a>
-                            </li>
-                        <?php
-                        if ($_SESSION['admin']['hak_akses'] == "Superadmin") {
-                            echo "
+                    <li class='nav-item'>
+                        <a class='nav-link' href='find_job.php'> List Lowongan </a>
+                    </li>
+                <?php
+                    if ($_SESSION['admin']['hak_akses'] == "Superadmin") {
+                        echo "
                             <li class='nav-item'>
                                 <a class='nav-link' href='admin.php'>Admin</a>
                             </li>
@@ -67,15 +68,15 @@ require 'koneksi.php';
                             <li class='nav-item'>
                                 <a class='nav-link' href='pembelian.php'>Pembelian</a>
                             </li>";
-                        } else {
-                            echo "
+                    } else {
+                        echo "
                             <li class='nav-item'>
                                 <a class='nav-link' href='company.php'>Perusahaan</a>
                             </li>
                             <li class='nav-item'>
                                 <a class='nav-link' href='confirmation.php'>Konfirmasi</a>
                             </li>";
-                        }
+                    }
                 } else {
                     echo "
                         <li class='nav-item'>
